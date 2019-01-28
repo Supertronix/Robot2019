@@ -3,15 +3,15 @@ package frc.robot.commande;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.RobotControleur;
 
-public class CommandeRelacherEcoutille extends Command{
+public class CommandeArmerAttrapeur extends Command{
 
-    public CommandeRelacherEcoutille(){
+    public CommandeArmerAttrapeur(){
         requires(RobotControleur.attrapeur);
     }
 
     @Override
     protected void initialize(){
-        RobotControleur.attrapeur.relacherEcoutille();
+        RobotControleur.attrapeur.armer();
     }
 
     @Override

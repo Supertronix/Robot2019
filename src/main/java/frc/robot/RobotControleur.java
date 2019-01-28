@@ -13,7 +13,7 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void robotInit() {
     attrapeur = new Attrapeur();
-    manette = new Manette();
+    manette = new Manette();//doit etre en dernier
   }
 
   @Override
