@@ -2,13 +2,18 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.interaction.Manette;
 import frc.robot.sousysteme.Attrapeur;
 
 public class RobotControleur extends TimedRobot {
-  public static Attrapeur moteur = new Attrapeur();
+
+  public static Attrapeur attrapeur = null;
+  public static Manette manette = null;
 
   @Override
   public void robotInit() {
+    attrapeur = new Attrapeur();
+    manette = new Manette();
   }
 
   @Override
@@ -36,7 +41,6 @@ public class RobotControleur extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    moteur.activerMoteur();
   }
 
   @Override
