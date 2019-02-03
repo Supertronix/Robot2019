@@ -9,16 +9,22 @@ import frc.robot.commande.CommandeRelacherEcoutille;
 public class Manette implements RobotMap.Manette{
 
     protected Joystick manette;
-    protected JoystickButton boutonRelacherEcoutille;
-    protected JoystickButton boutonArmerAttrapeur;
+    protected JoystickButton boutonControllerAttrapeur;
 
     public Manette(){
         this.manette = new Joystick(MANETTE);
 
-        this.boutonRelacherEcoutille = new JoystickButton(this.manette, BOUTON_DROIT);
-        this.boutonRelacherEcoutille.whenPressed(new CommandeRelacherEcoutille());
-        this.boutonArmerAttrapeur = new JoystickButton(this.manette, BOUTON_GAUCHE);
-        this.boutonArmerAttrapeur.whenPressed(new CommandeArmerAttrapeur());
+        this.boutonControllerAttrapeur = new JoystickButton(this.manette, BOUTON_DROIT);
+        this.boutonControllerAttrapeur.whenPressed(new CommandeRelacherEcoutille());
+        this.boutonControllerAttrapeur.whenReleased(new CommandeArmerAttrapeur());
     }
+
+    public double getY1(){
+		return manette.getRawAxis(1);
+    }
+    
+	public double getY2(){
+		return manette.getRawAxis(5);
+	}
         
 }

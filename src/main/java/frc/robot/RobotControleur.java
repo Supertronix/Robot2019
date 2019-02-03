@@ -4,15 +4,18 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.interaction.Manette;
 import frc.robot.sousysteme.Attrapeur;
+import frc.robot.sousysteme.Roues;
 
 public class RobotControleur extends TimedRobot {
 
-  public static Attrapeur attrapeur = null;
-  public static Manette manette = null;
+  public static Attrapeur attrapeur;
+  public static Manette manette;
+  public static Roues roues;
 
   @Override
   public void robotInit() {
     attrapeur = new Attrapeur();
+    roues = new Roues();
     manette = new Manette();//doit etre en dernier
   }
 
@@ -31,7 +34,6 @@ public class RobotControleur extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-
   }
 
   @Override
@@ -46,6 +48,7 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    roues.conduire(-manette.getY1(), -manette.getY2());
   }
 
   @Override
