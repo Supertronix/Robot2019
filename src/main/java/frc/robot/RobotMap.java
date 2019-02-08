@@ -3,9 +3,9 @@ package frc.robot;
 public interface RobotMap {
   
   public interface Attrapeur{
-    public static int MOTEUR_ATTRAPEUR = 3;
-    public static float VITESSE_OUVERTURE = -0.5f;
-    public static float VITESSE_FERMETURE = 0.5f;
+    public static final int MOTEUR_ATTRAPEUR = 3;
+    public static final float VITESSE_OUVERTURE = -0.5f;
+    public static final float VITESSE_FERMETURE = 0.5f;
   }
 
   public interface Manette{
@@ -18,6 +18,18 @@ public interface RobotMap {
 		public static final int BOUTON_DROIT = 6;
 		public static final int BOUTON_RETOUR = 7;
     public static final int BOUTON_DEMARRER = 8;
+    public static final int CONDUITE_Y_GAUCHE = 1;
+		public static final int CONDUITE_Y_DROITE = 5;	
   }
+
+  public interface Camera{
+    public static final int IMAGE_PAR_SECONDE = 30;
+    public static final int LARGEUR = 320;
+    public static final int HAUTEUR = 240;
+  }
+
+  public interface Roues{
+    public static final int ROUE_GAUCHE = 17;
+		public static final int ROUE_DROITE = 18;  }
 
 }

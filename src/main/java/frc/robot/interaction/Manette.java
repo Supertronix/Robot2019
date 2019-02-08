@@ -20,11 +20,11 @@ public class Manette implements RobotMap.Manette{
     }
 
     public double getY1(){
-		return manette.getRawAxis(1);
+		return manette.getRawAxis(CONDUITE_Y_GAUCHE);
     }
     
 	public double getY2(){
-		return manette.getRawAxis(5);
+		return manette.getRawAxis(CONDUITE_Y_DROITE);
 	}
         
 }
