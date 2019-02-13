@@ -7,7 +7,7 @@ import frc.robot.interaction.Manette;
 import frc.robot.sousysteme.Attrapeur;
 import frc.robot.sousysteme.Roues;
 
-public class RobotControleur extends TimedRobot {
+public class Robot extends TimedRobot {
 
   public static Attrapeur attrapeur;
   public static Manette manette;

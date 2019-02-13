@@ -1,17 +1,17 @@
 package frc.robot.commande;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.RobotControleur;
+import frc.robot.Robot;
 
 public class CommandeArmerAttrapeur extends Command{
 
     public CommandeArmerAttrapeur(){
-        requires(RobotControleur.attrapeur);
+        requires(Robot.attrapeur);
     }
 
     @Override
     protected void initialize(){
-        RobotControleur.attrapeur.armer();
+        Robot.attrapeur.armer();
     }
 
     @Override
