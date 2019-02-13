@@ -48,7 +48,7 @@ public class RouesMecanum extends Roues{
     this.conduite.driveCartesian(vitesseY, vitesseX, 0);
   }
 
-  public void conduire(double vitesseY, double vitesseX, double angle)
+  public void tourner(double vitesseY, double vitesseX, double angle)
   {
     // http://first.wpi.edu/FRC/roborio/beta/docs/java/edu/wpi/first/wpilibj/drive/MecanumDrive.html#driveCartesian-double-double-double-
     this.conduite.driveCartesian(vitesseY, vitesseX, angle);

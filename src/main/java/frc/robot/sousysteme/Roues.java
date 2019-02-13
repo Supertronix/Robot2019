@@ -15,6 +15,12 @@ public class Roues extends Subsystem implements RobotMap.Roues{
     public void initDefaultCommand(){}
   
 
-    public void conduire(double Y1, double Y2){
-	}
+    public void conduire(double Y1, double Y2)
+    {
+    }
+    public void tourner(double vitesseGauche, double vitesseDroite, double angle)
+    {
+
+    }
+    
 }

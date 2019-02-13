@@ -29,13 +29,26 @@ public class Manette implements RobotMap.Manette{
       public double y;
     }
 
+    protected Axe axeMainDroite = null;
+    protected Axe axeMainGauche = null;
+
     public Axe getAxeMainDroite()
     {
-		  return new Axe(manette.getX(Hand.kRight),manette.getY(Hand.kRight));
+      this.axeMainDroite = new Axe(manette.getX(Hand.kRight),manette.getY(Hand.kRight));
+      return this.axeMainDroite;
     }
     public Axe getAxeMainGauche()
     {
-		  return new Axe(manette.getX(Hand.kLeft),manette.getY(Hand.kLeft));
+      this.axeMainGauche = new Axe(manette.getX(Hand.kLeft),manette.getY(Hand.kLeft));
+		  return this.axeMainGauche;
+    }
+
+    // 1 = droite, 0 tout droit, -1 = gauche
+    public int getDirection()
+    {
+      if(this.axeMainDroite.x > SEUIL) if(this.axeMainGauche.x < SEUIL) return -1;
+      if(this.axeMainGauche.x > SEUIL) if(this.axeMainDroite.x > SEUIL) return 1;
+      return 0;
     }
         
 }

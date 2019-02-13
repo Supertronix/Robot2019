@@ -55,12 +55,33 @@ public class Robot extends TimedRobot {
   {
   }
 
+  protected double y;
+  protected double x;
   @Override
   public void teleopPeriodic() 
   {
+    this.y = (manette.getAxeMainDroite().y + manette.getAxeMainGauche().y)/2;
+    this.x = (manette.getAxeMainDroite().x + manette.getAxeMainGauche().x)/2;
     Scheduler.getInstance().run();
     //roues.conduire(-manette.getAxeMainGauche().y, -manette.getAxeMainDroite().y; // avec TankDrive
-    roues.conduire(manette.getAxeMainDroite().y, manette.getAxeMainDroite().x);
+    switch(manette.getDirection())
+    {
+      case 1: // DROITE
+      {
+        double angle = Math.abs(manette.getAxeMainDroite().x + manette.getAxeMainGauche().x);
+        roues.tourner(this.y, this.x, angle);
+      }
+      break;
+      case -1: // GAUCHE
+      { 
+        double angle = Math.abs(manette.getAxeMainDroite().x + manette.getAxeMainGauche().x);
+        roues.tourner(this.y, this.x, angle);
+      }
+      break;
+      case 0: // AVANT - ARRIERE 
+        roues.conduire(this.y, this.x);
+      break;
+    }
   }
 
   @Override
