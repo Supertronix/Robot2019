@@ -38,15 +38,14 @@ public class RouesMecanum extends Roues{
     // http://first.wpi.edu/FRC/roborio/beta/docs/java/edu/wpi/first/wpilibj/VictorSP.html
     this.roueGaucheAvant = new VictorSP(ROUE_GAUCHE_AVANT);
     this.roueDroiteAvant = new VictorSP(ROUE_DROITE_AVANT);
-    this.roueGaucheArriere = new VictorSP(ROUE_GAUCHE_ARRIERE); // a inverser
+    this.roueGaucheArriere = new VictorSP(ROUE_GAUCHE_ARRIERE); 
     this.roueDroiteArriere = new VictorSP(ROUE_DROITE_ARRIERE);
     // http://first.wpi.edu/FRC/roborio/beta/docs/java/edu/wpi/first/wpilibj/SpeedController.html
     this.roueGaucheArriere.setInverted(true);
-    this.roueDroiteArriere.setInverted(true);
+    this.roueDroiteAvant.setInverted(true);
 
     //MecanumDrive(SpeedController frontLeftMotor, SpeedController rearLeftMotor, SpeedController frontRightMotor, SpeedController rearRightMotor)
     this.conduite = new MecanumDrive(roueGaucheAvant, roueGaucheArriere, roueDroiteAvant, roueDroiteArriere);
-    // TEST des roues this.conduite = new MecanumDrive(roueDroiteAvant, roueDroiteArriere, roueGaucheAvant, roueGaucheArriere);
   }
 
   public void conduire(double vitesseY, double vitesseX)

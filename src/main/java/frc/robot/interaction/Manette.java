@@ -6,6 +6,7 @@ import frc.robot.RobotMap;
 import frc.robot.commande.CommandeArmerAttrapeur;
 import frc.robot.commande.CommandeRelacherEcoutille;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import java.lang.Math;
 
 public class Manette implements RobotMap.Manette{
 
@@ -23,7 +24,7 @@ public class Manette implements RobotMap.Manette{
 
     public class Axe 
     {
-      public Axe(double x, double y) { this.x = x; this.y = y;}
+      public Axe(double x, double y) { this.x = (Math.abs(x)>0.2)?x:0; this.y = (Math.abs(y)>0.2)?y:0;}
       public double x;
       public double y;
     }
