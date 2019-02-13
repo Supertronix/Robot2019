@@ -24,7 +24,7 @@ public class Manette implements RobotMap.Manette{
 
     public class Axe 
     {
-      public Axe(double x, double y) { this.x = (Math.abs(x)>0.2)?x:0; this.y = (Math.abs(y)>0.2)?y:0;}
+      public Axe(double x, double y) { this.x = (Math.abs(x)>SEUIL)?x:0; this.y = (Math.abs(y)>SEUIL)?y:0;}
       public double x;
       public double y;
     }
@@ -37,10 +37,5 @@ public class Manette implements RobotMap.Manette{
     {
 		  return new Axe(manette.getX(Hand.kLeft),manette.getY(Hand.kLeft));
     }
-    
-  //public double getY2()
-  //{
-	//	  return manette.getRawAxis(CONDUITE_Y_DROITE);
-	//}
         
 }

@@ -21,8 +21,7 @@ public interface RobotMap {
 		public static final int BOUTON_RETOUR = 7;
     public static final int BOUTON_DEMARRER = 8;
 
-    //public static final int CONDUITE_Y_GAUCHE = 1;
-		//public static final int CONDUITE_Y_DROITE = 5;	
+    public static final double SEUIL = 0.2;
 
   }
 
@@ -35,6 +34,10 @@ public interface RobotMap {
 
   public interface Roues
   {
+    public static final int ROUE_GAUCHE_AVANT = 1;
+    public static final int ROUE_GAUCHE_ARRIERE = 2;
+    public static final int ROUE_DROITE_ARRIERE = 3;  
+    public static final int ROUE_DROITE_AVANT = 4;        
   }
 
 }

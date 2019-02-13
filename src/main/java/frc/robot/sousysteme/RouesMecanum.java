@@ -20,12 +20,6 @@ public class RouesMecanum extends Roues{
 //   /_|___|_\\
 //  /         \\
 
-
-  public static final int ROUE_GAUCHE_AVANT = 1;
-  public static final int ROUE_GAUCHE_ARRIERE = 2;
-  public static final int ROUE_DROITE_ARRIERE = 3;  
-  public static final int ROUE_DROITE_AVANT = 4;  
- 
   protected VictorSP roueGaucheAvant = null;
   protected VictorSP roueDroiteAvant = null;
   protected VictorSP roueGaucheArriere = null;
