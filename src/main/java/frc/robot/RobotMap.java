@@ -23,6 +23,16 @@ public interface RobotMap {
 
     public static final double SEUIL = 0.2;
 
+    public static final int MAIN_GAUCHE_AXE_Y = 0;
+    public static final int MAIN_GAUCHE_AXE_X = 1;
+    public static final int MAIN_DROITE_AXE_Y = 5;
+    public static final int MAIN_DROITE_AXE_X = 4;
+
+    //public static final int CONDUITE_X_GAUCHE = 0;
+		//public static final int CONDUITE_Y_GAUCHE = 1;
+		//public static final int CONDUITE_X_DROITE = 4;
+		//public static final int CONDUITE_Y_DROITE = 5;
+
   }
 
   public interface Camera

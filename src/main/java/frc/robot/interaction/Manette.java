@@ -24,7 +24,7 @@ public class Manette implements RobotMap.Manette{
 
     public class Axe 
     {
-      public Axe(double x, double y) { this.x = (Math.abs(x)>SEUIL)?x:0; this.y = (Math.abs(y)>SEUIL)?y:0;}
+      public Axe(double x, double y) { this.x = (Math.abs(x)>SEUIL)?-x:0; this.y = (Math.abs(y)>SEUIL)?-y:0;}
       public double x;
       public double y;
     }
@@ -34,20 +34,22 @@ public class Manette implements RobotMap.Manette{
 
     public Axe getAxeMainDroite()
     {
-      this.axeMainDroite = new Axe(manette.getX(Hand.kRight),manette.getY(Hand.kRight));
+      //this.axeMainDroite = new Axe(manette.getX(Hand.kRight),manette.getY(Hand.kRight)); // bug dans lib wpi
+      this.axeMainDroite = new Axe(manette.getRawAxis(MAIN_DROITE_AXE_X), manette.getRawAxis(MAIN_DROITE_AXE_Y));
       return this.axeMainDroite;
     }
     public Axe getAxeMainGauche()
     {
-      this.axeMainGauche = new Axe(manette.getX(Hand.kLeft),manette.getY(Hand.kLeft));
+      //this.axeMainGauche = new Axe(manette.getX(Hand.kLeft),manette.getY(Hand.kLeft));
+      this.axeMainGauche = new Axe(manette.getRawAxis(MAIN_GAUCHE_AXE_X), manette.getRawAxis(MAIN_GAUCHE_AXE_Y));
 		  return this.axeMainGauche;
     }
 
     // 1 = droite, 0 tout droit, -1 = gauche
     public int getDirection()
     {
-      if(this.axeMainDroite.x > SEUIL) if(this.axeMainGauche.x < SEUIL) return -1;
-      if(this.axeMainGauche.x > SEUIL) if(this.axeMainDroite.x > SEUIL) return 1;
+      if(this.axeMainDroite.y > SEUIL) if(this.axeMainGauche.y < -SEUIL) return -1;
+      if(this.axeMainGauche.y > SEUIL) if(this.axeMainDroite.y < -SEUIL) return 1;
       return 0;
     }
         

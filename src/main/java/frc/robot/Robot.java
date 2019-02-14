@@ -55,31 +55,35 @@ public class Robot extends TimedRobot {
   {
   }
 
-  protected double y;
-  protected double x;
+  protected double yMoyen;
+  protected double xMoyen;
   @Override
   public void teleopPeriodic() 
   {
-    this.y = (manette.getAxeMainDroite().y + manette.getAxeMainGauche().y)/2;
-    this.x = (manette.getAxeMainDroite().x + manette.getAxeMainGauche().x)/2;
+    //System.out.println("y gauche=" + manette.getAxeMainGauche().y + " y droit=" + manette.getAxeMainDroite().y);
+    this.yMoyen = (manette.getAxeMainDroite().y + manette.getAxeMainGauche().y)/2;
+    this.xMoyen = (manette.getAxeMainDroite().x + manette.getAxeMainGauche().x)/2;
+    //System.out.println("xMoyen = " + this.xMoyen + " yMoyen = " + this.yMoyen);
     Scheduler.getInstance().run();
     //roues.conduire(-manette.getAxeMainGauche().y, -manette.getAxeMainDroite().y; // avec TankDrive
+
+     System.out.println("Direction " + manette.getDirection());
     switch(manette.getDirection())
     {
       case 1: // DROITE
       {
         double angle = Math.abs(manette.getAxeMainDroite().x + manette.getAxeMainGauche().x);
-        roues.tourner(this.y, this.x, angle);
+        roues.tourner(this.yMoyen, this.xMoyen, angle);
       }
       break;
       case -1: // GAUCHE
       { 
         double angle = Math.abs(manette.getAxeMainDroite().x + manette.getAxeMainGauche().x);
-        roues.tourner(this.y, this.x, angle);
+        roues.tourner(this.yMoyen, this.xMoyen, angle);
       }
       break;
       case 0: // AVANT - ARRIERE 
-        roues.conduire(this.y, this.x);
+        roues.conduire(this.yMoyen, this.xMoyen);
       break;
     }
   }
