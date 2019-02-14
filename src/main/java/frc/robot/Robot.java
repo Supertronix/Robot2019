@@ -13,14 +13,14 @@ public class Robot extends TimedRobot {
   public static Attrapeur attrapeur;
   public static Manette manette;
   public static Roues roues;
-  //public static Camera camera;
+  public static Camera camera;
   
   @Override
   public void robotInit() 
   {
     attrapeur = new Attrapeur();
     roues = new RouesMecanum();
-    //camera = new Camera();
+    camera = new Camera();
     manette = new Manette();//doit etre en dernier
   }
 
