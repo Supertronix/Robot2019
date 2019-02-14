@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.interaction.Camera;
 import frc.robot.interaction.Manette;
+import frc.robot.interaction.CapteurUltrason;
 import frc.robot.sousysteme.Attrapeur;
 import frc.robot.sousysteme.Roues;
 import frc.robot.sousysteme.RouesMecanum;
@@ -11,17 +12,21 @@ import frc.robot.sousysteme.RouesMecanum;
 public class Robot extends TimedRobot {
 
   public static Attrapeur attrapeur;
-  public static Manette manette;
   public static Roues roues;
-  public static Camera camera;
+
+  protected Manette manette;
+  protected Camera camera;
+  protected CapteurUltrason capteurUltrason;
   
   @Override
   public void robotInit() 
   {
-    attrapeur = new Attrapeur();
-    roues = new RouesMecanum();
-    camera = new Camera();
-    manette = new Manette();//doit etre en dernier
+    this.attrapeur = new Attrapeur();
+    this.roues = new RouesMecanum();
+    
+    this.capteurUltrason = new CapteurUltrason();
+    this.camera = new Camera();
+    this.manette = new Manette();//doit etre en dernier
   }
 
   @Override
@@ -81,6 +86,8 @@ public class Robot extends TimedRobot {
     else // si la direction est droite (+1) ou gauche (-1)
     {
     }
+
+    this.capteurUltrason.getDistance();
   }
 
   @Override

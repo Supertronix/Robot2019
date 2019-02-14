@@ -51,4 +51,10 @@ public interface RobotMap {
     public static final int ROUE_DROITE_AVANT = 4;        
   }
 
+  public interface Capteurs
+  {
+    public static final int CAPTEUR_ULTRA_SON_DROIT = 1;
+    public static final int CAPTEUR_ULTRA_SON_GAUCHE = 2;
+  }
+
 }
