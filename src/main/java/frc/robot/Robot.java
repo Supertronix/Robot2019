@@ -71,7 +71,7 @@ public class Robot extends TimedRobot {
     System.out.println("Direction " + manette.getDirection());
     if(manette.getDirection() == 0) // si la direction est avant ou arrière
     {
-      roues.conduire(this.yMoyen/5, this.xMoyen/5);
+      roues.conduire(this.yMoyen, this.xMoyen);
     }
     else // si la direction est droite (+1) ou gauche (-1)
     {

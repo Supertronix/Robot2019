@@ -54,10 +54,10 @@ public class RouesMecanum extends Roues{
     System.out.println("tourner("+vitesseGauche+","+vitesseDroite+")");
     // http://first.wpi.edu/FRC/roborio/beta/docs/java/edu/wpi/first/wpilibj/drive/MecanumDrive.html#driveCartesian-double-double-double-
     // this.conduite.driveCartesian(0,0, angle*45);
-    this.roueGaucheAvant.set(vitesseGauche/5);
-    this.roueGaucheArriere.set(-vitesseGauche/5);
-    this.roueDroiteAvant.set(vitesseDroite/5);
-    this.roueDroiteArriere.set(-vitesseDroite/5);
+    this.roueGaucheAvant.set(vitesseGauche);
+    this.roueGaucheArriere.set(-vitesseGauche);
+    this.roueDroiteAvant.set(vitesseDroite);
+    this.roueDroiteArriere.set(-vitesseDroite);
   }
 
   public void arreter()
