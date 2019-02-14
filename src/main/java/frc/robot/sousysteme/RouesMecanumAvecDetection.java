@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
 
-public class RouesMecanum extends Roues{
+public class RouesMecanumAvecDetection extends Roues{
 
 // https://www.vexrobotics.com/mecanum-wheels.html
 // https://wpilib.screenstepslive.com/s/currentCS/m/java/l/599704-driving-a-robot-using-mecanum-drive
@@ -27,7 +27,7 @@ public class RouesMecanum extends Roues{
 
   protected MecanumDrive conduite = null; 
 
-  public RouesMecanum()
+  public RouesMecanumAvecDetection()
   {
     // http://first.wpi.edu/FRC/roborio/beta/docs/java/edu/wpi/first/wpilibj/VictorSP.html
     this.roueGaucheAvant = new VictorSP(ROUE_GAUCHE_AVANT);
@@ -36,8 +36,7 @@ public class RouesMecanum extends Roues{
     this.roueDroiteArriere = new VictorSP(ROUE_DROITE_ARRIERE);
     // http://first.wpi.edu/FRC/roborio/beta/docs/java/edu/wpi/first/wpilibj/SpeedController.html
     this.roueGaucheAvant.setInverted(true);
-    this.roueGaucheArriere.setInverted(true);
-    // this.roueDroiteArriere.setInverted(true);
+    this.roueDroiteArriere.setInverted(true);
 
     //MecanumDrive(SpeedController frontLeftMotor, SpeedController rearLeftMotor, SpeedController frontRightMotor, SpeedController rearRightMotor)
     this.conduite = new MecanumDrive(roueGaucheAvant, roueGaucheArriere, roueDroiteAvant, roueDroiteArriere);
@@ -48,14 +47,6 @@ public class RouesMecanum extends Roues{
     System.out.println("conduire("+vitesseY+","+vitesseX+")");
     // http://first.wpi.edu/FRC/roborio/beta/docs/java/edu/wpi/first/wpilibj/drive/MecanumDrive.html#driveCartesian-double-double-double-
     this.conduite.driveCartesian(vitesseY, vitesseX, 0);
-  }
-
-  public void conduireToutesDirections(double vitesseAvantGauche, double vitesseAvantDroite, double vitesseArriereGauche, double vitesseArriereDroite) 
-  {
-    this.roueGaucheAvant.set(vitesseAvantGauche/2);
-    this.roueGaucheArriere.set(vitesseArriereGauche/2);
-    this.roueDroiteAvant.set(vitesseAvantDroite/2);
-    this.roueDroiteArriere.set(vitesseArriereDroite/2);
   }
 
   public void tourner(double vitesseGauche, double vitesseDroite)

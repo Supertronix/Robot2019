@@ -14,7 +14,10 @@ public class Roues extends Subsystem implements RobotMap.Roues{
     @Override
     public void initDefaultCommand(){}
   
+    public void conduireToutesDirections(double vitesseAvantGauche, double vitesseAvantDroite, double vitesseArriereGauche, double vitesseArriereDroite) 
+    {
 
+    }
     public void conduire(double vitesseY, double vitesseX)
     {
     }

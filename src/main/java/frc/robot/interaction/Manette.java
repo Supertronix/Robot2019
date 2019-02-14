@@ -26,11 +26,8 @@ public class Manette implements RobotMap.Manette{
     {
       public Axe(double x, double y) 
       { this.x = (Math.abs(x)>SEUIL_ZERO)?-x:0; this.y = (Math.abs(y)>SEUIL_ZERO)?-y:0;}
-      public Axe(double x, double y, double angle) 
-      { this.x = (Math.abs(x)>SEUIL_ZERO)?-x:0; this.y = (Math.abs(y)>SEUIL_ZERO)?-y:0; this.angle = (Math.abs(angle)>SEUIL_ZERO)?-angle:0;}
       public double x;
       public double y;
-      public double angle;
     }
 
     protected Axe axeMainDroite = null;
