@@ -37,7 +37,6 @@ public class RouesMecanum extends Roues{
     // http://first.wpi.edu/FRC/roborio/beta/docs/java/edu/wpi/first/wpilibj/SpeedController.html
     this.roueGaucheAvant.setInverted(true);
     this.roueGaucheArriere.setInverted(true);
-    // this.roueDroiteArriere.setInverted(true);
 
     //MecanumDrive(SpeedController frontLeftMotor, SpeedController rearLeftMotor, SpeedController frontRightMotor, SpeedController rearRightMotor)
     this.conduite = new MecanumDrive(roueGaucheAvant, roueGaucheArriere, roueDroiteAvant, roueDroiteArriere);
@@ -52,10 +51,10 @@ public class RouesMecanum extends Roues{
 
   public void conduireToutesDirections(double vitesseAvantGauche, double vitesseAvantDroite, double vitesseArriereGauche, double vitesseArriereDroite) 
   {
-    this.roueGaucheAvant.set(vitesseAvantGauche/2);
-    this.roueGaucheArriere.set(vitesseArriereGauche/2);
-    this.roueDroiteAvant.set(vitesseAvantDroite/2);
-    this.roueDroiteArriere.set(vitesseArriereDroite/2);
+    this.roueGaucheAvant.set(vitesseAvantGauche);
+    this.roueGaucheArriere.set(vitesseArriereGauche);
+    this.roueDroiteAvant.set(vitesseAvantDroite);
+    this.roueDroiteArriere.set(vitesseArriereDroite);
   }
 
   public void tourner(double vitesseGauche, double vitesseDroite)
