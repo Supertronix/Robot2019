@@ -23,8 +23,8 @@ public interface RobotMap {
 
     public static final double SEUIL = 0.2;
 
-    public static final int MAIN_GAUCHE_AXE_Y = 0;
-    public static final int MAIN_GAUCHE_AXE_X = 1;
+    public static final int MAIN_GAUCHE_AXE_Y = 1;
+    public static final int MAIN_GAUCHE_AXE_X = 0;
     public static final int MAIN_DROITE_AXE_Y = 5;
     public static final int MAIN_DROITE_AXE_X = 4;
 
