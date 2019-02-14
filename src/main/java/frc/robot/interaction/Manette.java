@@ -24,9 +24,13 @@ public class Manette implements RobotMap.Manette{
 
     public class Axe 
     {
-      public Axe(double x, double y) { this.x = (Math.abs(x)>SEUIL)?-x:0; this.y = (Math.abs(y)>SEUIL)?-y:0;}
+      public Axe(double x, double y) 
+      { this.x = (Math.abs(x)>SEUIL_ZERO)?-x:0; this.y = (Math.abs(y)>SEUIL_ZERO)?-y:0;}
+      public Axe(double x, double y, double angle) 
+      { this.x = (Math.abs(x)>SEUIL_ZERO)?-x:0; this.y = (Math.abs(y)>SEUIL_ZERO)?-y:0; this.angle = (Math.abs(angle)>SEUIL_ZERO)?-angle:0;}
       public double x;
       public double y;
+      public double angle;
     }
 
     protected Axe axeMainDroite = null;
@@ -45,11 +49,13 @@ public class Manette implements RobotMap.Manette{
 		  return this.axeMainGauche;
     }
 
+    enum Direction {DEVANT, DERRIERE, LATERAL_DROIT, LATERAL_GAUCHE, ROTATION_DROITE, ROTATION_GAUCHE};
+
     // 1 = droite, 0 tout droit, -1 = gauche
     public int getDirection()
     {
-      if(this.axeMainDroite.y > SEUIL) if(this.axeMainGauche.y < -SEUIL) return -1;
-      if(this.axeMainGauche.y > SEUIL) if(this.axeMainDroite.y < -SEUIL) return 1;
+      if(this.axeMainDroite.y > SEUIL_AXES_OPPOSES) if(this.axeMainGauche.y < -SEUIL_AXES_OPPOSES) return -1;
+      if(this.axeMainGauche.y > SEUIL_AXES_OPPOSES) if(this.axeMainDroite.y < -SEUIL_AXES_OPPOSES) return 1;
       return 0;
     }
         

@@ -21,7 +21,8 @@ public interface RobotMap {
 		public static final int BOUTON_RETOUR = 7;
     public static final int BOUTON_DEMARRER = 8;
 
-    public static final double SEUIL = 0.2;
+    public static final double SEUIL_ZERO = 0.1;
+    public static final double SEUIL_AXES_OPPOSES = 0.3;
 
     public static final int MAIN_GAUCHE_AXE_Y = 1;
     public static final int MAIN_GAUCHE_AXE_X = 0;

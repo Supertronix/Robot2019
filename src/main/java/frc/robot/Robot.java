@@ -68,15 +68,15 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
     //roues.conduire(-manette.getAxeMainGauche().y, -manette.getAxeMainDroite().y; // avec TankDrive
 
-    //System.out.println("Direction " + manette.getDirection());
+    System.out.println("Direction " + manette.getDirection());
     if(manette.getDirection() == 0) // si la direction est avant ou arrière
     {
-      roues.conduire(this.yMoyen, this.xMoyen);
+      roues.conduire(this.yMoyen/5, this.xMoyen/5);
     }
     else // si la direction est droite (+1) ou gauche (-1)
     {
-      this.angle = Math.abs(manette.getAxeMainDroite().x + manette.getAxeMainGauche().x);
-      roues.tourner(this.yMoyen, 0.5, -angle);
+      this.angle = manette.getDirection()*(Math.abs(manette.getAxeMainDroite().y) + Math.abs(manette.getAxeMainGauche().y));
+      roues.tourner(manette.getAxeMainGauche().y, manette.getAxeMainDroite().y);
     }
   }
 
