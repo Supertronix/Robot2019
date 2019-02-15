@@ -1,9 +1,11 @@
 package frc.robot.sousysteme;
 
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
+import frc.robot.interaction.Manette;
 
 public class RouesMecanum extends Roues{
 
@@ -47,6 +49,28 @@ public class RouesMecanum extends Roues{
     System.out.println("conduire("+vitesseY+","+vitesseX+")");
     // http://first.wpi.edu/FRC/roborio/beta/docs/java/edu/wpi/first/wpilibj/drive/MecanumDrive.html#driveCartesian-double-double-double-
     this.conduite.driveCartesian(vitesseY, vitesseX, 0);
+  }
+  
+  //protected double yMoyen;
+  protected double xMoyen;
+  //protected double angle;
+  
+  public void conduire()
+  {
+	  Manette manette = Manette.getInstance();
+	    System.out.println("y gauche=" + manette.getAxeMainGauche().y + " y droit=" + manette.getAxeMainDroite().y);
+	    //this.yMoyen = (manette.getAxeMainDroite().y + manette.getAxeMainGauche().y)/2;
+	    this.xMoyen = (manette.getAxeMainDroite().x + manette.getAxeMainGauche().x)/2;
+	    //System.out.println("xMoyen = " + this.xMoyen + " yMoyen = " + this.yMoyen);
+	    Scheduler.getInstance().run();
+	    //roues.conduire(-manette.getAxeMainGauche().y, -manette.getAxeMainDroite().y; // avec TankDrive
+	    //Formule 2017 (x + yGauche, yDroite - x, yGauche - x, x + yDroite);
+	    this.conduireToutesDirections(
+	      (this.xMoyen + manette.getAxeMainGauche().y), 
+	      (manette.getAxeMainDroite().y - this.xMoyen), 
+	      (manette.getAxeMainGauche().y - this.xMoyen), 
+	      (this.xMoyen + manette.getAxeMainDroite().y));
+
   }
 
   public void conduireToutesDirections(double vitesseAvantGauche, double vitesseAvantDroite, double vitesseArriereGauche, double vitesseArriereDroite) 

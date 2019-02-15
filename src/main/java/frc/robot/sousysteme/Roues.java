@@ -9,7 +9,7 @@ public class Roues extends Subsystem implements RobotMap.Roues{
 
 	public double limiter(double val) 
 	{
-		    return Math.max(-1, Math.min(1, val));
+		return Math.max(-1, Math.min(1, val));
 	}
 	
     public Roues(){
@@ -20,14 +20,18 @@ public class Roues extends Subsystem implements RobotMap.Roues{
   
     public void conduireToutesDirections(double vitesseAvantGauche, double vitesseAvantDroite, double vitesseArriereGauche, double vitesseArriereDroite) 
     {
-
     }
+    
+    public void conduire()
+    {
+    }
+    
     public void conduire(double vitesseY, double vitesseX)
     {
     }
+    
     public void tourner(double vitesse, double angle)
     {
-
     }
     
 }

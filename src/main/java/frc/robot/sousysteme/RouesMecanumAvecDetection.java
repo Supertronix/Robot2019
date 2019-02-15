@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
+import frc.robot.interaction.Manette;
 
 public class RouesMecanumAvecDetection extends Roues{
 
@@ -40,6 +41,17 @@ public class RouesMecanumAvecDetection extends Roues{
 
     //MecanumDrive(SpeedController frontLeftMotor, SpeedController rearLeftMotor, SpeedController frontRightMotor, SpeedController rearRightMotor)
     this.conduite = new MecanumDrive(roueGaucheAvant, roueGaucheArriere, roueDroiteAvant, roueDroiteArriere);
+  }
+  
+  public void conduire()
+  {
+    System.out.println("Direction " + Manette.getInstance().getDirection());
+    if(Manette.getInstance().getDirection() == 0) // si la direction est avant ou arrière
+    {
+    }
+    else // si la direction est droite (+1) ou gauche (-1)
+    {
+    }	  
   }
 
   public void conduire(double vitesseY, double vitesseX)
