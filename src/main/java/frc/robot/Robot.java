@@ -7,7 +7,8 @@ import frc.robot.interaction.Manette;
 import frc.robot.interaction.CapteurUltrason;
 import frc.robot.sousysteme.Attrapeur;
 import frc.robot.sousysteme.Roues;
-import frc.robot.sousysteme.RouesMecanum;
+import frc.robot.sousysteme.RouesMecanumFormuleLogique;
+import frc.robot.sousysteme.RouesMecanumFormuleMoyenne;
 
 public class Robot extends TimedRobot {
 
@@ -22,7 +23,7 @@ public class Robot extends TimedRobot {
   public void robotInit() 
   {
     this.attrapeur = new Attrapeur();
-    this.roues = new RouesMecanum();
+    this.roues = new RouesMecanumFormuleLogique();
     
     this.capteurUltrason = new CapteurUltrason();
     this.camera = new Camera();

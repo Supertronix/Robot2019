@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
 import frc.robot.interaction.Manette;
 
-public class RouesMecanum extends Roues{
+public class RouesMecanumFormuleMoyenne extends Roues{
 
 // https://www.vexrobotics.com/mecanum-wheels.html
 // https://wpilib.screenstepslive.com/s/currentCS/m/java/l/599704-driving-a-robot-using-mecanum-drive
@@ -29,7 +29,7 @@ public class RouesMecanum extends Roues{
 
   protected MecanumDrive conduite = null; 
 
-  public RouesMecanum()
+  public RouesMecanumFormuleMoyenne()
   {
     // http://first.wpi.edu/FRC/roborio/beta/docs/java/edu/wpi/first/wpilibj/VictorSP.html
     this.roueGaucheAvant = new VictorSP(ROUE_GAUCHE_AVANT);
