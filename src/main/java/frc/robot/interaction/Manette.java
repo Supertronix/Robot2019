@@ -13,7 +13,16 @@ public class Manette implements RobotMap.Manette{
     protected Joystick manette;
     protected JoystickButton boutonControllerAttrapeur;
 
-    public Manette()
+    // Design pattern Singleton pour récupérer la manette de n'importe quel code de roue
+    protected static Manette instance = null;
+    public static Manette getInstance()
+    {
+      if(null == Manette.instance) Manette.instance = new Manette();
+      return Manette.instance;
+    };
+
+    private Manette()
+    // Design pattern Singleton fin
     {
         this.manette = new Joystick(MANETTE);
 

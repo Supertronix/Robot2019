@@ -26,7 +26,7 @@ public class Robot extends TimedRobot {
     
     this.capteurUltrason = new CapteurUltrason();
     this.camera = new Camera();
-    this.manette = new Manette();//doit etre en dernier
+    this.manette = Manette.getInstance();//doit etre en dernier
   }
 
   @Override
