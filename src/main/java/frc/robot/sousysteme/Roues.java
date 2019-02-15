@@ -7,7 +7,11 @@ import frc.robot.RobotMap;
 
 public class Roues extends Subsystem implements RobotMap.Roues{
 
-
+	public double limiter(double val) 
+	{
+		    return Math.max(-1, Math.min(1, val));
+	}
+	
     public Roues(){
     }
 

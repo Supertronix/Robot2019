@@ -51,10 +51,10 @@ public class RouesMecanum extends Roues{
 
   public void conduireToutesDirections(double vitesseAvantGauche, double vitesseAvantDroite, double vitesseArriereGauche, double vitesseArriereDroite) 
   {
-    this.roueGaucheAvant.set(vitesseAvantGauche);
-    this.roueGaucheArriere.set(vitesseArriereGauche);
-    this.roueDroiteAvant.set(vitesseAvantDroite);
-    this.roueDroiteArriere.set(vitesseArriereDroite);
+    this.roueGaucheAvant.set(limiter(vitesseAvantGauche));
+    this.roueGaucheArriere.set(limiter(vitesseArriereGauche));
+    this.roueDroiteAvant.set(limiter(vitesseAvantDroite));
+    this.roueDroiteArriere.set(limiter(vitesseArriereDroite));
   }
 
   public void tourner(double vitesseGauche, double vitesseDroite)

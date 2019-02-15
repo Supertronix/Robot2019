@@ -63,21 +63,22 @@ public class Robot extends TimedRobot {
   protected double yMoyen;
   protected double xMoyen;
   //protected double angle;
+
   @Override
   public void teleopPeriodic() 
   {
     System.out.println("y gauche=" + manette.getAxeMainGauche().y + " y droit=" + manette.getAxeMainDroite().y);
-    this.yMoyen = (manette.getAxeMainDroite().y + manette.getAxeMainGauche().y)/2;
+    //this.yMoyen = (manette.getAxeMainDroite().y + manette.getAxeMainGauche().y)/2;
     this.xMoyen = (manette.getAxeMainDroite().x + manette.getAxeMainGauche().x)/2;
     //System.out.println("xMoyen = " + this.xMoyen + " yMoyen = " + this.yMoyen);
     Scheduler.getInstance().run();
     //roues.conduire(-manette.getAxeMainGauche().y, -manette.getAxeMainDroite().y; // avec TankDrive
     //Formule 2017 (x + yGauche, yDroite - x, yGauche - x, x + yDroite);
     roues.conduireToutesDirections(
-        this.xMoyen + manette.getAxeMainGauche().y, 
-      manette.getAxeMainDroite().y - this.xMoyen, 
-      manette.getAxeMainGauche().y - this.xMoyen, 
-      this.xMoyen + manette.getAxeMainDroite().y);
+      (this.xMoyen + manette.getAxeMainGauche().y), 
+      (manette.getAxeMainDroite().y - this.xMoyen), 
+      (manette.getAxeMainGauche().y - this.xMoyen), 
+      (this.xMoyen + manette.getAxeMainDroite().y));
 
     System.out.println("Direction " + manette.getDirection());
     if(manette.getDirection() == 0) // si la direction est avant ou arrière
