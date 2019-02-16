@@ -12,3 +12,6 @@ https://github.com/CrossTheRoadElec/Phoenix-Examples-Languages/tree/master/Java
 
 ## Documentation pour les drives Victor SP
 https://github.com/Supertronix/Robot2019/blob/master/doc/Victor-SP-Quick-Start-Guide.pdf
+
+## Camera live web
+http://roborio-5910-frc:1181/stream.mjpg
