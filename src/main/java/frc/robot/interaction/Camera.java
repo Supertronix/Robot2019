@@ -17,5 +17,6 @@ public class Camera implements RobotMap.Camera {
         //camera.setPixelFormat(PixelFormat.kMJPEG);
         //camera.setExposureAuto();
         //camera.setWhiteBalanceAuto();
+        
     }
 }

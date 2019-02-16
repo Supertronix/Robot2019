@@ -69,7 +69,14 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() 
   {
 	this.roues.conduire();
-    this.capteurUltrason.getDistance();
+    //this.capteurUltrason.getDistance();
+    
+    double distancecapteurUltrasonDroit = this.capteurUltrason.getDistanceDroit();
+    if(distancecapteurUltrasonDroit > 0.0)
+    {
+        SmartDashboard.putNumber("Distance capteur ultrason droit", distancecapteurUltrasonDroit);
+
+    }
     //Robot.cuisse.monter();
     //System.out.println("Test Cuisse Moteur " + RobotMap.Cuisse.MOTEUR_SECONDAIRE);
   }
