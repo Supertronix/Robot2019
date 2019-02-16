@@ -2,6 +2,13 @@ package frc.robot;
 
 public interface RobotMap {
   
+  public interface Cuisse
+  {
+	  public static final int MOTEUR = 1;
+	  public static final int MOTEUR_SECONDAIRE = 2;
+	  
+  }
+	
   public interface Attrapeur
   {
     public static final int MOTEUR_ATTRAPEUR = 3;
@@ -21,7 +28,7 @@ public interface RobotMap {
 		public static final int BOUTON_RETOUR = 7;
     public static final int BOUTON_DEMARRER = 8;
 
-    public static final double SEUIL_ZERO = 0.1;
+    public static final double SEUIL_ZERO = 0.02;
     public static final double SEUIL_AXES_OPPOSES = 0.3;
 
     public static final int MAIN_GAUCHE_AXE_Y = 1;
