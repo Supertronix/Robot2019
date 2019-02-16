@@ -4,9 +4,8 @@ public interface RobotMap {
   
   public interface Cuisse
   {
-	  public static final int MOTEUR = 1;
-	  public static final int MOTEUR_SECONDAIRE = 2;
-	  
+	  public static final int MOTEUR = 4; 
+	  public static final int MOTEUR_SECONDAIRE = 3;
   }
 	
   public interface Attrapeur

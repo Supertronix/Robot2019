@@ -7,8 +7,16 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 
-  public Cuisse(){
-	moteur.set(ControlMode.PercentOutput, 0.05);
+  public Cuisse()
+  {
+	  this.moteur.configFactoryDefault();	  
+	  this.moteurSecondaire.configFactoryDefault();
+	  //this.moteurSecondaire.setSensorPhase(false);
+	  //this.moteurSecondaire.setInverted(false);
+	  //this.moteurSecondaire.clearStickyFaults();
+	  //this.moteurSecondaire.overrideLimitSwitchesEnable(true);
+	  
+	  this.moteurSecondaire.follow(this.moteur);
   }
   
 
@@ -17,5 +25,10 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 
   @Override
   public void initDefaultCommand() {}
+  
+  public void monter()
+  {
+	this.moteur.set(ControlMode.PercentOutput, 0.2);
+  }
 
 }
