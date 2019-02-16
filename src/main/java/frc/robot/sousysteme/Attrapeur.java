@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 public class Attrapeur extends Subsystem implements RobotMap.Attrapeur{
 
   public Attrapeur(){
-    this.configurerLimitSwitch();
+    this.configurerMinirupteur();
   }
 
   protected TalonSRX moteur = new TalonSRX(MOTEUR_ATTRAPEUR);
@@ -29,11 +29,9 @@ public class Attrapeur extends Subsystem implements RobotMap.Attrapeur{
     moteur.set(ControlMode.PercentOutput, VITESSE_FERMETURE);
   }
 
-  public void configurerLimitSwitch(){
-    moteur.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, 
-    LimitSwitchNormal.NormallyClosed);
-    moteur.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, 
-    LimitSwitchNormal.NormallyClosed);
+  public void configurerMinirupteur(){
+    moteur.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed);
+    moteur.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed);
     moteur.setNeutralMode(NeutralMode.Brake);
   }
 }
