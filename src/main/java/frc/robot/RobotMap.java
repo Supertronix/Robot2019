@@ -10,21 +10,21 @@ public interface RobotMap {
 	
   public interface Attrapeur
   {
-    public static final int ATTRAPEUR = 3;
-    public static final float ATTRAPEUR_VITESSE_OUVERTURE = -0.5f;
-    public static final float ATTRAPEUR_VITESSE_FERMETURE = 0.5f;
+    public static final int MOTEUR_ATTRAPEUR = 3;
+    public static final float MOTEUR_ATTRAPEUR_VITESSE_OUVERTURE = -0.5f;
+    public static final float MOTEUR_ATTRAPEUR_VITESSE_FERMETURE = 0.5f;
 
     // TODO : trouver le numéro de la drive de la table tournante
-    public static final int TABLE_TOURNANTE = 0;    
+    public static final int MOTEUR_TABLE_TOURNANTE = 0;    
     // TODO : trouver la vitesse
-    public static final float TABLE_TOURNANTE_VITESSE = -0.5f;
-    public static final float TABLE_TOURNANTE_ARRET = 0.0f;
+    public static final float MOTEUR_TABLE_TOURNANTE_VITESSE = -0.5f;
+    public static final float MOTEUR_TABLE_TOURNANTE_ARRET = 0.0f;
    
     // TODO : trouver le numéro du servo de la cremaillère
-    public static final int CREMAILLERE = 0;    
+    public static final int SERVO_CREMAILLERE = 0;    
     // TODO : trouver les angles maintenue et relachée
-    public static final float CREMAILLERE_ANGLE_MAINTENUE = 0.0f; //the angle the release servo is for the duration of match
-    public static final float CREMAILLERE_ANGLE_RELACHEE = 0.0f; //the angle the release servo is for letting go when about to climb
+    public static final float SERVO_CREMAILLERE_ANGLE_MAINTENUE = 0.0f; //the angle the release servo is for the duration of match
+    public static final float SERVO_CREMAILLERE_ANGLE_RELACHEE = 0.0f; //the angle the release servo is for letting go when about to climb
     
   }
 
