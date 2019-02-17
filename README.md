@@ -18,3 +18,6 @@ http://roborio-5910-frc:1181/stream.mjpg
 
 ## REV Robotics Smart Robot Servo (SRS) 
 https://github.com/Supertronix/Robot2019/blob/master/doc/REV-41-1097-UM.pdf
+
+### Java doc Servo
+http://first.wpi.edu/FRC/roborio/beta/docs/java/edu/wpi/first/wpilibj/Servo.html
