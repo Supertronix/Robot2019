@@ -35,6 +35,7 @@ public class CapteurUltrason implements RobotMap.Capteurs
         return this.capteurUltrasonDroit.getValue();
     }
     
+    // Retourne une distance en pouce à partir de 10" sinon 0
     public double getDistanceGauche()
     {
         //System.out.println("Ultrason gauche en volatge moyen " + this.capteurUltrasonGauche.getAverageVoltage());
@@ -42,6 +43,7 @@ public class CapteurUltrason implements RobotMap.Capteurs
     	return this.calculerDistanceAvecVoltage(this.capteurUltrasonGauche.getAverageVoltage());
     }
 
+    // Retourne une distance en pouce à partir de 10" sinon 0
     public double getDistanceDroit()
     {
         //System.out.println("Ultrason droit en volatge moyen " + this.capteurUltrasonDroit.getAverageVoltage());
