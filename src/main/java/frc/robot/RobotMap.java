@@ -12,8 +12,8 @@ public interface RobotMap {
   public interface Genoux
   {
 	  //TO DO
-	  public static final int GENOUX_PRINCIPAL = 0;
-	  public static final int GENOUX_SECONDAIRE = 0;
+	  public static final int MOTEUR_GENOUX_PRINCIPAL = 0;
+	  public static final int MOTEUR_GENOUX_SECONDAIRE = 0;
   }
 	
   public interface Attrapeur
