@@ -18,6 +18,7 @@ public interface RobotMap {
     public static final int TABLE_TOURNANTE = 0;    
     // TODO : trouver la vitesse
     public static final float TABLE_TOURNANTE_VITESSE = -0.5f;
+    public static final float TABLE_TOURNANTE_ARRET = 0.0f;
    
     // TODO : trouver le numéro du servo de la cremaillère
     public static final int CREMAILLERE = 0;    

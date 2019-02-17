@@ -35,7 +35,11 @@ public class Attrapeur extends Subsystem implements RobotMap.Attrapeur{
   public void activerTableTournante() {
 	  tabletournante.set(ControlMode.PercentOutput, TABLE_TOURNANTE_VITESSE);
   }
-  
+
+  public void desactiverTableTournante() {
+	  tabletournante.set(ControlMode.PercentOutput, TABLE_TOURNANTE_ARRET);
+  }
+ 
   public void descendreGoupille(){
 	  // Servo values range from 0.0 to 1.0 corresponding to the range of full left to full right.
 	  this.cremaillere.set(CREMAILLERE_ANGLE_RELACHEE);
