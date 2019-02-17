@@ -69,8 +69,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() 
   {
 	this.roues.conduire();
-    //this.capteurUltrason.getDistance();
-    
+    //this.capteurUltrason.getDistance();    
     double distancecapteurUltrasonDroit = this.capteurUltrason.getDistanceDroit();
     if(distancecapteurUltrasonDroit > 0.0)
     {

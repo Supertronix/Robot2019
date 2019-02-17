@@ -4,8 +4,16 @@ public interface RobotMap {
   
   public interface Cuisse
   {
-	  public static final int MOTEUR = 4; 
-	  public static final int MOTEUR_SECONDAIRE = 3;
+	  public static final int CUISSE_PRINCIPALE = 4; 
+	  public static final int CUISSE_SECONDAIRE = 3;
+
+  }
+  
+  public interface Genoux
+  {
+	  //TO DO
+	  public static final int GENOUX_PRINCIPAL = 0;
+	  public static final int GENOUX_SECONDAIRE = 0;
   }
 	
   public interface Attrapeur
@@ -64,10 +72,14 @@ public interface RobotMap {
 
   public interface Roues
   {
+    /*public static final int ROUE_GAUCHE_AVANT = 1;
+    public static final int ROUE_GAUCHE_ARRIERE = 2;
+    public static final int ROUE_DROITE_ARRIERE = 3;  
+    public static final int ROUE_DROITE_AVANT = 4;        */
     public static final int ROUE_GAUCHE_AVANT = 1;
     public static final int ROUE_GAUCHE_ARRIERE = 2;
     public static final int ROUE_DROITE_ARRIERE = 3;  
-    public static final int ROUE_DROITE_AVANT = 4;        
+    public static final int ROUE_DROITE_AVANT = 4;  
   }
 
   public interface Capteurs
