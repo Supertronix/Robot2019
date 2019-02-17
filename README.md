@@ -17,3 +17,4 @@ https://github.com/Supertronix/Robot2019/blob/master/doc/Victor-SP-Quick-Start-G
 http://roborio-5910-frc:1181/stream.mjpg
 
 ## REV Robotics Smart Robot Servo (SRS) 
+https://github.com/Supertronix/Robot2019/blob/master/doc/REV-41-1097-UM.pdf
