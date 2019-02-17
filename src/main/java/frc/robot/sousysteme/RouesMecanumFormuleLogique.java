@@ -66,10 +66,10 @@ public class RouesMecanumFormuleLogique extends Roues{
 	    //roues.conduire(-manette.getAxeMainGauche().y, -manette.getAxeMainDroite().y; // avec TankDrive
 	    //Formule 2017 (x + yGauche, yDroite - x, yGauche - x, x + yDroite);
 	    this.conduireToutesDirections(
-	      (manette.getAxeMainGauche().y + manette.getAxeMainGauche().x + manette.getAxeMainDroite().x), 
-	      (manette.getAxeMainGauche().y - manette.getAxeMainGauche().x - manette.getAxeMainDroite().x),	      
-	      (manette.getAxeMainGauche().y - manette.getAxeMainGauche().x + manette.getAxeMainDroite().x), 
-	      (manette.getAxeMainGauche().y + manette.getAxeMainGauche().x - manette.getAxeMainDroite().x) 
+	      (manette.getAxeMainGauche().y - manette.getAxeMainGauche().x - manette.getAxeMainDroite().x), 
+	      (manette.getAxeMainGauche().y + manette.getAxeMainGauche().x + manette.getAxeMainDroite().x),	      
+	      (manette.getAxeMainGauche().y + manette.getAxeMainGauche().x - manette.getAxeMainDroite().x), 
+	      (manette.getAxeMainGauche().y - manette.getAxeMainGauche().x + manette.getAxeMainDroite().x) 
 	      );
 
   }
