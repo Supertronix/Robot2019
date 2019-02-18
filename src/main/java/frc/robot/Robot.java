@@ -2,7 +2,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.interaction.Camera;
 import frc.robot.interaction.Manette;
 import frc.robot.interaction.CapteurUltrason;
@@ -10,7 +9,6 @@ import frc.robot.sousysteme.Attrapeur;
 import frc.robot.sousysteme.Cuisse;
 import frc.robot.sousysteme.Roues;
 import frc.robot.sousysteme.RouesMecanumFormuleLogique;
-import frc.robot.sousysteme.RouesMecanumFormuleMoyenne;
 
 public class Robot extends TimedRobot {
 
@@ -27,7 +25,7 @@ public class Robot extends TimedRobot {
   {
 	this.roues = new RouesMecanumFormuleLogique();
     this.attrapeur = new Attrapeur();
-    this.cuisse = new Cuisse();
+    //this.cuisse = new Cuisse();
     
     this.capteurUltrason = new CapteurUltrason();
     this.camera = new Camera();
@@ -70,10 +68,10 @@ public class Robot extends TimedRobot {
   {
 	this.roues.conduire();
     //this.capteurUltrason.getDistance();    
-    double distancecapteurUltrasonDroit = this.capteurUltrason.getDistanceDroit();
-    if(distancecapteurUltrasonDroit > 0.0)
+    //double distancecapteurUltrasonDroit = this.capteurUltrason.getDistanceDroit();
+    //if(distancecapteurUltrasonDroit > 0.0)
     {
-        SmartDashboard.putNumber("Distance capteur ultrason droit", distancecapteurUltrasonDroit);
+    //    SmartDashboard.putNumber("Distance capteur ultrason droit", distancecapteurUltrasonDroit);
 
     }
     //Robot.cuisse.monter();

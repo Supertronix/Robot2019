@@ -2,9 +2,7 @@ package frc.robot.sousysteme;
 
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import frc.robot.RobotMap;
 import frc.robot.interaction.Manette;
 
 public class RouesMecanumFormuleMoyenne extends Roues{

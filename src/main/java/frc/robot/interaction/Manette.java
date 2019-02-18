@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.RobotMap;
 import frc.robot.commande.CommandeArmerAttrapeur;
 import frc.robot.commande.CommandeRelacherEcoutille;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import java.lang.Math;
 
 public class Manette implements RobotMap.Manette{

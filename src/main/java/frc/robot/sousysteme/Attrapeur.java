@@ -42,19 +42,21 @@ public class Attrapeur extends Subsystem implements RobotMap.Attrapeur{
  
   public void descendreGoupille(){
 	  // Servo values range from 0.0 to 1.0 corresponding to the range of full left to full right.
-	  this.servoCremaillere.set(SERVO_CREMAILLERE_ANGLE_RELACHEE);
+	  this.servoCremaillere.set(SERVO_CREMAILLERE_ANGLE_RELACHE);
   }
 
   public void monterGoupille(){
 	  // Servo values range from 0.0 to 1.0 corresponding to the range of full left to full right.
-	  this.servoCremaillere.set(SERVO_CREMAILLERE_ANGLE_MAINTENUE);
+	  this.servoCremaillere.set(SERVO_CREMAILLERE_ANGLE_MAINTENU);
   }
 
-  public void relacherEcoutille(){
+  public void relacherEcoutille(){ // hardillons
+	System.out.println("relacherEcoutille() a la vitesse "+MOTEUR_ATTRAPEUR_VITESSE_OUVERTURE);
     moteurAttrapeur.set(ControlMode.PercentOutput, MOTEUR_ATTRAPEUR_VITESSE_OUVERTURE);
   }
 
   public void armer(){
+	System.out.println("armer() a la vitesse "+MOTEUR_ATTRAPEUR_VITESSE_FERMETURE);
     moteurAttrapeur.set(ControlMode.PercentOutput, MOTEUR_ATTRAPEUR_VITESSE_FERMETURE);
   }
 

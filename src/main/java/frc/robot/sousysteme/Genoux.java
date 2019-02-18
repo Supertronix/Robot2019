@@ -2,7 +2,6 @@ package frc.robot.sousysteme;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Encoder;
 
@@ -10,24 +9,20 @@ import edu.wpi.first.wpilibj.Encoder;
 
 public class Genoux extends Subsystem implements RobotMap.Genoux{
 
-	protected TalonSRX moteurGenouxPrincipale = new TalonSRX(MOTEUR_GENOUX_PRINCIPAL);
-	protected TalonSRX moteurGenouxSecondaire = new TalonSRX(MOTEUR_GENOUX_SECONDAIRE);
+	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
+	protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
 	
-	protected Encoder encodeurGenouxPrincipal;
+	protected Encoder encodeur;
 
 	
 	public Genoux() {
-		  this.moteurGenouxPrincipale.configFactoryDefault();
-		  this.moteurGenouxSecondaire.configFactoryDefault();
-		  this.moteurGenouxSecondaire.follow(this.moteurGenouxSecondaire);
-		  
+		  this.moteurPrincipal.configFactoryDefault();
+		  this.moteurSecondaire.configFactoryDefault();
+		  this.moteurSecondaire.follow(this.moteurSecondaire);
 		  
 		  //encodeurGenouxPrincipal = new Encoder()
 	}
 
 	@Override
-	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void initDefaultCommand() {}
 }

@@ -2,9 +2,7 @@ package frc.robot.sousysteme;
 
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import frc.robot.RobotMap;
 import frc.robot.interaction.Manette;
 
 public class RouesMecanumFormuleLogique extends Roues{
@@ -41,7 +39,7 @@ public class RouesMecanumFormuleLogique extends Roues{
     this.roueGaucheArriere.setInverted(true);
 
     //MecanumDrive(SpeedController frontLeftMotor, SpeedController rearLeftMotor, SpeedController frontRightMotor, SpeedController rearRightMotor)
-    this.conduite = new MecanumDrive(roueGaucheAvant, roueGaucheArriere, roueDroiteAvant, roueDroiteArriere);
+    //this.conduite = new MecanumDrive(roueGaucheAvant, roueGaucheArriere, roueDroiteAvant, roueDroiteArriere);
   }
 
   public void conduire(double vitesseY, double vitesseX)
