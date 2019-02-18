@@ -23,8 +23,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() 
   {
-	this.roues = new RouesMecanumFormuleLogique();
-    this.attrapeur = new Attrapeur();
+	Robot.roues = new RouesMecanumFormuleLogique();
+	Robot.attrapeur = new Attrapeur();
     //this.cuisse = new Cuisse();
     
     this.capteurUltrason = new CapteurUltrason();
@@ -66,7 +66,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() 
   {
-	this.roues.conduire();
+	Robot.roues.conduire();
     //this.capteurUltrason.getDistance();    
     //double distancecapteurUltrasonDroit = this.capteurUltrason.getDistanceDroit();
     //if(distancecapteurUltrasonDroit > 0.0)
