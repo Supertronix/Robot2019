@@ -18,6 +18,16 @@ public class CapteurUltrason implements RobotMap.Capteurs
         this.capteurUltrasonGauche = new AnalogInput(CAPTEUR_ULTRA_SON_GAUCHE);            
     }
 
+    public void detecter()
+    {
+        //this.capteurUltrason.getDistance();    
+        double distancecapteurUltrasonDroit = this.getDistanceDroit();
+        if(distancecapteurUltrasonDroit > 0.0)
+        {
+            SmartDashboard.putNumber("Distance capteur ultrason droit", distancecapteurUltrasonDroit);
+        }
+    }
+    
     public int getDistance()
     {
         System.out.println("Ultrason " + this.capteurUltrasonDroit.getValue());
