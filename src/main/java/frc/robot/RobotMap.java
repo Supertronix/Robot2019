@@ -12,7 +12,7 @@ public interface RobotMap {
 	  public static final boolean ENCODEUR_MOTEUR_PRINCIPAL_INVERSION = true; // TODO : trouver
 }
   
-  public interface Genoux
+  public interface Jambe
   {
 	  public static final int MOTEUR_PRINCIPAL = 0;
 	  public static final int MOTEUR_SECONDAIRE = 0;

@@ -7,14 +7,14 @@ import edu.wpi.first.wpilibj.Encoder;
 
 
 
-public class Genoux extends Subsystem implements RobotMap.Genoux{
+public class Jambe extends Subsystem implements RobotMap.Jambe{
 
 	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
 	protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
 	
 	//protected Encoder encodeurMoteurPrincipal = new Encoder(ENCODEUR_MOTEUR_PRINCIPAL_A, ENCODEUR_MOTEUR_PRINCIPAL_B,  ENCODEUR_MOTEUR_PRINCIPAL_INVERSION, Encoder.EncodingType.k2X);
 	
-	public Genoux() {
+	public Jambe() {
 		  this.moteurPrincipal.configFactoryDefault();
 		  this.moteurSecondaire.configFactoryDefault();
 		  this.moteurSecondaire.follow(this.moteurSecondaire);
