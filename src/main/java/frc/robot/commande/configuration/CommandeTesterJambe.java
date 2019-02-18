@@ -25,7 +25,7 @@ public class CommandeTesterJambe extends Command{
     @Override
     protected void execute(){
         System.out.println("CommandeTesterJambe.execute()");
-    	this.vitesse = (float)ManetteConfiguration.getInstance().getAxeMainDroite().y / 5;
+    	this.vitesse = (float)ManetteConfiguration.getInstance().getAxeMainDroite().y;
         Robot.jambe.monter(vitesse); 
         SmartDashboard.putNumber("Vitesse jambe", vitesse);        
         System.out.println("Vitesse jambe " + vitesse);

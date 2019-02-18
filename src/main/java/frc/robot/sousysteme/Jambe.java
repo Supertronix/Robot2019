@@ -24,6 +24,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		  //this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 		  
 		  this.moteurSecondaire.configFactoryDefault();
+		  this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
 		  this.moteurSecondaire.follow(this.moteurPrincipal);
 		  
 		  //encodeurGenouxPrincipal = new Encoder()

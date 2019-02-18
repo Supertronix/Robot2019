@@ -33,6 +33,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.configurerMinirupteur();
 	  
 	  this.moteurSecondaire.configFactoryDefault();	  
+	  this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
 	  this.moteurSecondaire.setInverted(true);
 	  this.moteurSecondaire.follow(this.moteurPrincipal);
   } 

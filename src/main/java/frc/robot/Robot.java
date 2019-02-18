@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.commande.configuration.CommandeTesterCuisse;
+import frc.robot.commande.configuration.CommandeTesterEleverRobot;
 import frc.robot.interaction.Camera;
 import frc.robot.interaction.Manette;
 import frc.robot.interaction.ManetteCompetition;
@@ -35,8 +36,6 @@ public class Robot extends TimedRobot {
     
     //this.capteurUltrason = new CapteurUltrason();
     //this.camera = new Camera();
-    //this.manette = ManetteCompetition.getInstance();//doit etre en dernier
-    this.manette = ManetteConfiguration.getInstance();//doit etre en dernier
   }
 
   @Override
@@ -65,9 +64,15 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
   }
 
+  protected CommandeTesterEleverRobot commandeTesterEleverRobot = null;
   @Override
   public void teleopInit() 
   {
+	    //this.manette = ManetteCompetition.getInstance();//doit etre en dernier
+	    this.manette = ManetteConfiguration.getInstance();//doit etre en dernier
+      this.commandeTesterEleverRobot = new CommandeTesterEleverRobot();
+      this.commandeTesterEleverRobot.start();
+
   }
 
   @Override
