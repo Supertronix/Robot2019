@@ -71,7 +71,9 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() 
   {
 	 Scheduler.getInstance().run();
-
+	 
+	 Robot.cuisse.lirePosition();
+	 
      //System.out.println("teleopPeriodic()");
 	//Robot.roues.conduire();
 	//this.capteurUltrason.detecter();
