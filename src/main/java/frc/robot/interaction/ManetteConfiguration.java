@@ -20,7 +20,7 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
       return ManetteConfiguration.instance;
     };
 
-    //protected CommandeTesterEleverRobot commandeTesterEleverRobot = null;
+    protected CommandeTesterEleverRobot commandeTesterEleverRobot = null;
     
     protected ManetteConfiguration()
     // Design pattern Singleton fin
@@ -31,8 +31,8 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         //this.boutonTestCuisse.whenPressed(new CommandeTesterCuisse());
         //this.boutonTestJambe = new JoystickButton(this.manette, BOUTON_DROIT);
         //this.boutonTestJambe.whenPressed(new CommandeTesterJambe());
-        //this.commandeTesterEleverRobot = new CommandeTesterEleverRobot();
-        //this.commandeTesterEleverRobot.start();
+        this.commandeTesterEleverRobot = new CommandeTesterEleverRobot();
+        this.commandeTesterEleverRobot.start();
     }
         
 }

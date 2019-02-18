@@ -10,7 +10,7 @@ public class CommandeTesterJambe extends Command{
     public CommandeTesterJambe()
     {
     	System.out.println("new CommandeTesterJambe()");
-        requires(Robot.cuisse);
+        requires(Robot.jambe);
     }
 
     @Override

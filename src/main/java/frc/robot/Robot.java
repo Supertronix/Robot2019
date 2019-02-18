@@ -64,15 +64,12 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
   }
 
-  protected CommandeTesterEleverRobot commandeTesterEleverRobot = null;
+  //protected CommandeTesterEleverRobot commandeTesterEleverRobot = null;
   @Override
   public void teleopInit() 
   {
-	    //this.manette = ManetteCompetition.getInstance();//doit etre en dernier
-	    this.manette = ManetteConfiguration.getInstance();//doit etre en dernier
-      this.commandeTesterEleverRobot = new CommandeTesterEleverRobot();
-      this.commandeTesterEleverRobot.start();
-
+	 //this.manette = ManetteCompetition.getInstance();//doit etre en dernier
+	 this.manette = ManetteConfiguration.getInstance();//doit etre en dernier
   }
 
   @Override
