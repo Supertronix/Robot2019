@@ -24,7 +24,7 @@ public interface RobotMap {
 	
   public interface Attrapeur
   {
-    public static final int MOTEUR_ATTRAPEUR = 0;
+    public static final int MOTEUR_ATTRAPEUR = 6;
     public static final float MOTEUR_ATTRAPEUR_VITESSE_OUVERTURE = -0.5f;
     public static final float MOTEUR_ATTRAPEUR_VITESSE_FERMETURE = 0.5f;
 

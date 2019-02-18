@@ -27,16 +27,16 @@ public class CommandeTesterCuisse extends Command{
         System.out.println("CommandeTesterCuisse.execute()");
     	this.vitesse = (float)ManetteConfiguration.getInstance().getAxeMainGauche().y / 5;
         Robot.cuisse.monter(vitesse); 
-        SmartDashboard.putNumber("Vitesse ", vitesse);        
+        SmartDashboard.putNumber("Vitesse cuisse ", vitesse);        
         System.out.println("Vitesse cuisse " + vitesse);
         this.vitesseAccumulee += vitesse;
-        SmartDashboard.putNumber("Vitesse accumulee ", vitesseAccumulee);                
+        SmartDashboard.putNumber("Vitesse cuisse accumulee ", vitesseAccumulee);                
         System.out.println("Vitesse cuisse accumulee " + vitesseAccumulee);
     }
 
     @Override
     protected boolean isFinished(){
-        //return !ManetteConfiguration.getInstance().savoirSiBoutonDroitPresse();
+        //return !ManetteConfiguration.getInstance().savoirSiBoutonGauchePresse();
     	return false;
     }
 }

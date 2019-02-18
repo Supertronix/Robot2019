@@ -54,5 +54,10 @@ public class Manette implements RobotMap.Manette{
     	return this.manette.getRawButtonPressed(BOUTON_DROIT);
     }
     
-        
+    public boolean savoirSiBoutonGauchePresse()
+    {
+    	System.out.println("Manette.savoirSiBoutonGauchePresse()");
+    	return this.manette.getRawButtonPressed(BOUTON_GAUCHE);
+    }
+         
 }

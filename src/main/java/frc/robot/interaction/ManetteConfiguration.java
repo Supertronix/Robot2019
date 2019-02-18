@@ -4,10 +4,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.RobotMap;
 import frc.robot.commande.configuration.CommandeTesterCuisse;
+import frc.robot.commande.configuration.CommandeTesterJambe;
 
 public class ManetteConfiguration extends Manette implements RobotMap.Manette{
 
     protected JoystickButton boutonTestCuisse;
+    protected JoystickButton boutonTestJambe;
 
     // Design pattern Singleton pour récupérer la manette de n'importe quel code de roue
     protected static ManetteConfiguration instance = null;
@@ -24,6 +26,8 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         this.manette = new Joystick(MANETTE);    	
         this.boutonTestCuisse = new JoystickButton(this.manette, BOUTON_GAUCHE);
         this.boutonTestCuisse.whenPressed(new CommandeTesterCuisse());
+        this.boutonTestJambe = new JoystickButton(this.manette, BOUTON_DROIT);
+        this.boutonTestJambe.whenPressed(new CommandeTesterJambe());
     }
         
 }

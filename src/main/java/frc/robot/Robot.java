@@ -10,6 +10,7 @@ import frc.robot.interaction.ManetteConfiguration;
 import frc.robot.interaction.CapteurUltrason;
 import frc.robot.sousysteme.Attrapeur;
 import frc.robot.sousysteme.Cuisse;
+import frc.robot.sousysteme.Jambe;
 import frc.robot.sousysteme.Roues;
 import frc.robot.sousysteme.RouesMecanumFormuleLogique;
 
@@ -18,6 +19,7 @@ public class Robot extends TimedRobot {
   public static Roues roues;
   public static Attrapeur attrapeur;
   public static Cuisse cuisse;
+  public static Jambe jambe;
 
   protected Manette manette;
   protected Camera camera;
@@ -28,7 +30,8 @@ public class Robot extends TimedRobot {
   {
 	//Robot.roues = new RouesMecanumFormuleLogique();
 	//Robot.attrapeur = new Attrapeur();
-    this.cuisse = new Cuisse();
+    Robot.cuisse = new Cuisse();
+    Robot.jambe = new Jambe();
     
     //this.capteurUltrason = new CapteurUltrason();
     //this.camera = new Camera();

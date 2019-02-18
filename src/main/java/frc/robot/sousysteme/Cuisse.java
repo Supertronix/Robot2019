@@ -11,7 +11,6 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.wpilibj.Encoder;
 
 // Aussi appelé Hanche par l'équipe	
 public class Cuisse extends Subsystem implements RobotMap.Cuisse{
@@ -26,7 +25,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   public Cuisse()
   {
 	  this.moteurPrincipal.configFactoryDefault();	  
-	  //this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);
+	  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	  
 	  //this.moteurPrincipal.setInverted(false);
 	  //this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0, 10); // 10 = timeout
 	  //this.moteurPrincipal.configAllowableClosedloopError(0, 0, 10); // 10 = timeout
@@ -44,17 +43,14 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   public void monter()
   {
 	this.moteurPrincipal.set(ControlMode.PercentOutput, 0.1);
-	//this.moteurSecondaire.set(ControlMode.PercentOutput, 0.1);
   }
   public void monter(float vitesse)
   {
 	this.moteurPrincipal.set(ControlMode.PercentOutput, vitesse);
-	//this.moteurSecondaire.set(ControlMode.PercentOutput, vitesse);
   }
   
   public void configurerMinirupteur(){
 	moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-	moteurPrincipal.setNeutralMode(NeutralMode.Brake);
   }
   
   int position;
