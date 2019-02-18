@@ -6,12 +6,20 @@ public interface RobotMap {
   {
 	  public static final int MOTEUR_PRINCIPAL = 4; 
 	  public static final int MOTEUR_SECONDAIRE = 2; // reconfigurer
-  }
+
+	  public static final int ENCODEUR_MOTEUR_PRINCIPAL_A = 10; // TODO : trouver
+	  public static final int ENCODEUR_MOTEUR_PRINCIPAL_B = 11; // TODO : trouver
+	  public static final boolean ENCODEUR_MOTEUR_PRINCIPAL_INVERSION = true; // TODO : trouver
+}
   
   public interface Genoux
   {
 	  public static final int MOTEUR_PRINCIPAL = 0;
 	  public static final int MOTEUR_SECONDAIRE = 0;
+	  
+	  public static final int ENCODEUR_MOTEUR_PRINCIPAL_A = 10; // TODO : trouver
+	  public static final int ENCODEUR_MOTEUR_PRINCIPAL_B = 11; // TODO : trouver
+	  public static final boolean ENCODEUR_MOTEUR_PRINCIPAL_INVERSION = true; // TODO : trouver
   }
 	
   public interface Attrapeur
