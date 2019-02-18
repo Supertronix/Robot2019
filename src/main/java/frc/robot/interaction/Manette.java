@@ -3,37 +3,21 @@ package frc.robot.interaction;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.RobotMap;
-import frc.robot.commande.CommandeArmerAttrapeur;
-import frc.robot.commande.CommandeRelacherEcoutille;
 import java.lang.Math;
 
 public class Manette implements RobotMap.Manette{
 
-    protected Joystick manette;
-    protected JoystickButton boutonControllerAttrapeur;
+    protected Joystick manette = null;
 
-    // Design pattern Singleton pour récupérer la manette de n'importe quel code de roue
-    protected static Manette instance = null;
-    public static Manette getInstance()
-    {
-      if(null == Manette.instance) Manette.instance = new Manette();
-      return Manette.instance;
-    };
-
-    private Manette()
-    // Design pattern Singleton fin
+    protected Manette() // pour design pattern singleton
     {
         this.manette = new Joystick(MANETTE);
-
-        //this.boutonControllerAttrapeur = new JoystickButton(this.manette, BOUTON_DROIT);
-        //this.boutonControllerAttrapeur.whenPressed(new CommandeRelacherEcoutille());
-        //this.boutonControllerAttrapeur.whenReleased(new CommandeArmerAttrapeur());
     }
 
     public class Axe 
     {
       public Axe(double x, double y) 
-      { this.x = (Math.abs(x)>SEUIL_ZERO)?-x:0; this.y = (Math.abs(y)>SEUIL_ZERO)?-y:0;}
+      { this.x = (Math.abs(x)>SEUIL_ZERO)?x:0; this.y = (Math.abs(y)>SEUIL_ZERO)?-y:0;}
       public double x;
       public double y;
     }
@@ -63,5 +47,12 @@ public class Manette implements RobotMap.Manette{
       if(this.axeMainGauche.y > SEUIL_AXES_OPPOSES) if(this.axeMainDroite.y < -SEUIL_AXES_OPPOSES) return 1;
       return 0;
     }
+    
+    public boolean savoirSiBoutonDroitPresse()
+    {
+    	System.out.println("Manette.savoirSiBoutonDroitPresse()");
+    	return this.manette.getRawButtonPressed(BOUTON_DROIT);
+    }
+    
         
 }

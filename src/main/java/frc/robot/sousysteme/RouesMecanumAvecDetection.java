@@ -2,7 +2,7 @@ package frc.robot.sousysteme;
 
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import frc.robot.interaction.Manette;
+import frc.robot.interaction.ManetteCompetition;
 
 public class RouesMecanumAvecDetection extends Roues{
 
@@ -43,8 +43,8 @@ public class RouesMecanumAvecDetection extends Roues{
   
   public void conduire()
   {
-    System.out.println("Direction " + Manette.getInstance().getDirection());
-    if(Manette.getInstance().getDirection() == 0) // si la direction est avant ou arrière
+    System.out.println("Direction " + ManetteCompetition.getInstance().getDirection());
+    if(ManetteCompetition.getInstance().getDirection() == 0) // si la direction est avant ou arrière
     {
     }
     else // si la direction est droite (+1) ou gauche (-1)

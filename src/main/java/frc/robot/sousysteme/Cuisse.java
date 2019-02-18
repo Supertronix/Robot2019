@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.Encoder;
 // Aussi appelé Hanche par l'équipe	
 public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 
-	//protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
-	protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
+	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
+	//protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
 	//protected Encoder encodeurMoteurPrincipal = new Encoder(ENCODEUR_MOTEUR_PRINCIPAL_A, ENCODEUR_MOTEUR_PRINCIPAL_B,  ENCODEUR_MOTEUR_PRINCIPAL_INVERSION, Encoder.EncodingType.k2X);
 
 	  //this.moteurSecondaire.setSensorPhase(false);
@@ -19,9 +19,9 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //this.moteurSecondaire.overrideLimitSwitchesEnable(true);	
   public Cuisse()
   {
-	  //this.moteurPrincipal.configFactoryDefault();	  
-	  this.moteurSecondaire.configFactoryDefault();	  
-	  this.moteurSecondaire.setInverted(true);
+	  this.moteurPrincipal.configFactoryDefault();	  
+	  //this.moteurSecondaire.configFactoryDefault();	  
+	  //this.moteurSecondaire.setInverted(true);
 	  //this.moteurSecondaire.follow(this.moteurPrincipal);
   } 
   
@@ -30,8 +30,13 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   
   public void monter()
   {
-	//this.moteurPrincipal.set(ControlMode.PercentOutput, 0.1);
-	this.moteurSecondaire.set(ControlMode.PercentOutput, 0.1);
+	this.moteurPrincipal.set(ControlMode.PercentOutput, 0.1);
+	//this.moteurSecondaire.set(ControlMode.PercentOutput, 0.1);
+  }
+  public void monter(float vitesse)
+  {
+	this.moteurPrincipal.set(ControlMode.PercentOutput, vitesse);
+	//this.moteurSecondaire.set(ControlMode.PercentOutput, vitesse);
   }
 
 }

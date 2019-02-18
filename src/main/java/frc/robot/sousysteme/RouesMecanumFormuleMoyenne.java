@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.interaction.Manette;
+import frc.robot.interaction.ManetteCompetition;
 
 public class RouesMecanumFormuleMoyenne extends Roues{
 
@@ -55,7 +56,7 @@ public class RouesMecanumFormuleMoyenne extends Roues{
   
   public void conduire()
   {
-	  Manette manette = Manette.getInstance();
+	  Manette manette = ManetteCompetition.getInstance();
 	    System.out.println("y gauche=" + manette.getAxeMainGauche().y + " y droit=" + manette.getAxeMainDroite().y);
 	    //this.yMoyen = (manette.getAxeMainDroite().y + manette.getAxeMainGauche().y)/2;
 	    this.xMoyen = (manette.getAxeMainDroite().x + manette.getAxeMainGauche().x)/2;

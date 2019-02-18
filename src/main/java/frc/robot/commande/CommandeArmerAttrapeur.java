@@ -11,12 +11,13 @@ public class CommandeArmerAttrapeur extends Command{
 
     @Override
     protected void initialize(){
+        System.out.println("CommandeArmerAttrapeur.initialize()");       
         Robot.attrapeur.armer();
     }
 
     @Override
     protected void execute(){
-       
+        System.out.println("CommandeArmerAttrapeur.execute()");              
     }
 
     @Override

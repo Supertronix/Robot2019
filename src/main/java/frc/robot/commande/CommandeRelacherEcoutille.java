@@ -11,12 +11,13 @@ public class CommandeRelacherEcoutille extends Command{
 
     @Override
     protected void initialize(){
+        System.out.println("CommandeRelacherEcoutille.initialize()");       
         Robot.attrapeur.relacherEcoutille();
     }
 
     @Override
     protected void execute(){
-       
+        System.out.println("CommandeRelacherEcoutille.execute()");       
     }
 
     @Override
