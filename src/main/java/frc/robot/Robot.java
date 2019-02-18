@@ -24,11 +24,11 @@ public class Robot extends TimedRobot {
   public void robotInit() 
   {
 	Robot.roues = new RouesMecanumFormuleLogique();
-	Robot.attrapeur = new Attrapeur();
-    //this.cuisse = new Cuisse();
+	//Robot.attrapeur = new Attrapeur();
+    this.cuisse = new Cuisse();
     
-    this.capteurUltrason = new CapteurUltrason();
-    this.camera = new Camera();
+    //this.capteurUltrason = new CapteurUltrason();
+    //this.camera = new Camera();
     this.manette = Manette.getInstance();//doit etre en dernier
   }
 
@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
   {
 	Robot.roues.conduire();
 	//this.capteurUltrason.detecter();
-    //Robot.cuisse.monter();
+    Robot.cuisse.monter();
     //System.out.println("Test Cuisse Moteur " + RobotMap.Cuisse.MOTEUR_SECONDAIRE);
   }
 

@@ -2,15 +2,17 @@ package frc.robot;
 
 public interface RobotMap {
   
+  // Aussi appelé Hanche par l'équipe	
   public interface Cuisse
   {
 	  public static final int MOTEUR_PRINCIPAL = 4; // MASTER - VictorSRX - BREAK MODE - ENCODEUR 
-	  public static final int MOTEUR_SECONDAIRE = 0; // ESCLAVE - VictorSPX - BREAK MODE
+	  public static final int MOTEUR_SECONDAIRE = 3; // ESCLAVE - VictorSPX - BREAK MODE
 
 	  public static final int ENCODEUR_MOTEUR_PRINCIPAL_A = 10; 
 	  public static final int ENCODEUR_MOTEUR_PRINCIPAL_B = 11; 
-}
+  }
   
+ // Aussi appelé Genoux par l'équipe  
   public interface Jambe
   {
 	  public static final int MOTEUR_PRINCIPAL = 2; // MASTER - TalonSRX - BREAK MODE - ENCODEUR
@@ -22,7 +24,7 @@ public interface RobotMap {
 	
   public interface Attrapeur
   {
-    public static final int MOTEUR_ATTRAPEUR = 3;
+    public static final int MOTEUR_ATTRAPEUR = 0;
     public static final float MOTEUR_ATTRAPEUR_VITESSE_OUVERTURE = -0.5f;
     public static final float MOTEUR_ATTRAPEUR_VITESSE_FERMETURE = 0.5f;
 

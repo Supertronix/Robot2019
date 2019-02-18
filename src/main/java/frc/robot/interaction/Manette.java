@@ -25,9 +25,9 @@ public class Manette implements RobotMap.Manette{
     {
         this.manette = new Joystick(MANETTE);
 
-        this.boutonControllerAttrapeur = new JoystickButton(this.manette, BOUTON_DROIT);
-        this.boutonControllerAttrapeur.whenPressed(new CommandeRelacherEcoutille());
-        this.boutonControllerAttrapeur.whenReleased(new CommandeArmerAttrapeur());
+        //this.boutonControllerAttrapeur = new JoystickButton(this.manette, BOUTON_DROIT);
+        //this.boutonControllerAttrapeur.whenPressed(new CommandeRelacherEcoutille());
+        //this.boutonControllerAttrapeur.whenReleased(new CommandeArmerAttrapeur());
     }
 
     public class Axe 

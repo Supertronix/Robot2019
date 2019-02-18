@@ -5,8 +5,7 @@ import frc.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Encoder;
 
-
-
+// Aussi appelé Genoux par l'équipe
 public class Jambe extends Subsystem implements RobotMap.Jambe{
 
 	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
