@@ -3,9 +3,6 @@ package frc.robot.commande.configuration;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class CommandeTesterEleverRobot extends CommandGroup{
-
-	//protected CommandeTesterCuisse commandeTesterCuisse = null;
-	//protected CommandeTesterJambe commandeTesterJambe = null;
 	
     public CommandeTesterEleverRobot()
     {

@@ -5,8 +5,8 @@ public interface RobotMap {
   // Aussi appelé Hanche par l'équipe	
   public interface Cuisse
   {
-	  public static final int MOTEUR_PRINCIPAL = 4; // MASTER - VictorSRX - BREAK MODE - ENCODEUR 
-	  public static final int MOTEUR_SECONDAIRE = 3; // ESCLAVE - VictorSPX - BREAK MODE
+	  public static final int MOTEUR_PRINCIPAL = 4; // C1 - MASTER - VictorSRX - BREAK MODE - ENCODEUR
+	  public static final int MOTEUR_SECONDAIRE = 3; // C2 - ESCLAVE - VictorSPX - BREAK MODE
 
 	  public static final int ENCODEUR_MOTEUR_PRINCIPAL_A = 10; 
 	  public static final int ENCODEUR_MOTEUR_PRINCIPAL_B = 11; 
@@ -15,8 +15,8 @@ public interface RobotMap {
  // Aussi appelé Genoux par l'équipe  
   public interface Jambe
   {
-	  public static final int MOTEUR_PRINCIPAL = 2; // MASTER - TalonSRX - BREAK MODE - ENCODEUR
-	  public static final int MOTEUR_SECONDAIRE = 5; // ESCLAVE - TalonSRX - BREAK MODE
+	  public static final int MOTEUR_PRINCIPAL = 2; // G1 - MASTER - TalonSRX - BREAK MODE - ENCODEUR
+	  public static final int MOTEUR_SECONDAIRE = 5; // G2 - ESCLAVE - TalonSRX - BREAK MODE
 	  
 	  public static final int ENCODEUR_MOTEUR_PRINCIPAL_A = 10; 
 	  public static final int ENCODEUR_MOTEUR_PRINCIPAL_B = 11; 

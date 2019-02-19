@@ -68,8 +68,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() 
   {
-	 //this.manette = ManetteCompetition.getInstance();//doit etre en dernier
-	 this.manette = ManetteConfiguration.getInstance();//doit etre en dernier
+	 //this.manette = ManetteCompetition.getInstance();
+	 ManetteConfiguration.desactiverInstance();
+	 this.manette = ManetteConfiguration.getInstance();
   }
 
   @Override

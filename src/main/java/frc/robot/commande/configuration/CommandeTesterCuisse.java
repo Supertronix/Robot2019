@@ -25,7 +25,7 @@ public class CommandeTesterCuisse extends Command{
     @Override
     protected void execute(){
         System.out.println("CommandeTesterCuisse.execute()");
-    	this.vitesse = (float)ManetteConfiguration.getInstance().getAxeMainGauche().y;
+    	this.vitesse = (float)ManetteConfiguration.getInstance().getAxeMainGauche().y / 2;
         Robot.cuisse.monter(vitesse); 
         SmartDashboard.putNumber("Vitesse cuisse ", vitesse);        
         System.out.println("Vitesse cuisse " + vitesse);

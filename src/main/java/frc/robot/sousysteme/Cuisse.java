@@ -1,5 +1,7 @@
 package frc.robot.sousysteme;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
@@ -15,27 +17,37 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 // Aussi appelé Hanche par l'équipe	
 public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 
-	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
-	protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
+	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_SECONDAIRE);
+	//protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
+	
+	//protected Encoder encodeur = null;
 
 	  //this.moteurSecondaire.setSensorPhase(false);
 	  //this.moteurSecondaire.setInverted(false);
 	  //this.moteurSecondaire.clearStickyFaults();
 	  //this.moteurSecondaire.overrideLimitSwitchesEnable(true);	
-  public Cuisse()
-  {
-	  this.moteurPrincipal.configFactoryDefault();	  
-	  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	  
 	  //this.moteurPrincipal.setInverted(false);
 	  //this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0, 10); // 10 = timeout
 	  //this.moteurPrincipal.configAllowableClosedloopError(0, 0, 10); // 10 = timeout
 	  //this.moteurPrincipal.configSetParameter(ParamEnum.eClearPositionOnLimitR, 1, 0, 0);
-	  this.configurerMinirupteur();
+	  //this.moteurPrincipal.overrideLimitSwitchesEnable(true);
+  public Cuisse()
+  {
+	  this.moteurPrincipal.configFactoryDefault();	  
+	  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	  
 	  
-	  this.moteurSecondaire.configFactoryDefault();	  
-	  this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
-	  this.moteurSecondaire.setInverted(true);
-	  this.moteurSecondaire.follow(this.moteurPrincipal);
+	  //this.encodeur = new Encoder(1,0, true, Encoder.EncodingType.k2X);
+	  //this.encodeur.setDistancePerPulse(1);// https://www.reddit.com/r/FRC/comments/53ejdl/initializing_and_using_an_encoder_in_java/
+	  
+	  //this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+	  this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+
+	 // this.configurerMinirupteur();
+	  
+	  //this.moteurSecondaire.configFactoryDefault();	  
+	  //this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
+	  //this.moteurSecondaire.setInverted(true);
+	  //this.moteurSecondaire.follow(this.moteurPrincipal);
   } 
   
   @Override
@@ -49,14 +61,15 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   {
 	this.moteurPrincipal.set(ControlMode.PercentOutput, vitesse);
   }
-  
-  public void configurerMinirupteur(){
-	moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+
+  // Limit switches
+  public void configurerMinirupteur(){	  
   }
   
-  int position;
-  public int lirePosition()
+  double position;
+  public double lirePosition()
   {	  
+	  //position = this.encodeur.getDistance();
 	  position = this.moteurPrincipal.getSelectedSensorPosition();
 	  System.out.println("Position cuisse " + position);
       SmartDashboard.putNumber("Position cuisse", position);	  

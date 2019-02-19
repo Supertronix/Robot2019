@@ -34,5 +34,10 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         this.commandeTesterEleverRobot = new CommandeTesterEleverRobot();
         this.commandeTesterEleverRobot.start();
     }
+    
+    public static void desactiverInstance()
+    {
+    	ManetteConfiguration.instance = null;    	
+    }
         
 }
