@@ -44,7 +44,6 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurPrincipal.configAllowableClosedloopError(0, 0,10);
 	  this.moteurPrincipal.setSensorPhase(true);
 	  //this.moteurPrincipal.config_kP(0,1,10);
-	  this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
 	  
 	  this.configurerMinirupteur();
 	  
@@ -71,6 +70,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   public void configurerMinirupteur()
   {	  
 	  this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+	  this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
+	  
 	  //this.moteurPrincipal.configLimitSwitchDisableNeutralOnLOS(true, 10);
   }
   
@@ -78,8 +79,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   public double lirePosition()
   {	  
 	  //position = this.encodeur.getDistance();
-	  //position = this.moteurPrincipal.getSelectedSensorPosition(); // -748 (limit switch a 2964 
-	  position = this.moteurPrincipal.getSensorCollection().getQuadraturePosition(); // 742 (limit switch) a -2962
+	  position = this.moteurPrincipal.getSelectedSensorPosition(); // -748 (limit switch a 2964 
+	  //position = this.moteurPrincipal.getSensorCollection().getQuadraturePosition(); // 742 (limit switch) a -2962
 	  System.out.println("Position cuisse " + position);
       SmartDashboard.putNumber("Position cuisse", position);	  
 	  return position;
