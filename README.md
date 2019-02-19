@@ -7,6 +7,9 @@ https://github.com/wpilibsuite/allwpilib/
 ## Librairies jar de wpi
 C:\Users\Public\frc2019\maven\edu\wpi\first\wpilibj\wpilibj-java\2019.2.1
 
+## Api pour TalonSRX
+http://www.ctr-electronics.com/downloads/api/java/html/classcom_1_1ctre_1_1phoenix_1_1motorcontrol_1_1can_1_1_talon_s_r_x.html
+
 ## Exemples pour TalonSRX
 https://github.com/CrossTheRoadElec/Phoenix-Examples-Languages/tree/master/Java 
 
