@@ -12,6 +12,9 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
 
     protected JoystickButton boutonTestCuisse;
     protected JoystickButton boutonTestJambe;
+    protected JoystickButton boutonTestMaintenirConsigne;
+
+    
 
     // Design pattern Singleton pour récupérer la manette de n'importe quel code de roue
     protected static ManetteConfiguration instance = null;
@@ -33,7 +36,17 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         //this.boutonTestJambe = new JoystickButton(this.manette, BOUTON_DROIT);
         //this.boutonTestJambe.whenPressed(new CommandeTesterJambe());
         this.boutonTestCuisse = new JoystickButton(this.manette, BOUTON_Y);
-        this.boutonTestCuisse.whenPressed(new CommandeTesterChangementConsigneCuisseAvecPID(5));
+        this.boutonTestCuisse.whenPressed(new CommandeTesterChangementConsigneCuisseAvecPID(100));
+        this.boutonTestCuisse = new JoystickButton(this.manette, BOUTON_A);
+        this.boutonTestCuisse.whenPressed(new CommandeTesterChangementConsigneCuisseAvecPID(-100));
+        //this.boutonTestMaintenirConsigne = new JoystickButton(this.manette, BOUTON_DEMARRER);
+        
+        
+        
+        
+
+
+        
         
         //this.commandeTesterEleverRobot = new CommandeTesterEleverRobot();
         //this.commandeTesterEleverRobot.start();

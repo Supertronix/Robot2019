@@ -92,6 +92,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   public void augmenterConsignePID(float increment) {
 	  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
 
+	  //Active close loop
 		double valeurLimiter = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, 0, 3700.0);
 		this.moteurPrincipal.set(ControlMode.Position, valeurLimiter);
 
@@ -109,6 +110,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	{
 	    return Math.max(min, Math.min(max, val));
 	}
+  
+ 
   
 
 }

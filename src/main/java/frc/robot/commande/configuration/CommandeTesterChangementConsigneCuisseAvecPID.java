@@ -46,7 +46,7 @@ public class CommandeTesterChangementConsigneCuisseAvecPID extends Command{
 
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return true;
 	}
     
 
