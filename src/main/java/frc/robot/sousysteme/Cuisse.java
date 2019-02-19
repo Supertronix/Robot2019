@@ -14,11 +14,12 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+
 // Aussi appelé Hanche par l'équipe	
 public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 
 	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
-	//protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
+	protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
 	
 	//protected Encoder encodeur = null;
 
@@ -36,16 +37,20 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurPrincipal.configFactoryDefault();	  
 	  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	  
 	  
-	  //this.encodeur = new Encoder(1,0, true, Encoder.EncodingType.k2X);
+	  //this.encodeur = new Encoder(1,0, false, Encoder.EncodingType.k2X);
 	  //this.encodeur.setDistancePerPulse(1);// https://www.reddit.com/r/FRC/comments/53ejdl/initializing_and_using_an_encoder_in_java/
+	  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+	  this.moteurPrincipal.configAllowableClosedloopError(0, 0,10);
+	  this.moteurPrincipal.setSensorPhase(true);
+	  //this.moteurPrincipal.config_kP(0,1,10);
 	  
 	  this.configurerMinirupteur();
 	  
-	  //this.moteurSecondaire.configFactoryDefault();	  
-	  //this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
-	  //this.moteurSecondaire.setInverted(true);
-	  //this.moteurSecondaire.follow(this.moteurPrincipal);
-  } 
+	  this.moteurSecondaire.configFactoryDefault();	  
+	  this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
+	  this.moteurSecondaire.setInverted(true);
+	  this.moteurSecondaire.follow(this.moteurPrincipal);
+  }
   
   @Override
   public void initDefaultCommand() {}
@@ -63,13 +68,15 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   public void configurerMinirupteur()
   {	  
 	  this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+	  //this.moteurPrincipal.configLimitSwitchDisableNeutralOnLOS(true, 10);
   }
   
-  double position;
+  double position; 
   public double lirePosition()
   {	  
 	  //position = this.encodeur.getDistance();
-	  position = this.moteurPrincipal.getSelectedSensorPosition();
+	  //position = this.moteurPrincipal.getSelectedSensorPosition(); // -748 (limit switch a 2964 
+	  position = this.moteurPrincipal.getSensorCollection().getQuadraturePosition(); // 742 (limit switch) a -2962
 	  System.out.println("Position cuisse " + position);
       SmartDashboard.putNumber("Position cuisse", position);	  
 	  return position;
