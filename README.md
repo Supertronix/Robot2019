@@ -11,6 +11,9 @@ C:\Users\Public\frc2019\maven\edu\wpi\first\wpilibj\wpilibj-java\2019.2.1
 http://www.ctr-electronics.com/downloads/api/java/html/classcom_1_1ctre_1_1phoenix_1_1motorcontrol_1_1can_1_1_talon_s_r_x.html
 https://github.com/CrossTheRoadElec/Phoenix-api/blob/master/java/src/com/ctre/phoenix/motorcontrol/can/TalonSRX.java
 
+### Limit Switch homing default
+https://phoenix-documentation.readthedocs.io/en/latest/ch14_MCSensor.html
+
 ## Exemples pour TalonSRX
 https://github.com/CrossTheRoadElec/Phoenix-Examples-Languages/tree/master/Java 
 
