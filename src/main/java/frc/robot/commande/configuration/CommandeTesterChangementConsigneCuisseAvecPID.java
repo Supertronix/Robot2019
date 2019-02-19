@@ -10,6 +10,8 @@ public class CommandeTesterChangementConsigneCuisseAvecPID extends Command{
 	
 	 protected float incrementAccumule = 0;
 	 protected float increment = 0;
+
+	 
 	
     public CommandeTesterChangementConsigneCuisseAvecPID(int increment)
     {

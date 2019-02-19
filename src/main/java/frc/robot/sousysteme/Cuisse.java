@@ -42,7 +42,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //this.encodeur = new Encoder(1,0, false, Encoder.EncodingType.k2X);
 	  //this.encodeur.setDistancePerPulse(1);// https://www.reddit.com/r/FRC/comments/53ejdl/initializing_and_using_an_encoder_in_java/
 	  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-	  this.moteurPrincipal.configAllowableClosedloopError(0, 0,10);
+	  this.moteurPrincipal.configAllowableClosedloopError(0, 0,30);
 	  this.moteurPrincipal.setSensorPhase(true);
 	  //this.moteurPrincipal.config_kP(0,1,10);
 	  
@@ -53,7 +53,9 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurSecondaire.setInverted(true);
 	  this.moteurSecondaire.follow(this.moteurPrincipal);
 	  
-	  this.moteurPrincipal.config_kP(0,1, 10);
+	  this.moteurPrincipal.config_kP(0,1, 6);
+	  
+	  
 	  
   }
   
@@ -110,6 +112,15 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	{
 	    return Math.max(min, Math.min(max, val));
 	}
+  
+  
+  public boolean estBloquerParLimite() {
+	  System.out.println("estBloquerParLimiteCuisse() "+this.moteurPrincipal.getMotorOutputVoltage());
+	  if(this.moteurPrincipal.getMotorOutputVoltage() > 0) {
+		  return false;
+	  }
+	  return true;
+  }
   
  
   

@@ -3,7 +3,9 @@ package frc.robot.sousysteme;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import frc.robot.interaction.Manette;
 import frc.robot.interaction.ManetteCompetition;
+import frc.robot.interaction.ManetteConfiguration;
 
 public class RouesMecanumFormuleLogique extends Roues{
 
@@ -55,7 +57,7 @@ public class RouesMecanumFormuleLogique extends Roues{
   
   public void conduire()
   {
-	  ManetteCompetition manette = ManetteCompetition.getInstance();
+	  Manette manette = ManetteConfiguration.getInstance();
 	    System.out.println("y gauche=" + manette.getAxeMainGauche().y + " y droit=" + manette.getAxeMainDroite().y);
 	    //this.yMoyen = (manette.getAxeMainDroite().y + manette.getAxeMainGauche().y)/2;
 	    //this.xMoyen = (manette.getAxeMainDroite().x + manette.getAxeMainGauche().x)/2;

@@ -4,16 +4,27 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.RobotMap;
 import frc.robot.commande.configuration.CommandeTesterCuisse;
-import frc.robot.commande.configuration.CommandeTesterEleverRobot;
+import frc.robot.commande.configuration.CommandeTesterInitialiserCuisseAvecPID;
+import frc.robot.commande.configuration.CommandeTesterInitialiserJambeAvecPID;
+import frc.robot.commande.configuration.CommandeTesterInitialiserRobot;
 import frc.robot.commande.configuration.CommandeTesterChangementConsigneCuisseAvecPID;
 import frc.robot.commande.configuration.CommandeTesterChangementConsigneJambeAvecPID;
 import frc.robot.commande.configuration.CommandeTesterJambe;
+import frc.robot.commande.configuration.CommandeTesterMonterRobot;
 
 public class ManetteConfiguration extends Manette implements RobotMap.Manette{
 
     protected JoystickButton boutonTestCuisse;
     protected JoystickButton boutonTestJambe;
     protected JoystickButton boutonTestMaintenirConsigne;
+    protected JoystickButton boutonTesterInitialisationJambe;
+    protected JoystickButton boutonTesterInitialisationCuisse;
+    protected JoystickButton boutonTesterInitialiserRobot;
+    protected JoystickButton boutonTesterMonterRobot;
+
+
+
+
 
     
 
@@ -25,7 +36,9 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
       return ManetteConfiguration.instance;
     };
 
-    protected CommandeTesterEleverRobot commandeTesterEleverRobot = null;
+    protected CommandeTesterInitialiserRobot commandeTesterInitialiserRobot = null;
+
+
     
     protected ManetteConfiguration()
     // Design pattern Singleton fin
@@ -36,22 +49,42 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         //this.boutonTestCuisse.whenPressed(new CommandeTesterCuisse());
         //this.boutonTestJambe = new JoystickButton(this.manette, BOUTON_DROIT);
         //this.boutonTestJambe.whenPressed(new CommandeTesterJambe());
-        /*
+        
         this.boutonTestCuisse = new JoystickButton(this.manette, BOUTON_Y);
         this.boutonTestCuisse.whenPressed(new CommandeTesterChangementConsigneCuisseAvecPID(100));
         this.boutonTestCuisse = new JoystickButton(this.manette, BOUTON_A);
-        this.boutonTestCuisse.whenPressed(new CommandeTesterChangementConsigneCuisseAvecPID(-100));*/
+        this.boutonTestCuisse.whenPressed(new CommandeTesterChangementConsigneCuisseAvecPID(-100));
         
         this.boutonTestJambe = new JoystickButton(this.manette, BOUTON_X);
         this.boutonTestJambe.whenPressed(new CommandeTesterChangementConsigneJambeAvecPID(200));
         this.boutonTestJambe = new JoystickButton(this.manette, BOUTON_B);
         this.boutonTestJambe.whenPressed(new CommandeTesterChangementConsigneJambeAvecPID(-200));
-
+        
+        //this.boutonTesterInitialisationJambe = new JoystickButton(this.manette, BOUTON_DEMARRER);
+        //this.boutonTesterInitialisationJambe.whenPressed(new CommandeTesterInitialiserJambeAvecPID());
+        
+        //this.boutonTesterInitialisationCuisse = new JoystickButton(this.manette, BOUTON_DEMARRER);
+        //this.boutonTesterInitialisationCuisse.whenPressed(new CommandeTesterInitialiserCuisseAvecPID());
         //this.boutonTestMaintenirConsigne = new JoystickButton(this.manette, BOUTON_DEMARRER);
         
+        this.boutonTesterInitialiserRobot = new JoystickButton(this.manette, BOUTON_DEMARRER);
+        this.boutonTesterInitialiserRobot.whenPressed(new CommandeTesterInitialiserRobot());
         
+        this.boutonTesterMonterRobot = new JoystickButton(this.manette, BOUTON_RETOUR);
+        this.boutonTesterMonterRobot.whenPressed(new CommandeTesterMonterRobot());
+
+        
+        this.commandeTesterInitialiserRobot = new CommandeTesterInitialiserRobot();
+        this.commandeTesterInitialiserRobot.start();
+;
         //this.commandeTesterEleverRobot = new CommandeTesterEleverRobot();
         //this.commandeTesterEleverRobot.start();
+        
+    }
+    
+    
+    void monterVertical() {
+    	
     }
     
     public static void desactiverInstance()

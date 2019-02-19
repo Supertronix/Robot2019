@@ -2,7 +2,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import frc.robot.commande.configuration.CommandeTesterEleverRobot;
 import frc.robot.interaction.Camera;
 import frc.robot.interaction.Manette;
 import frc.robot.interaction.ManetteCompetition;
@@ -28,7 +27,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() 
   {
-	//Robot.roues = new RouesMecanumFormuleLogique();
+	Robot.roues = new RouesMecanumFormuleLogique();
 	//Robot.attrapeur = new Attrapeur();
     Robot.cuisse = new Cuisse();
     Robot.jambe = new Jambe();
@@ -81,7 +80,7 @@ public class Robot extends TimedRobot {
 	 Robot.jambe.lirePosition();
 	 
      //System.out.println("teleopPeriodic()");
-	//Robot.roues.conduire();
+	Robot.roues.conduire();
 	//this.capteurUltrason.detecter();
     //Robot.cuisse.monter();
     //System.out.println("Test Cuisse Moteur " + RobotMap.Cuisse.MOTEUR_SECONDAIRE);
