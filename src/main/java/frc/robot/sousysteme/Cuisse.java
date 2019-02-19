@@ -18,6 +18,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 // Aussi appelé Hanche par l'équipe	
 public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 
+	// http://www.ctr-electronics.com/downloads/api/java/html/classcom_1_1ctre_1_1phoenix_1_1motorcontrol_1_1can_1_1_talon_s_r_x.html
 	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
 	protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
 	
@@ -34,7 +35,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //this.moteurPrincipal.overrideLimitSwitchesEnable(true);
   public Cuisse()
   {
-	  this.moteurPrincipal.configFactoryDefault();	  
+	  //this.moteurPrincipal.configFactoryDefault();	  
 	  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	  
 	  
 	  //this.encodeur = new Encoder(1,0, false, Encoder.EncodingType.k2X);
@@ -43,6 +44,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurPrincipal.configAllowableClosedloopError(0, 0,10);
 	  this.moteurPrincipal.setSensorPhase(true);
 	  //this.moteurPrincipal.config_kP(0,1,10);
+	  this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
 	  
 	  this.configurerMinirupteur();
 	  
@@ -50,6 +52,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
 	  this.moteurSecondaire.setInverted(true);
 	  this.moteurSecondaire.follow(this.moteurPrincipal);
+	  
   }
   
   @Override
