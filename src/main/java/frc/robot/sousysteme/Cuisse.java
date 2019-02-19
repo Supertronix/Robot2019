@@ -17,7 +17,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 // Aussi appelé Hanche par l'équipe	
 public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 
-	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_SECONDAIRE);
+	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
 	//protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
 	
 	//protected Encoder encodeur = null;
@@ -39,10 +39,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //this.encodeur = new Encoder(1,0, true, Encoder.EncodingType.k2X);
 	  //this.encodeur.setDistancePerPulse(1);// https://www.reddit.com/r/FRC/comments/53ejdl/initializing_and_using_an_encoder_in_java/
 	  
-	  //this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-	  this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-
-	 // this.configurerMinirupteur();
+	  this.configurerMinirupteur();
 	  
 	  //this.moteurSecondaire.configFactoryDefault();	  
 	  //this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
@@ -63,7 +60,9 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   }
 
   // Limit switches
-  public void configurerMinirupteur(){	  
+  public void configurerMinirupteur()
+  {	  
+	  this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
   }
   
   double position;
