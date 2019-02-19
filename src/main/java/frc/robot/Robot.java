@@ -2,7 +2,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import frc.robot.commande.configuration.CommandeTesterCuisse;
 import frc.robot.commande.configuration.CommandeTesterEleverRobot;
 import frc.robot.interaction.Camera;
 import frc.robot.interaction.Manette;
@@ -79,6 +78,7 @@ public class Robot extends TimedRobot {
 	 Scheduler.getInstance().run();
 	 
 	 Robot.cuisse.lirePosition();
+	 Robot.jambe.lirePosition();
 	 
      //System.out.println("teleopPeriodic()");
 	//Robot.roues.conduire();

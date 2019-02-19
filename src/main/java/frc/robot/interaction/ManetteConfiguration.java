@@ -6,6 +6,7 @@ import frc.robot.RobotMap;
 import frc.robot.commande.configuration.CommandeTesterCuisse;
 import frc.robot.commande.configuration.CommandeTesterEleverRobot;
 import frc.robot.commande.configuration.CommandeTesterChangementConsigneCuisseAvecPID;
+import frc.robot.commande.configuration.CommandeTesterChangementConsigneJambeAvecPID;
 import frc.robot.commande.configuration.CommandeTesterJambe;
 
 public class ManetteConfiguration extends Manette implements RobotMap.Manette{
@@ -35,17 +36,18 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         //this.boutonTestCuisse.whenPressed(new CommandeTesterCuisse());
         //this.boutonTestJambe = new JoystickButton(this.manette, BOUTON_DROIT);
         //this.boutonTestJambe.whenPressed(new CommandeTesterJambe());
+        /*
         this.boutonTestCuisse = new JoystickButton(this.manette, BOUTON_Y);
         this.boutonTestCuisse.whenPressed(new CommandeTesterChangementConsigneCuisseAvecPID(100));
         this.boutonTestCuisse = new JoystickButton(this.manette, BOUTON_A);
-        this.boutonTestCuisse.whenPressed(new CommandeTesterChangementConsigneCuisseAvecPID(-100));
+        this.boutonTestCuisse.whenPressed(new CommandeTesterChangementConsigneCuisseAvecPID(-100));*/
+        
+        this.boutonTestJambe = new JoystickButton(this.manette, BOUTON_X);
+        this.boutonTestJambe.whenPressed(new CommandeTesterChangementConsigneJambeAvecPID(200));
+        this.boutonTestJambe = new JoystickButton(this.manette, BOUTON_B);
+        this.boutonTestJambe.whenPressed(new CommandeTesterChangementConsigneJambeAvecPID(-200));
+
         //this.boutonTestMaintenirConsigne = new JoystickButton(this.manette, BOUTON_DEMARRER);
-        
-        
-        
-        
-
-
         
         
         //this.commandeTesterEleverRobot = new CommandeTesterEleverRobot();
