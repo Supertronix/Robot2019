@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.RobotMap;
 import frc.robot.commande.configuration.CommandeTesterCuisse;
 import frc.robot.commande.configuration.CommandeTesterEleverRobot;
+import frc.robot.commande.configuration.CommandeTesterChangementConsigneCuisseAvecPID;
 import frc.robot.commande.configuration.CommandeTesterJambe;
 
 public class ManetteConfiguration extends Manette implements RobotMap.Manette{
@@ -31,8 +32,11 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         //this.boutonTestCuisse.whenPressed(new CommandeTesterCuisse());
         //this.boutonTestJambe = new JoystickButton(this.manette, BOUTON_DROIT);
         //this.boutonTestJambe.whenPressed(new CommandeTesterJambe());
-        this.commandeTesterEleverRobot = new CommandeTesterEleverRobot();
-        this.commandeTesterEleverRobot.start();
+        this.boutonTestCuisse = new JoystickButton(this.manette, BOUTON_Y);
+        this.boutonTestCuisse.whenPressed(new CommandeTesterChangementConsigneCuisseAvecPID(5));
+        
+        //this.commandeTesterEleverRobot = new CommandeTesterEleverRobot();
+        //this.commandeTesterEleverRobot.start();
     }
     
     public static void desactiverInstance()

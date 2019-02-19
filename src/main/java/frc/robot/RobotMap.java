@@ -9,7 +9,9 @@ public interface RobotMap {
 	  public static final int MOTEUR_SECONDAIRE = 4; // C2 - ESCLAVE - VictorSPX - BREAK MODE
 
 	  public static final int ENCODEUR_MOTEUR_PRINCIPAL_A = 10; 
-	  public static final int ENCODEUR_MOTEUR_PRINCIPAL_B = 11; 
+	  public static final int ENCODEUR_MOTEUR_PRINCIPAL_B = 11;
+	  public static final double CUISSE_PID_KP = 1;
+
   }
   
  // Aussi appelé Genoux par l'équipe  

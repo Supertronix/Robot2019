@@ -15,6 +15,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 
+
 // Aussi appelé Hanche par l'équipe	
 public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 
@@ -52,6 +53,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurSecondaire.setInverted(true);
 	  this.moteurSecondaire.follow(this.moteurPrincipal);
 	  
+	  this.moteurPrincipal.config_kP(0,1, 10);
+	  
   }
   
   @Override
@@ -85,6 +88,27 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
       SmartDashboard.putNumber("Position cuisse", position);	  
 	  return position;
   }
+  
+  public void augmenterConsignePID(float increment) {
+	  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
+
+		double valeurLimiter = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, 0, 3700.0);
+		this.moteurPrincipal.set(ControlMode.Position, valeurLimiter);
+
+  }
+  
+  public void reduireConsignePID(float decrement) {
+	  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
+
+		double valeurLimiter = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, 0, 3700.0);
+		this.moteurPrincipal.set(ControlMode.Position, valeurLimiter);
+
+  }
+  
+  public double limiterPID(double val, double min, double max) 
+	{
+	    return Math.max(min, Math.min(max, val));
+	}
   
 
 }
