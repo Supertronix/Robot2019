@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-public class CommandeTesterInitialiserCuisseAvecPID extends Command {
+public class CommandeTesterInitialiserCuisse extends Command {
 	
 
 	 
-	public CommandeTesterInitialiserCuisseAvecPID()
+	public CommandeTesterInitialiserCuisse()
 	{
 		
     	requires(Robot.cuisse);
@@ -23,6 +23,6 @@ public class CommandeTesterInitialiserCuisseAvecPID extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return Robot.cuisse.estBloquerParLimite();
+		return Robot.cuisse.estBloqueParLimite();
 	}
 }

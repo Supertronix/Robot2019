@@ -6,14 +6,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.interaction.ManetteConfiguration;
 
-public class CommandeTesterChangementConsigneCuisseAvecPID extends Command{
+public class CommandeTesterChangementConsigneCuisse extends Command{
 	
 	 protected float incrementAccumule = 0;
 	 protected float increment = 0;
 
 	 
 	
-    public CommandeTesterChangementConsigneCuisseAvecPID(int increment)
+    public CommandeTesterChangementConsigneCuisse(int increment)
     {
     	System.out.println("new CommandeTesterEleverRobot()");
     	this.increment = increment;        

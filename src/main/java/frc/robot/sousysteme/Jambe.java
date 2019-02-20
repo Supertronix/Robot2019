@@ -25,9 +25,9 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	
 		  //this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 		  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-		  this.moteurPrincipal.configAllowableClosedloopError(0, 0,30);
+		  this.moteurPrincipal.configAllowableClosedloopError(0, 0, 5);
 		  this.moteurPrincipal.setSensorPhase(true);
-		  this.moteurPrincipal.config_kP(0,1, 6);
+		  this.moteurPrincipal.config_kP(0, 1, 8);
 
 		  configurerMinirupteur();
 		  

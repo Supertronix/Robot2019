@@ -7,8 +7,8 @@ public class CommandeTesterInitialiserRobot extends CommandGroup{
     public CommandeTesterInitialiserRobot()
     {
     	System.out.println("new CommandeTesterInitialiserRobot()");
-    	this.addParallel(new CommandeTesterInitialiserCuisseAvecPID());
-    	this.addParallel(new CommandeTesterInitialiserJambeAvecPID());
+    	this.addParallel(new CommandeTesterInitialiserCuisse());
+    	this.addParallel(new CommandeTesterInitialiserJambe());
     }
 
     @Override

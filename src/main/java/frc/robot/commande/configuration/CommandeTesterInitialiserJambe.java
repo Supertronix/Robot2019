@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-public class CommandeTesterInitialiserJambeAvecPID extends Command {
+public class CommandeTesterInitialiserJambe extends Command {
 	
-	public CommandeTesterInitialiserJambeAvecPID()
+	public CommandeTesterInitialiserJambe()
 	{
     	requires(Robot.jambe);
 	}

@@ -1,12 +1,9 @@
 package frc.robot.sousysteme;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 
-import com.ctre.phoenix.ParamEnum;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
@@ -23,8 +20,6 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
 	protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
 	
-	//protected Encoder encodeur = null;
-
 	  //this.moteurSecondaire.setSensorPhase(false);
 	  //this.moteurSecondaire.setInverted(false);
 	  //this.moteurSecondaire.clearStickyFaults();
@@ -39,12 +34,10 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //this.moteurPrincipal.configFactoryDefault();	  
 	  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	  
 	  
-	  //this.encodeur = new Encoder(1,0, false, Encoder.EncodingType.k2X);
-	  //this.encodeur.setDistancePerPulse(1);// https://www.reddit.com/r/FRC/comments/53ejdl/initializing_and_using_an_encoder_in_java/
 	  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-	  this.moteurPrincipal.configAllowableClosedloopError(0, 0,30);
+	  this.moteurPrincipal.configAllowableClosedloopError(0, 0,  5);
 	  this.moteurPrincipal.setSensorPhase(true);
-	  //this.moteurPrincipal.config_kP(0,1,10);
+	  this.moteurPrincipal.config_kP(0,1, 8);
 	  
 	  this.configurerMinirupteur();
 	  
@@ -53,7 +46,6 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurSecondaire.setInverted(true);
 	  this.moteurSecondaire.follow(this.moteurPrincipal);
 	  
-	  this.moteurPrincipal.config_kP(0,1, 6);
 	  
 	  
 	  
@@ -81,7 +73,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   }
   
   double position; 
-  public double lirePosition()
+  public double lirePosition() // max 3712
   {	  
 	  //position = this.encodeur.getDistance();
 	  position = this.moteurPrincipal.getSelectedSensorPosition(); // -748 (limit switch a 2964 
@@ -114,7 +106,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	}
   
   
-  public boolean estBloquerParLimite() {
+  public boolean estBloqueParLimite() {
 	  System.out.println("estBloquerParLimiteCuisse() "+this.moteurPrincipal.getMotorOutputVoltage());
 	  if(this.moteurPrincipal.getMotorOutputVoltage() > 0) {
 		  return false;
