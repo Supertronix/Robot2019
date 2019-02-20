@@ -1,15 +1,13 @@
-package frc.robot.commande.configuration;
+package frc.robot.commande;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.interaction.ManetteConfiguration;
 
-public class CommandeTesterRoue extends Command{
+public class CommandeTournerRoues extends Command{
 
 	float vitesse = 0;
 	
-    public CommandeTesterRoue(float vitesse)
+    public CommandeTournerRoues(float vitesse)
     {
     	System.out.println("new CommandeTesterRoue()");
         requires(Robot.roues);

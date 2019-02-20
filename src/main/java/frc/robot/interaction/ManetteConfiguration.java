@@ -3,14 +3,13 @@ package frc.robot.interaction;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.RobotMap;
-import frc.robot.commande.configuration.CommandeTesterCuisse;
 import frc.robot.commande.CommandeDeplierCuisse;
 import frc.robot.commande.CommandeDeplierJambe;
+import frc.robot.commande.CommandeGrimperRobot;
 import frc.robot.commande.CommandeInitialiserRobot;
 import frc.robot.commande.CommandeCalibrerCuisse;
 import frc.robot.commande.CommandeCalibrerJambe;
 import frc.robot.commande.configuration.CommandeTesterJambe;
-import frc.robot.commande.configuration.CommandeTesterMonterRobot;
 
 public class ManetteConfiguration extends Manette implements RobotMap.Manette{
 
@@ -71,7 +70,7 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         this.boutonTesterInitialiserRobot.whenPressed(new CommandeInitialiserRobot());
         
         this.boutonTesterMonterRobot = new JoystickButton(this.manette, BOUTON_RETOUR);
-        this.boutonTesterMonterRobot.whenPressed(new CommandeTesterMonterRobot());
+        this.boutonTesterMonterRobot.whenPressed(new CommandeGrimperRobot());
 
         
         this.commandeTesterInitialiserRobot = new CommandeInitialiserRobot();

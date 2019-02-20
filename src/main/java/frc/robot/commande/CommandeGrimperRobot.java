@@ -1,12 +1,10 @@
-package frc.robot.commande.configuration;
+package frc.robot.commande;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.commande.CommandeDeplierCuisse;
-import frc.robot.commande.CommandeDeplierJambe;
 
-public class CommandeTesterMonterRobot extends CommandGroup{
+public class CommandeGrimperRobot extends CommandGroup{
 	
-    public CommandeTesterMonterRobot()
+    public CommandeGrimperRobot()
     {
     	System.out.println("new CommandeTesterMonterRobot()");
     	//this.addParallel(new CommandeTesterChangementConsigneCuisseAvecPID(450));
@@ -24,7 +22,7 @@ public class CommandeTesterMonterRobot extends CommandGroup{
     	//this.addSequential(new CommandeTesterChangementConsigneCuisse(712));
     	
     	
-    	this.addSequential(new CommandeTesterRoue(1f));
+    	this.addSequential(new CommandeTournerRoues(1f));
     	
     	//this.setTimeout(3);
     	//this.addParallel(new CommandeTesterInitialiserRobot());
