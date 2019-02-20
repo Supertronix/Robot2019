@@ -9,7 +9,7 @@ public class CommandeTournerRoues extends Command{
 	
     public CommandeTournerRoues(float vitesse)
     {
-    	System.out.println("new CommandeTesterRoue()");
+    	System.out.println("new CommandeTournerRoues()");
         requires(Robot.roues);
         this.vitesse = vitesse;
     }
@@ -17,27 +17,23 @@ public class CommandeTournerRoues extends Command{
     @Override
     protected void initialize()
     {
-        System.out.println("CommandeTesterRoue.initialize()");
+        System.out.println("CommandeTournerRoues.initialize()");
     }
     
     @Override
     protected void execute(){
-        System.out.println("CommandeTesterRoue.execute()");
-        //Robot.roues.conduireToutesDirections(vitesseAvantGauche, vitesseAvantDroite, vitesseArriereGauche, vitesseArriereDroite);
-	    //float x1 = this.distance;
-	    //float x2 = 0;
-	    //public void conduireToutesDirections(double vitesseAvantGauche, double vitesseAvantDroite, double vitesseArriereGauche, double vitesseArriereDroite) 
-	    Robot.roues.conduireToutesDirections(vitesse, vitesse, vitesse, vitesse);
-	    //Robot.roues.conduireToutesDirections(
-	  	//      (0 + x1 + x2), 
-	  	//      (0 - x1 - x2),	      
-	  	//      (0 - x1 + x2), 
-	  	//      (0 + x1 - x2) 
-	  	//      );
+        System.out.println("CommandeTournerRoues.execute()");
+	    //Robot.roues.conduireToutesDirections(vitesse, -vitesse, -vitesse, vitesse);
     }
 
     @Override
     protected boolean isFinished(){
     	return false;
     }
+    //Robot.roues.conduireToutesDirections(
+  	//      (0 + x1 + x2), 
+  	//      (0 - x1 - x2),	      
+  	//      (0 - x1 + x2), 
+  	//      (0 + x1 - x2) 
+  	//      );
 }

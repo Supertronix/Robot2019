@@ -85,20 +85,21 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  return position;
   }
   
+  double consigne = 0;
   public void augmenterConsignePID(float increment) {
 	  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
 
 	  //Active close loop
-		double valeurLimiter = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, 0, 3700.0);
-		this.moteurPrincipal.set(ControlMode.Position, valeurLimiter);
+		consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, 0, 3700.0);
+		this.moteurPrincipal.set(ControlMode.Position, consigne);
 
   }
   
   public void reduireConsignePID(float decrement) {
 	  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
 
-		double valeurLimiter = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, 0, 3700.0);
-		this.moteurPrincipal.set(ControlMode.Position, valeurLimiter);
+		consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, 0, 3700.0);
+		this.moteurPrincipal.set(ControlMode.Position, consigne);
 
   }
   
@@ -118,8 +119,9 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   
 	public boolean estArrive()
 	{
-		int distanceRestante = (int)(this.moteurPrincipal.getSelectedSensorPosition() - this.moteurPrincipal.getClosedLoopTarget(0));
-		if (distanceRestante < this.ERREUR_DISTANCE_PERMISE) return true;
+		int distanceRestante = Math.abs((int)(lirePosition() - consigne));
+		System.out.println("Distance restante cuisse " + distanceRestante);
+		if (distanceRestante <= 2*ERREUR_DISTANCE_PERMISE) return true;
 		return false;
 	}
  

@@ -11,19 +11,17 @@ public class CommandeDeplierCuisse extends Command{
 	 protected float incrementAccumule = 0;
 	 protected float increment = 0;
 
-	 
-	
     public CommandeDeplierCuisse(int increment)
     {
     	System.out.println("new CommandeDeplierCuisse()");
     	this.increment = increment;        
     	requires(Robot.cuisse);
-
-
     }
     
-    protected void execute(){
-        System.out.println("CommandeDeplierCuisse.execute()");
+    @Override
+    protected void initialize()
+    {
+        System.out.println("CommandeDeplierCuisse.initialize()");
     	//this.increment = (float)ManetteConfiguration.getInstance().getAxeMainGauche().y / 2;
         SmartDashboard.putNumber("Increment cuisse ", increment);        
         System.out.println("Increment cuisse " + increment);
@@ -38,15 +36,15 @@ public class CommandeDeplierCuisse extends Command{
         	Robot.cuisse.reduireConsignePID(Math.abs(increment));
         }
     }
-
-    @Override
-    protected void initialize()
-    {
-        System.out.println("CommandeDeplierCuisse.initialize()");
+    
+    
+    protected void execute(){
+        System.out.println("CommandeDeplierCuisse.execute()");
     }
 
 	@Override
 	protected boolean isFinished() {
+        System.out.println("CommandeDeplierCuisse.isFinished() " + Robot.cuisse.estArrive());
 		return Robot.cuisse.estArrive();
 	}
     

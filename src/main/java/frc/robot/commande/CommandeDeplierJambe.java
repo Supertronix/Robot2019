@@ -16,12 +16,16 @@ public class CommandeDeplierJambe extends Command{
     	System.out.println("new CommandeDeplierJambe()");
     	this.increment = increment;        
     	requires(Robot.jambe);
-
-
     }
     
     protected void execute(){
         System.out.println("CommandeDeplierJambe.execute()");
+    }
+
+    @Override
+    protected void initialize()
+    {
+        System.out.println("CommandeDeplierJambe.initialize()");
     	//this.increment = (float)ManetteConfiguration.getInstance().getAxeMainGauche().y / 2;
         SmartDashboard.putNumber("Increment jambe ", increment);        
         System.out.println("Increment jambe " + increment);
@@ -37,14 +41,9 @@ public class CommandeDeplierJambe extends Command{
         }
     }
 
-    @Override
-    protected void initialize()
-    {
-        System.out.println("CommandeDeplierJambe.initialize()");
-    }
-
 	@Override
 	protected boolean isFinished() {
+        System.out.println("CommandeDeplierJambe.isFinished() " + Robot.jambe.estArrive());		
 		return Robot.jambe.estArrive();
 	}
     
