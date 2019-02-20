@@ -28,7 +28,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 		  this.moteurPrincipal.configAllowableClosedloopError(0, 0, ERREUR_DISTANCE_PERMISE);
 		  this.moteurPrincipal.setSensorPhase(true);
-		  this.moteurPrincipal.config_kP(0, 1, 8);
+		  this.moteurPrincipal.config_kP(0, 1, 9);
 		  
 
 		  configurerMinirupteur();
@@ -110,7 +110,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	{
 		int distanceRestante = Math.abs((int)(lirePosition() - consigne));
 		System.out.println("Distance restante jambe " + distanceRestante);
-		if (distanceRestante < 2*this.ERREUR_DISTANCE_PERMISE) return true;
+		if (distanceRestante < 500) return true;
 		return false;
 	}
 	

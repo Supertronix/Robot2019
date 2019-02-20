@@ -39,7 +39,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 	  this.moteurPrincipal.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
 	  this.moteurPrincipal.setSensorPhase(true);
-	  this.moteurPrincipal.config_kP(0,1, 8);
+	  this.moteurPrincipal.config_kP(0, 1, 10);
 	  
 	  this.configurerMinirupteur();
 	  
@@ -121,7 +121,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	{
 		int distanceRestante = Math.abs((int)(lirePosition() - consigne));
 		System.out.println("Distance restante cuisse " + distanceRestante);
-		if (distanceRestante <= 2*ERREUR_DISTANCE_PERMISE) return true;
+		if (distanceRestante <= 500) return true;
 		return false;
 	}
  
