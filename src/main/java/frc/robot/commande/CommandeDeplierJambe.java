@@ -41,6 +41,7 @@ public class CommandeDeplierJambe extends Command{
         }
     }
 
+    // TODO trouver une maniere de valider la condition de sortie basee sur la non-progression car parfois il n'arrive jamais selon la batterie
 	@Override
 	protected boolean isFinished() {
         System.out.println("CommandeDeplierJambe.isFinished() " + Robot.jambe.estArrive());		

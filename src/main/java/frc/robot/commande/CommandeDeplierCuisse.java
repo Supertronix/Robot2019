@@ -42,6 +42,7 @@ public class CommandeDeplierCuisse extends Command{
         System.out.println("CommandeDeplierCuisse.execute()");
     }
 
+    // TODO trouver une maniere de valider la condition de sortie basee sur la non-progression car parfois il n'arrive jamais selon la batterie
 	@Override
 	protected boolean isFinished() {
         System.out.println("CommandeDeplierCuisse.isFinished() " + Robot.cuisse.estArrive());
