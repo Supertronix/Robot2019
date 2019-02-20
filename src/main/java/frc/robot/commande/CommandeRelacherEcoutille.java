@@ -6,6 +6,7 @@ import frc.robot.Robot;
 public class CommandeRelacherEcoutille extends Command{
 
     public CommandeRelacherEcoutille(){
+    	System.out.println("new CommandeRelacherEcoutille()");
         requires(Robot.attrapeur);
     }
 

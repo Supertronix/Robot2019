@@ -1,4 +1,4 @@
-package frc.robot.commande.configuration;
+package frc.robot.commande;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -6,14 +6,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.interaction.ManetteConfiguration;
 
-public class CommandeTesterChangementConsigneJambe extends Command{
+public class CommandeDeplierJambe extends Command{
 	
 	 protected float incrementAccumule = 0;
 	 protected float increment = 0;
 	
-    public CommandeTesterChangementConsigneJambe(int increment)
+    public CommandeDeplierJambe(int increment)
     {
-    	System.out.println("new CommandeTesterEleverRobot()");
+    	System.out.println("new CommandeDeplierJambe()");
     	this.increment = increment;        
     	requires(Robot.jambe);
 
@@ -21,7 +21,7 @@ public class CommandeTesterChangementConsigneJambe extends Command{
     }
     
     protected void execute(){
-        System.out.println("CommandeTesterJambe.execute()");
+        System.out.println("CommandeDeplierJambe.execute()");
     	//this.increment = (float)ManetteConfiguration.getInstance().getAxeMainGauche().y / 2;
         SmartDashboard.putNumber("Increment jambe ", increment);        
         System.out.println("Increment jambe " + increment);
@@ -40,12 +40,12 @@ public class CommandeTesterChangementConsigneJambe extends Command{
     @Override
     protected void initialize()
     {
-        System.out.println("CommandeTesterEleverRobot.initialize()");
+        System.out.println("CommandeDeplierJambe.initialize()");
     }
 
 	@Override
 	protected boolean isFinished() {
-		return true;
+		return Robot.jambe.estArrive();
 	}
     
 

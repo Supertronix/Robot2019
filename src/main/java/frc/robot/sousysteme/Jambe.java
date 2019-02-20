@@ -20,14 +20,16 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	
 	//protected Encoder encodeurMoteurPrincipal = new Encoder(ENCODEUR_MOTEUR_PRINCIPAL_A, ENCODEUR_MOTEUR_PRINCIPAL_B,  ENCODEUR_MOTEUR_PRINCIPAL_INVERSION, Encoder.EncodingType.k2X);
 	
+	int ERREUR_DISTANCE_PERMISE = 5;
 	public Jambe() {
 		  //this.moteurPrincipal.configFactoryDefault();
 		  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	
 		  //this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 		  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-		  this.moteurPrincipal.configAllowableClosedloopError(0, 0, 5);
+		  this.moteurPrincipal.configAllowableClosedloopError(0, 0, ERREUR_DISTANCE_PERMISE);
 		  this.moteurPrincipal.setSensorPhase(true);
 		  this.moteurPrincipal.config_kP(0, 1, 8);
+		  
 
 		  configurerMinirupteur();
 		  
@@ -101,5 +103,12 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		  }
 		  return true;
 	  }
+	
+	public boolean estArrive()
+	{
+		int distanceRestante = (int)(this.moteurPrincipal.getSelectedSensorPosition() - this.moteurPrincipal.getClosedLoopTarget(0));
+		if (distanceRestante < this.ERREUR_DISTANCE_PERMISE) return true;
+		return false;
+	}
 	
 }

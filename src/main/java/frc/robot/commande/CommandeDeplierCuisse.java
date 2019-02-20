@@ -1,4 +1,4 @@
-package frc.robot.commande.configuration;
+package frc.robot.commande;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -6,16 +6,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.interaction.ManetteConfiguration;
 
-public class CommandeTesterChangementConsigneCuisse extends Command{
+public class CommandeDeplierCuisse extends Command{
 	
 	 protected float incrementAccumule = 0;
 	 protected float increment = 0;
 
 	 
 	
-    public CommandeTesterChangementConsigneCuisse(int increment)
+    public CommandeDeplierCuisse(int increment)
     {
-    	System.out.println("new CommandeTesterEleverRobot()");
+    	System.out.println("new CommandeDeplierCuisse()");
     	this.increment = increment;        
     	requires(Robot.cuisse);
 
@@ -23,7 +23,7 @@ public class CommandeTesterChangementConsigneCuisse extends Command{
     }
     
     protected void execute(){
-        System.out.println("CommandeTesterCuisse.execute()");
+        System.out.println("CommandeDeplierCuisse.execute()");
     	//this.increment = (float)ManetteConfiguration.getInstance().getAxeMainGauche().y / 2;
         SmartDashboard.putNumber("Increment cuisse ", increment);        
         System.out.println("Increment cuisse " + increment);
@@ -42,12 +42,12 @@ public class CommandeTesterChangementConsigneCuisse extends Command{
     @Override
     protected void initialize()
     {
-        System.out.println("CommandeTesterEleverRobot.initialize()");
+        System.out.println("CommandeDeplierCuisse.initialize()");
     }
 
 	@Override
 	protected boolean isFinished() {
-		return true;
+		return Robot.cuisse.estArrive();
 	}
     
 

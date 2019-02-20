@@ -1,12 +1,12 @@
-package frc.robot.commande.configuration;
+package frc.robot.commande;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-public class CommandeTesterInitialiserJambe extends Command {
+public class CommandeCalibrerJambe extends Command {
 	
-	public CommandeTesterInitialiserJambe()
+	public CommandeCalibrerJambe()
 	{
     	requires(Robot.jambe);
 	}

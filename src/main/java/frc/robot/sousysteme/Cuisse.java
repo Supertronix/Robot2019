@@ -29,13 +29,15 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //this.moteurPrincipal.configAllowableClosedloopError(0, 0, 10); // 10 = timeout
 	  //this.moteurPrincipal.configSetParameter(ParamEnum.eClearPositionOnLimitR, 1, 0, 0);
 	  //this.moteurPrincipal.overrideLimitSwitchesEnable(true);
+	
+	int ERREUR_DISTANCE_PERMISE= 5;
   public Cuisse()
   {
 	  //this.moteurPrincipal.configFactoryDefault();	  
 	  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	  
 	  
 	  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-	  this.moteurPrincipal.configAllowableClosedloopError(0, 0,  5);
+	  this.moteurPrincipal.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
 	  this.moteurPrincipal.setSensorPhase(true);
 	  this.moteurPrincipal.config_kP(0,1, 8);
 	  
@@ -114,6 +116,12 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  return true;
   }
   
+	public boolean estArrive()
+	{
+		int distanceRestante = (int)(this.moteurPrincipal.getSelectedSensorPosition() - this.moteurPrincipal.getClosedLoopTarget(0));
+		if (distanceRestante < this.ERREUR_DISTANCE_PERMISE) return true;
+		return false;
+	}
  
   
 

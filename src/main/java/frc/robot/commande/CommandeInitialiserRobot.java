@@ -1,14 +1,14 @@
-package frc.robot.commande.configuration;
+package frc.robot.commande;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class CommandeTesterInitialiserRobot extends CommandGroup{
+public class CommandeInitialiserRobot extends CommandGroup{
 	
-    public CommandeTesterInitialiserRobot()
+    public CommandeInitialiserRobot()
     {
     	System.out.println("new CommandeTesterInitialiserRobot()");
-    	this.addParallel(new CommandeTesterInitialiserCuisse());
-    	this.addParallel(new CommandeTesterInitialiserJambe());
+    	this.addParallel(new CommandeCalibrerCuisse());
+    	this.addParallel(new CommandeCalibrerJambe());
     }
 
     @Override

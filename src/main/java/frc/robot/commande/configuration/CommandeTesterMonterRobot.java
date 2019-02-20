@@ -1,6 +1,8 @@
 package frc.robot.commande.configuration;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.commande.CommandeDeplierCuisse;
+import frc.robot.commande.CommandeDeplierJambe;
 
 public class CommandeTesterMonterRobot extends CommandGroup{
 	
@@ -16,8 +18,8 @@ public class CommandeTesterMonterRobot extends CommandGroup{
     	//this.addParallel(new CommandeTesterChangementConsigneCuisseAvecPID((int) (1800*1.5)));
     	//this.addParallel(new CommandeTesterChangementConsigneJambeAvecPID((int) (3300*1.5)));
     	
-    	this.addParallel(new CommandeTesterChangementConsigneCuisse(3000));
-    	this.addParallel(new CommandeTesterChangementConsigneJambe(7923));
+    	this.addParallel(new CommandeDeplierCuisse(3000));
+    	this.addParallel(new CommandeDeplierJambe(7923));
 
     	//this.addSequential(new CommandeTesterChangementConsigneCuisse(712));
     	

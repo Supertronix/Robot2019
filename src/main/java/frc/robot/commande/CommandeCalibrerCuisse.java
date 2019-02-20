@@ -1,14 +1,14 @@
-package frc.robot.commande.configuration;
+package frc.robot.commande;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-public class CommandeTesterInitialiserCuisse extends Command {
+public class CommandeCalibrerCuisse extends Command {
 	
 
 	 
-	public CommandeTesterInitialiserCuisse()
+	public CommandeCalibrerCuisse()
 	{
 		
     	requires(Robot.cuisse);
