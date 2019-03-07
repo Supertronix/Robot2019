@@ -12,35 +12,17 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class Attrapeur extends Subsystem implements RobotMap.Attrapeur{
 
-	public static TableTournante tableTournante = null; // public pour reservation par systeme de commande
-
+  public static TableTournante tableTournante = null; // public pour reservation par systeme de commande
+  public static Cremaillere cremaillere = null;
   public Attrapeur(){
 	Attrapeur.tableTournante = new TableTournante();
+	Attrapeur.cremaillere = new Cremaillere();
     this.configurerMinirupteur();
   }
 
   protected TalonSRX moteurAttrapeur = new TalonSRX(MOTEUR_ATTRAPEUR);
 
   
-  // https://www.programcreek.com/java-api-examples/?code=FRC2832/Robot_2016/Robot_2016-master/src/org/usfirst/frc2832/Robot_2016/Climber.java
-  // TODO : trouver le numéro de la cremaillere
-  protected Servo servoCremaillere = new Servo(SERVO_CREMAILLERE); // Actionne la goupille de relachement de l'écoutille.
-  // TODO : trouver les angles maintenue et relachée
-
-  @Override
-  public void initDefaultCommand() {
-    
-  }
-   
-  public void descendreGoupille(){
-	  // Servo values range from 0.0 to 1.0 corresponding to the range of full left to full right.
-	  this.servoCremaillere.set(SERVO_CREMAILLERE_ANGLE_RELACHE);
-  }
-
-  public void monterGoupille(){
-	  // Servo values range from 0.0 to 1.0 corresponding to the range of full left to full right.
-	  this.servoCremaillere.set(SERVO_CREMAILLERE_ANGLE_MAINTENU);
-  }
 
   public void relacherEcoutille(){ // hardillons
 	System.out.println("relacherEcoutille() a la vitesse " + MOTEUR_ATTRAPEUR_VITESSE_OUVERTURE);
@@ -58,7 +40,9 @@ public class Attrapeur extends Subsystem implements RobotMap.Attrapeur{
     moteurAttrapeur.setNeutralMode(NeutralMode.Brake);
   }
   
-  
+  @Override
+  public void initDefaultCommand() {}
+
   
   
   public class TableTournante extends Subsystem  implements RobotMap.Attrapeur.TableTournante
@@ -83,6 +67,28 @@ public class Attrapeur extends Subsystem implements RobotMap.Attrapeur{
 
 	@Override
 	protected void initDefaultCommand() {}
+  }
+
+  
+  
+  
+  
+  public class Cremaillere extends Subsystem implements RobotMap.Attrapeur.Cremaillere
+  {
+	  // https://www.programcreek.com/java-api-examples/?code=FRC2832/Robot_2016/Robot_2016-master/src/org/usfirst/frc2832/Robot_2016/Climber.java
+	  protected Servo servoCremaillere = new Servo(this.SERVO_CREMAILLERE); // Actionne la goupille de relachement de l'écoutille.
+ 
+	  public void descendreGoupille(){
+		  // Servo values range from 0.0 to 1.0 corresponding to the range of full left to full right.
+		  this.servoCremaillere.set(this.SERVO_GOUPILLE_BAS);
+	  }
 	  
+	  public void monterGoupille(){
+		  // Servo values range from 0.0 to 1.0 corresponding to the range of full left to full right.
+		  this.servoCremaillere.set(this.SERVO_GOUPILLE_HAUT);
+	  }
+	  
+	  @Override
+	  public void initDefaultCommand() {}
   }
 }
