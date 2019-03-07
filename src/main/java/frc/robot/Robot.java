@@ -11,7 +11,7 @@ import frc.robot.sousysteme.Attrapeur;
 import frc.robot.sousysteme.Cuisse;
 import frc.robot.sousysteme.Jambe;
 import frc.robot.sousysteme.Roues;
-import frc.robot.sousysteme.RouesMecanumFormuleLogique;
+import frc.robot.sousysteme.RouesMecanum;
 
 public class Robot extends TimedRobot {
 
@@ -27,10 +27,10 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() 
   {
-	Robot.roues = new RouesMecanumFormuleLogique();
+	Robot.roues = new RouesMecanum();
 	//Robot.attrapeur = new Attrapeur();
-    Robot.cuisse = new Cuisse();
-    Robot.jambe = new Jambe();
+    //Robot.cuisse = new Cuisse();
+    //Robot.jambe = new Jambe();
     
     //this.capteurUltrason = new CapteurUltrason();
     //this.camera = new Camera();
@@ -76,13 +76,12 @@ public class Robot extends TimedRobot {
   {
 	 Scheduler.getInstance().run();
 	 
-	 Robot.cuisse.lirePosition();
-	 Robot.jambe.lirePosition();
+	 //Robot.cuisse.lirePosition();
+	 //Robot.jambe.lirePosition();
 	 
      //System.out.println("teleopPeriodic()");
-	Robot.roues.conduire();
+	//Robot.roues.conduire();
 	//this.capteurUltrason.detecter();
-    //Robot.cuisse.monter();
     //System.out.println("Test Cuisse Moteur " + RobotMap.Cuisse.MOTEUR_SECONDAIRE);
   }
 
