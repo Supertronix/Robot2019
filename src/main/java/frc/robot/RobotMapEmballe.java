@@ -1,6 +1,6 @@
 package frc.robot;
 
-public interface RobotMapCompetition 
+public interface RobotMapEmballe 
 {
 
 	  // Aussi appelé Hanche par l'équipe	
