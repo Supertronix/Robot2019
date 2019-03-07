@@ -57,3 +57,27 @@ The FMS server communicates to the Driver Station through the Field Router, with
 exception, allowing the FMS server to send data to the team VLAN. This includes critical data, such
 as what state the robot should be in, match time, and other details. The Driver Station also sends
 data back, such as battery voltage. Logging of data is discussed at length later in this whitepaper.
+
+## Robot and Driver Station Logging
+During the match, the Robot forwards data about itself to the Driver Station, such as battery
+voltage. The Driver Station combines this with its own log data and forwards it to the FMS server.
+All this log information, along with diagnostic data from the field, is combined to produce a log that
+can be read by the FTA during, or after, a match in order to diagnose potential issues. Below is a
+list of all data that is logged by the FMS.
+- Timestamp (local time)
+- Match Number
+- Team Number
+- Match Time
+- Alliance
+- Mode (Auto/Teleop)
+- DS in FMS Mode (yes/no)
+- Robot Mode (enable/disable)
+- Estop state (on/off)
+- Robot Link (yes/no)
+- ** Bandwidth consumption over the wireless link **
+- Strength of the signal transmitted by the robot radio
+- Signal-to-Noise Ratio of the wireless link
+- Average packet trip time between DS and Robot
+- Number of missed packets between DS and Robot
+- Total number of packets sent by DS to Robot
+- Robot Battery Voltage
