@@ -7,6 +7,7 @@ import frc.robot.interaction.Manette;
 import frc.robot.interaction.ManetteCompetition;
 import frc.robot.interaction.ManetteConfiguration;
 import frc.robot.interaction.CapteurUltrason;
+import frc.robot.interaction.DetecteurEcoutilleAttrapee;
 import frc.robot.sousysteme.Attrapeur;
 import frc.robot.sousysteme.Cuisse;
 import frc.robot.sousysteme.Jambe;
@@ -15,14 +16,17 @@ import frc.robot.sousysteme.RouesMecanum;
 
 public class Robot extends TimedRobot {
 
+  // Sous-systemes
   public static Roues roues;
   public static Attrapeur attrapeur;
   public static Cuisse cuisse;
   public static Jambe jambe;
 
+  // Interactions
   protected Manette manette;
   protected Camera camera;
   protected CapteurUltrason capteurUltrason;
+  protected DetecteurEcoutilleAttrapee detecteurEcoutille;
   
   @Override
   public void robotInit() 
@@ -35,6 +39,7 @@ public class Robot extends TimedRobot {
     
     //this.capteurUltrason = new CapteurUltrason();
     //this.camera = new Camera();
+	this.detecteurEcoutille = new DetecteurEcoutilleAttrapee();
   }
 
   @Override
@@ -75,7 +80,9 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() 
   {
 	Scheduler.getInstance().run();
-	 
+	System.out.println("Droit : " + this.detecteurEcoutille.estDetecteCoteDroit());
+	System.out.println("Gauche : " + this.detecteurEcoutille.estDetecteCoteGauche());
+	System.out.println("EST ATTRAPE = " + this.detecteurEcoutille.estAttrapee());
 	//Robot.cuisse.lirePosition();
 	//Robot.jambe.lirePosition();
 	 
