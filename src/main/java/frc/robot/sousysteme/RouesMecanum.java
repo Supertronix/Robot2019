@@ -57,7 +57,7 @@ public class RouesMecanum extends Roues{
   
   public void conduire()
   {
-	  Manette manette = ManetteConfiguration.getInstance();
+	  Manette manette = Manette.getInstance();
 	    System.out.println("y gauche=" + manette.getAxeMainGauche().y + " y droit=" + manette.getAxeMainDroite().y);
 	    //this.yMoyen = (manette.getAxeMainDroite().y + manette.getAxeMainGauche().y)/2;
 	    //this.xMoyen = (manette.getAxeMainDroite().x + manette.getAxeMainGauche().x)/2;

@@ -10,14 +10,6 @@ public class ManetteCompetition extends Manette implements RobotMap.Manette{
 
     protected JoystickButton boutonControllerAttrapeur;
 
-    // Design pattern Singleton pour récupérer la manette de n'importe quel code de roue
-    protected static ManetteCompetition instance = null;
-    public static ManetteCompetition getInstance()
-    {
-      if(null == ManetteCompetition.instance) ManetteCompetition.instance = new ManetteCompetition();
-      return ManetteCompetition.instance;
-    };
-
     protected ManetteCompetition()
     // Design pattern Singleton fin
     {
@@ -25,6 +17,11 @@ public class ManetteCompetition extends Manette implements RobotMap.Manette{
         this.boutonControllerAttrapeur = new JoystickButton(this.manette, BOUTON_DROIT);
         this.boutonControllerAttrapeur.whenPressed(new CommandeRelacherEcoutille());
         this.boutonControllerAttrapeur.whenReleased(new CommandeArmerAttrapeur());
+    }
+    
+    public static void desactiverInstance()
+    {
+    	ManetteConfiguration.instance = null;    	
     }
         
 }

@@ -13,7 +13,18 @@ public class Manette implements RobotMap.Manette{
     {
         this.manette = new Joystick(MANETTE);
     }
-
+    
+    protected static Manette instance = null;
+    public static Manette getInstance()
+    {
+      if(null == ManetteCompetition.instance) ManetteCompetition.instance = new ManetteCompetition();
+      return ManetteCompetition.instance;
+    };
+    public static void desactiverInstance()
+    {
+    	Manette.instance = null;    	
+    }
+ 
     public class Axe 
     {
       public Axe(double x, double y) 

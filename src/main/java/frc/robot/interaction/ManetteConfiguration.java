@@ -21,23 +21,7 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
     protected JoystickButton boutonTesterInitialiserRobot;
     protected JoystickButton boutonTesterMonterRobot;
 
-
-
-
-
-    
-
-    // Design pattern Singleton pour récupérer la manette de n'importe quel code de roue
-    protected static ManetteConfiguration instance = null;
-    public static ManetteConfiguration getInstance()
-    {
-      if(null == ManetteConfiguration.instance) ManetteConfiguration.instance = new ManetteConfiguration();
-      return ManetteConfiguration.instance;
-    };
-
     protected CommandeInitialiserRobot commandeTesterInitialiserRobot = null;
-
-
     
     protected ManetteConfiguration()
     // Design pattern Singleton fin

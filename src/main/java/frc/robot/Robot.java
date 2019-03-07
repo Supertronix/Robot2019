@@ -28,7 +28,7 @@ public class Robot extends TimedRobot {
   public void robotInit() 
   {
 	Robot.roues = new RouesMecanum();
-	//Robot.attrapeur = new Attrapeur();
+	Robot.attrapeur = new Attrapeur();
     //Robot.cuisse = new Cuisse();
     //Robot.jambe = new Jambe();
     
@@ -66,9 +66,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() 
   {
-	 //this.manette = ManetteCompetition.getInstance();
-	 ManetteConfiguration.desactiverInstance();
-	 this.manette = ManetteConfiguration.getInstance();
+	  Manette.desactiverInstance();
+	 this.manette = Manette.getInstance();
+	 //this.manette = ManetteConfiguration.getInstance();
   }
 
   @Override
@@ -80,7 +80,7 @@ public class Robot extends TimedRobot {
 	 //Robot.jambe.lirePosition();
 	 
      //System.out.println("teleopPeriodic()");
-	//Robot.roues.conduire();
+	Robot.roues.conduire();
 	//this.capteurUltrason.detecter();
     //System.out.println("Test Cuisse Moteur " + RobotMap.Cuisse.MOTEUR_SECONDAIRE);
   }
