@@ -7,27 +7,27 @@ which are multiplexed over a single wireless interface. Each SSID is allocated a
 corresponding Driver Station.
 The Field WAP connects to the Score Switch through a 10/100/1000 Gigabit Ethernet trunk line. The
 switch ports on the Field WAP are unused and unallocated, only the WAN (trunk) line is used.
-** The Field WAP uses the 802.11n Wi-Fi standard, and the 5GHz band is reserved exclusively for
+**The Field WAP uses the 802.11n Wi-Fi standard, and the 5GHz band is reserved exclusively for
 robots. The standard configuration employs a 20MHz channel, with the option for 40MHz, and
-employs WPA2/AES encryption with a unique key per team, per event. **
+employs WPA2/AES encryption with a unique key per team, per event.**
 
 ## Robots
-Each robot contains, at minimum, a wireless radio and robot controller (roboRIO). ** The wireless
+Each robot contains, at minimum, a wireless radio and robot controller (roboRIO). **The wireless
 radio is configured in bridge mode to communicate to the Field WAP using an assigned SSID and
 WPA Key, which then communicates with the robot controller and any other devices on the robot
 at the discretion of the team. At each event, each team is assigned a unique encryption key.
 The robot radio is responsible for connecting to the field, as well as implementing the bandwidth
 limit. Each team must configure their radio at the event before it will successfully link with the Field
-WAP. Radio configuration kiosks are provided for this purpose. **
+WAP. Radio configuration kiosks are provided for this purpose.**
 
 ## Network Bandwidth
-The FMS Field Network has limited bandwidth available. ** There is an imposed 4Mbit/s limit for each
-team via the robot radios ** to ensure no one team overloads the system, causing packets to drop
+The FMS Field Network has limited bandwidth available. **There is an imposed 4Mbit/s limit for each
+team via the robot radios** to ensure no one team overloads the system, causing packets to drop
 for other teams. Given that each wireless SSID that the Field WAP handles is multiplexed, this adds
 up to a total of 4x6=24Mbit/s for the Field WAP. All other traffic on the FMS Field Network is not
 limited by bandwidth.
-The Robot Radio prioritizes certain communications over others. ** Driver Station control and status
-packets are the highest priority, followed by Network Tables, then all other traffic (e.g. video). **
+The Robot Radio prioritizes certain communications over others. **Driver Station control and status
+packets are the highest priority, followed by Network Tables, then all other traffic (e.g. video).**
 
 ## Driver Station and Robot Communications
 The Driver Station to Robot Communication is identical to that of a system without the FMS in
@@ -74,7 +74,7 @@ list of all data that is logged by the FMS.
 - Robot Mode (enable/disable)
 - Estop state (on/off)
 - Robot Link (yes/no)
-- ** Bandwidth consumption ** over the wireless link 
+- **Bandwidth consumption over the wireless link** 
 - Strength of the signal transmitted by the robot radio
 - Signal-to-Noise Ratio of the wireless link
 - Average packet trip time between DS and Robot
