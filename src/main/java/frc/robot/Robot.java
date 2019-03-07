@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.commande.CommandeAnnoncerAttrapage;
 import frc.robot.interaction.Camera;
 import frc.robot.interaction.Manette;
 import frc.robot.interaction.ManetteCompetition;
@@ -31,6 +32,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() 
   {
+	Journal.activer(); Journal.activerNiveau(1);
 	Robot.roues = new RouesMecanum();
 	Robot.attrapeur = new Attrapeur();
 
@@ -76,20 +78,37 @@ public class Robot extends TimedRobot {
 	 this.manette = Manette.getInstance();
   }
 
+  
+  protected boolean annoncePubliee = false;
+  protected boolean estAttrape = false;
   @Override
   public void teleopPeriodic() 
   {
 	Scheduler.getInstance().run();
-	System.out.println("Droit : " + this.detecteurEcoutille.estDetecteCoteDroit());
-	System.out.println("Gauche : " + this.detecteurEcoutille.estDetecteCoteGauche());
-	System.out.println("EST ATTRAPE = " + this.detecteurEcoutille.estAttrapee());
+    //Journal.ecrire("teleopPeriodic()");
+	
+	Journal.ecrire(1,"Droit : " + this.detecteurEcoutille.estDetecteCoteDroit());
+	Journal.ecrire(1,"Gauche : " + this.detecteurEcoutille.estDetecteCoteGauche());
+
+	this.estAttrape = this.detecteurEcoutille.estAttrapee();
+	Journal.ecrire(2,"EST ATTRAPE = " + estAttrape);
+	if(this.estAttrape && !annoncePubliee)
+	{
+		CommandeAnnoncerAttrapage annonce = new CommandeAnnoncerAttrapage();
+		annonce.start();
+		annoncePubliee = true;
+	}
+	if(!this.estAttrape && annoncePubliee)
+	{
+		annoncePubliee = false;
+	}
+	
 	//Robot.cuisse.lirePosition();
 	//Robot.jambe.lirePosition();
 	 
-    //System.out.println("teleopPeriodic()");
-	//Robot.roues.conduire();
+	Robot.roues.conduire();
 	//this.capteurUltrason.detecter();
-    //System.out.println("Test Cuisse Moteur " + RobotMap.Cuisse.MOTEUR_SECONDAIRE);
+    //Journal.ecrire("Test Cuisse Moteur " + RobotMap.Cuisse.MOTEUR_SECONDAIRE);
   }
 
   @Override

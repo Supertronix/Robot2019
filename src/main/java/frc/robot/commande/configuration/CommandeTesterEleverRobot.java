@@ -8,7 +8,7 @@ public class CommandeTesterEleverRobot extends CommandGroup{
     {
     	System.out.println("new CommandeTesterEleverRobot()");
     	this.addParallel(new CommandeTesterJambe());
-    	this.addParallel(new CommandeTesterCuisse());
+    	this.addSequential(new CommandeTesterCuisse()); // automatiquement en parallele du premier
     }
 
     @Override
