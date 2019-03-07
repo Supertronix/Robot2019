@@ -74,7 +74,7 @@ list of all data that is logged by the FMS.
 - Robot Mode (enable/disable)
 - Estop state (on/off)
 - Robot Link (yes/no)
-- ** Bandwidth consumption over the wireless link **
+- ** Bandwidth consumption ** over the wireless link 
 - Strength of the signal transmitted by the robot radio
 - Signal-to-Noise Ratio of the wireless link
 - Average packet trip time between DS and Robot
