@@ -37,6 +37,8 @@ public interface RobotMap {
     public static final int SERVO_CREMAILLERE = 0;  // TODO : trouver les angles maintenue et relachée
     public static final float SERVO_CREMAILLERE_ANGLE_MAINTENU = 0.0f; //the angle the release servo is for the duration of match
     public static final float SERVO_CREMAILLERE_ANGLE_RELACHE = 0.0f; //the angle the release servo is for letting go when about to climb
+        
+    public static final int MOTEUR_TREUIL = 8; // winches
   }
 
   public interface Manette
