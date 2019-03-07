@@ -18,10 +18,5 @@ public class ManetteCompetition extends Manette implements RobotMap.Manette{
         this.boutonControllerAttrapeur.whenPressed(new CommandeRelacherEcoutille());
         this.boutonControllerAttrapeur.whenReleased(new CommandeArmerAttrapeur());
     }
-    
-    public static void desactiverInstance()
-    {
-    	ManetteConfiguration.instance = null;    	
-    }
         
 }

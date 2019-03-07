@@ -69,10 +69,5 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
     void monterVertical() {
     	
     }
-    
-    public static void desactiverInstance()
-    {
-    	ManetteConfiguration.instance = null;    	
-    }
-        
+            
 }
