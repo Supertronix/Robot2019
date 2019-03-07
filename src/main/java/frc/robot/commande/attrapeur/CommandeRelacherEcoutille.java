@@ -1,4 +1,4 @@
-package frc.robot.commande;
+package frc.robot.commande.attrapeur;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;

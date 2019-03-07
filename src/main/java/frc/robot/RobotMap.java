@@ -43,8 +43,10 @@ public interface RobotMap {
         public static final float SERVO_GOUPILLE_HAUT = 0.5f; //the angle the release servo is for the duration of match
         public static final float SERVO_GOUPILLE_BAS = 0f; //the angle the release servo is for letting go when about to climb	
     }
-    
-    public static final int MOTEUR_TREUIL = 8; // winches
+
+    // winches
+    public static final int MOTEUR_TREUIL = 8; 
+    public static final int COMPTEUR_TREUIL = 3;
   }
 
   public interface Manette

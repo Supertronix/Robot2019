@@ -2,6 +2,15 @@ package frc.robot;
 
 public class Journal {
 	
+	public interface NIVEAU
+	{
+		public static int NOTIFICATION = 1;
+		public static int DETAIL = 2;
+		public static int ROULEMENT = 3;
+		public static int AVERTISSEMENT = 4;
+		public static int ERREUR = 5;
+	}
+	
 	protected static int niveau = 0;
 	public static void activerNiveau(int niveau)
 	{

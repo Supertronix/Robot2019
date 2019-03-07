@@ -3,8 +3,8 @@ package frc.robot.interaction;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.RobotMap;
-import frc.robot.commande.CommandeArmerAttrapeur;
-import frc.robot.commande.CommandeRelacherEcoutille;
+import frc.robot.commande.attrapeur.CommandeArmerAttrapeur;
+import frc.robot.commande.attrapeur.CommandeRelacherEcoutille;
 
 public class ManetteCompetition extends Manette implements RobotMap.Manette{
 

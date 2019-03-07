@@ -2,7 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import frc.robot.commande.CommandeAnnoncerAttrapage;
+import frc.robot.commande.attrapeur.CommandeAnnoncerAttrapage;
 import frc.robot.interaction.Camera;
 import frc.robot.interaction.Manette;
 import frc.robot.interaction.ManetteCompetition;
@@ -87,11 +87,11 @@ public class Robot extends TimedRobot {
 	Scheduler.getInstance().run();
     //Journal.ecrire("teleopPeriodic()");
 	
-	Journal.ecrire(1,"Droit : " + this.detecteurEcoutille.estDetecteCoteDroit());
-	Journal.ecrire(1,"Gauche : " + this.detecteurEcoutille.estDetecteCoteGauche());
+	Journal.ecrire(Journal.NIVEAU.NOTIFICATION,"Droit : " + this.detecteurEcoutille.estDetecteCoteDroit());
+	Journal.ecrire(Journal.NIVEAU.NOTIFICATION,"Gauche : " + this.detecteurEcoutille.estDetecteCoteGauche());
 
 	this.estAttrape = this.detecteurEcoutille.estAttrapee();
-	Journal.ecrire(2,"EST ATTRAPE = " + estAttrape);
+	Journal.ecrire(Journal.NIVEAU.DETAIL,"EST ATTRAPE = " + estAttrape);
 	if(this.estAttrape && !annoncePubliee)
 	{
 		CommandeAnnoncerAttrapage annonce = new CommandeAnnoncerAttrapage();
