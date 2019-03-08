@@ -10,7 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 // Aussi appelé Winches par l'équipe	
 public class Treuil extends Subsystem implements RobotMap.Attrapeur.Treuil{
-
+	
 	// http://www.ctr-electronics.com/downloads/api/java/html/classcom_1_1ctre_1_1phoenix_1_1motorcontrol_1_1can_1_1_talon_s_r_x.html
 	protected TalonSRX moteur = new TalonSRX(this.MOTEUR_TREUIL);
 	protected CompteurPasTreuil compteurPas;
@@ -28,9 +28,16 @@ public class Treuil extends Subsystem implements RobotMap.Attrapeur.Treuil{
 	  return this.compteurPas.getPas();
   }
   
+  protected int nombrePas = 13;
+  
+  public void setNombrePas(int nombrePas)
+  {
+	  this.nombrePas = nombrePas;
+  }
+  
   public boolean estArrive()
   {
-	  return (this.compteurPas.getPas() > 12);
+	  return (this.compteurPas.getPas() >= nombrePas);
   }
   
   @Override
@@ -51,6 +58,7 @@ public class Treuil extends Subsystem implements RobotMap.Attrapeur.Treuil{
   {
 	Journal.ecrire(Journal.NIVEAU.DETAIL, "Treuil.arreter()");	  
 	this.moteur.set(ControlMode.PercentOutput, 0);
+	this.compteurPas.initialiser();
   }
   
 }
