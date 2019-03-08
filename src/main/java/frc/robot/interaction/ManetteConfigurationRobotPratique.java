@@ -10,6 +10,7 @@ import frc.robot.commande.attrapeur.CommandeDescendreGoupille;
 import frc.robot.commande.attrapeur.CommandeEteindreTableTournante;
 import frc.robot.commande.attrapeur.CommandeMonterGoupille;
 import frc.robot.commande.attrapeur.CommandeRelacherEcoutille;
+import frc.robot.commande.configuration.CommandeTesterTreuil;
 
 public class ManetteConfigurationRobotPratique extends Manette implements RobotMap.Manette{
 
@@ -19,6 +20,7 @@ public class ManetteConfigurationRobotPratique extends Manette implements RobotM
     protected JoystickButton boutonMonterGoupille;
     protected JoystickButton boutonDescendreGoupille;
     protected JoystickButton boutonAnnulerAnnonceAttrapage;
+    protected JoystickButton boutonTournerTreuil;
 
     protected ManetteConfigurationRobotPratique()
     {
@@ -40,6 +42,9 @@ public class ManetteConfigurationRobotPratique extends Manette implements RobotM
         
         //this.boutonAnnulerAnnonceAttrapage = new JoystickButton(this.manette, this.BOUTON_A);
         //this.boutonAnnulerAnnonceAttrapage.whenPressed(new CommandeDesactiverAnnonceAttrapage());
+        
+        this.boutonTournerTreuil = new JoystickButton(this.manette, this.BOUTON_A);
+        this.boutonTournerTreuil.whenPressed(new CommandeTesterTreuil());
     }
         
 }

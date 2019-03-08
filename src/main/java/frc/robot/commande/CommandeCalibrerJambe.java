@@ -12,7 +12,7 @@ public class CommandeCalibrerJambe extends Command {
 	}
 	
 	protected void execute(){
-        System.out.println("CommandeTesterInitialiserJambeAvecPID.execute()");
+        System.out.println("CommandeCalibrerJambe.execute()");
     	//this.increment = (float)ManetteConfiguration.getInstance().getAxeMainGauche().y / 2;
         Robot.jambe.monter(-0.2f);
 

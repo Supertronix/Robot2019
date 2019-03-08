@@ -15,7 +15,7 @@ public class CommandeCalibrerCuisse extends Command {
 	}
 	
 	protected void execute(){
-        System.out.println("CommandeTesterInitialiserCuisseAvecPID.execute()");
+        System.out.println("CommandeCalibrerCuisse.execute()");
     	//this.increment = (float)ManetteConfiguration.getInstance().getAxeMainGauche().y / 2;
         Robot.cuisse.monter(-0.2f); 
 
