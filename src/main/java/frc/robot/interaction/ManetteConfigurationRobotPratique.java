@@ -38,8 +38,8 @@ public class ManetteConfigurationRobotPratique extends Manette implements RobotM
         this.boutonDescendreGoupille = new JoystickButton(this.manette, this.BOUTON_X);
         this.boutonDescendreGoupille.whenPressed(new CommandeDescendreGoupille());
         
-        this.boutonAnnulerAnnonceAttrapage = new JoystickButton(this.manette, this.BOUTON_A);
-        this.boutonAnnulerAnnonceAttrapage.whenPressed(new CommandeDesactiverAnnonceAttrapage());
+        //this.boutonAnnulerAnnonceAttrapage = new JoystickButton(this.manette, this.BOUTON_A);
+        //this.boutonAnnulerAnnonceAttrapage.whenPressed(new CommandeDesactiverAnnonceAttrapage());
     }
         
 }

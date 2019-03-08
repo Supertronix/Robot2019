@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.commande.attrapeur.CommandeAnnoncerAttrapage;
+import frc.robot.commande.attrapeur.CommandeDesactiverAnnonceAttrapage;
 import frc.robot.interaction.Camera;
 import frc.robot.interaction.Manette;
 import frc.robot.interaction.ManetteCompetition;
@@ -101,6 +102,8 @@ public class Robot extends TimedRobot {
 	if(!this.estAttrape && annoncePubliee)
 	{
 		annoncePubliee = false;
+		CommandeDesactiverAnnonceAttrapage annulation = new CommandeDesactiverAnnonceAttrapage();
+		annulation.start();
 	}
 	
 	//Robot.cuisse.lirePosition();
