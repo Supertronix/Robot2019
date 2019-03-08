@@ -95,7 +95,7 @@ public class Robot extends TimedRobot {
 	//Journal.ecrire(Journal.NIVEAU.NOTIFICATION,"Gauche : " + this.detecteurEcoutille.estDetecteCoteGauche());
 
 	this.estAttrape = this.detecteurEcoutille.estAttrapee();
-	Journal.ecrire(Journal.NIVEAU.DETAIL,"EST ATTRAPE = " + estAttrape);
+	//Journal.ecrire(Journal.NIVEAU.DETAIL,"EST ATTRAPE = " + estAttrape);
 	if(this.estAttrape && !annoncePubliee)
 	{
 		CommandeAnnoncerAttrapage annonce = new CommandeAnnoncerAttrapage();

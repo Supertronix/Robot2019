@@ -9,15 +9,20 @@ public class CommandeTesterTreuil  extends Command{
 	{
     	requires(Robot.treuil);
 	}
+    @Override
+    protected void initialize()
+    {
+        System.out.println("CommandeTesterTreuil.initialize()");
+        Robot.treuil.tourner(0.1f);
+    }
 	
 	protected void execute(){
         System.out.println("CommandeTesterTreuil.execute()");
-        Robot.treuil.tourner(0.2f);
     }
 	
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return true;
 	}
 
 }

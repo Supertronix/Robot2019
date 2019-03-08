@@ -57,13 +57,9 @@ public class RouesMecanum extends Roues{
   
   public void conduire()
   {
+	    //System.out.println("y gauche=" + manette.getAxeMainGauche().y + " y droit=" + manette.getAxeMainDroite().y);
+	    
 	  Manette manette = Manette.getInstance();
-	    System.out.println("y gauche=" + manette.getAxeMainGauche().y + " y droit=" + manette.getAxeMainDroite().y);
-	    //this.yMoyen = (manette.getAxeMainDroite().y + manette.getAxeMainGauche().y)/2;
-	    //this.xMoyen = (manette.getAxeMainDroite().x + manette.getAxeMainGauche().x)/2;
-	    //System.out.println("xMoyen = " + this.xMoyen + " yMoyen = " + this.yMoyen);
-	    //roues.conduire(-manette.getAxeMainGauche().y, -manette.getAxeMainDroite().y; // avec TankDrive
-	    //Formule 2017 (x + yGauche, yDroite - x, yGauche - x, x + yDroite);
 	    this.conduireToutesDirections(
 	      (manette.getAxeMainGauche().y + manette.getAxeMainGauche().x + manette.getAxeMainDroite().x), 
 	      (manette.getAxeMainGauche().y - manette.getAxeMainGauche().x - manette.getAxeMainDroite().x),	      
@@ -71,6 +67,11 @@ public class RouesMecanum extends Roues{
 	      (manette.getAxeMainGauche().y + manette.getAxeMainGauche().x - manette.getAxeMainDroite().x) 
 	      );
 
+	  	//this.yMoyen = (manette.getAxeMainDroite().y + manette.getAxeMainGauche().y)/2;
+	    //this.xMoyen = (manette.getAxeMainDroite().x + manette.getAxeMainGauche().x)/2;
+	    //System.out.println("xMoyen = " + this.xMoyen + " yMoyen = " + this.yMoyen);
+	    //roues.conduire(-manette.getAxeMainGauche().y, -manette.getAxeMainDroite().y; // avec TankDrive
+	    //Formule 2017 (x + yGauche, yDroite - x, yGauche - x, x + yDroite);
   }
 
   public void conduireToutesDirections(double vitesseAvantGauche, double vitesseAvantDroite, double vitesseArriereGauche, double vitesseArriereDroite) 
