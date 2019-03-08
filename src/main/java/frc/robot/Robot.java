@@ -108,9 +108,7 @@ public class Robot extends TimedRobot {
 		CommandeDesactiverAnnonceAttrapage annulation = new CommandeDesactiverAnnonceAttrapage();
 		annulation.start();
 	}
-	
-	Robot.treuil.compterLesPas();
-	
+		
 	//Robot.cuisse.lirePosition();
 	//Robot.jambe.lirePosition();
 	 

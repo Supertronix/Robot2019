@@ -13,6 +13,11 @@ public class CompteurPasTreuil {
 		this.detecteur = new DigitalInput(3);
 	}
 	
+	public void initialiser()
+	{
+		this.pas = 0;
+	}
+	
 	public boolean estDetecte()
 	{
 		return !this.detecteur.get();
@@ -30,11 +35,11 @@ public class CompteurPasTreuil {
 		{
 			this.estAllume = false;
 		}
-		if((this.pas % 6) == 0)
-		{
-			this.pas = 0;
-			this.tour++;
-		}
+		//if((this.pas % 6) == 0)
+		//{
+		//	this.pas = 0;
+		//	this.tour++;
+		//}
 	}
 	public int getTour()
 	{

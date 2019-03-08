@@ -21,10 +21,16 @@ public class Treuil extends Subsystem implements RobotMap.Attrapeur.Treuil{
 	  this.compteurPas = new CompteurPasTreuil();
   }
   
-  public void compterLesPas()
+  public int compterLesPas()
   {
 	  this.compteurPas.detecter();
 	  Journal.ecrire(Journal.NIVEAU.DETAIL, "Nombre de pas : " + this.compteurPas.getPas());
+	  return this.compteurPas.getPas();
+  }
+  
+  public boolean estArrive()
+  {
+	  return (this.compteurPas.getPas() > 12);
   }
   
   @Override
@@ -39,6 +45,12 @@ public class Treuil extends Subsystem implements RobotMap.Attrapeur.Treuil{
   {
 	Journal.ecrire(Journal.NIVEAU.DETAIL, "Treuil.tourner("+vitesse+")");	  
 	this.moteur.set(ControlMode.PercentOutput, vitesse);
+  }
+  
+  public void arreter()
+  {
+	Journal.ecrire(Journal.NIVEAU.DETAIL, "Treuil.arreter()");	  
+	this.moteur.set(ControlMode.PercentOutput, 0);
   }
   
 }
