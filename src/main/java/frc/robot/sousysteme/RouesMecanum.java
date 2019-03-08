@@ -1,11 +1,8 @@
 package frc.robot.sousysteme;
 
 import edu.wpi.first.wpilibj.VictorSP;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.interaction.Manette;
-import frc.robot.interaction.ManetteCompetition;
-import frc.robot.interaction.ManetteConfiguration;
 
 public class RouesMecanum extends Roues{
 

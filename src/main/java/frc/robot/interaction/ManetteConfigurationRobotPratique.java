@@ -7,7 +7,6 @@ import frc.robot.commande.CommandeDeroulerTreuil;
 import frc.robot.commande.CommandeRoulerTreuil;
 import frc.robot.commande.attrapeur.CommandeAllumerTableTournante;
 import frc.robot.commande.attrapeur.CommandeArmerAttrapeur;
-import frc.robot.commande.attrapeur.CommandeDesactiverAnnonceAttrapage;
 import frc.robot.commande.attrapeur.CommandeDescendreGoupille;
 import frc.robot.commande.attrapeur.CommandeEteindreTableTournante;
 import frc.robot.commande.attrapeur.CommandeMonterGoupille;

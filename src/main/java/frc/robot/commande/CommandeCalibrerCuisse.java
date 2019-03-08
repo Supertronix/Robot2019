@@ -1,7 +1,6 @@
 package frc.robot.commande;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class CommandeCalibrerCuisse extends Command {

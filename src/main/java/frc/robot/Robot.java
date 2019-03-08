@@ -6,8 +6,6 @@ import frc.robot.commande.attrapeur.CommandeAnnoncerAttrapage;
 import frc.robot.commande.attrapeur.CommandeDesactiverAnnonceAttrapage;
 import frc.robot.interaction.Camera;
 import frc.robot.interaction.Manette;
-import frc.robot.interaction.ManetteCompetition;
-import frc.robot.interaction.ManetteConfiguration;
 import frc.robot.interaction.CapteurUltrason;
 import frc.robot.interaction.DetecteurEcoutilleAttrapee;
 import frc.robot.sousysteme.Attrapeur;
@@ -44,7 +42,7 @@ public class Robot extends TimedRobot {
     //Robot.jambe = new Jambe();
     
     //this.capteurUltrason = new CapteurUltrason();
-    //this.camera = new Camera();
+    this.camera = new Camera();
 	this.detecteurEcoutille = new DetecteurEcoutilleAttrapee();
   }
 
@@ -101,11 +99,13 @@ public class Robot extends TimedRobot {
 		CommandeAnnoncerAttrapage annonce = new CommandeAnnoncerAttrapage();
 		annonce.start();
 		annoncePubliee = true;
+		//annulation.close();
 	}
 	if(!this.estAttrape && annoncePubliee)
 	{
-		annoncePubliee = false;
 		CommandeDesactiverAnnonceAttrapage annulation = new CommandeDesactiverAnnonceAttrapage();
+		annoncePubliee = false;
+		//annonce.close();
 		annulation.start();
 	}
 		

@@ -7,9 +7,6 @@ import frc.robot.commande.CommandeDeplierCuisse;
 import frc.robot.commande.CommandeDeplierJambe;
 import frc.robot.commande.CommandeGrimperRobot;
 import frc.robot.commande.CommandeInitialiserRobot;
-import frc.robot.commande.CommandeCalibrerCuisse;
-import frc.robot.commande.CommandeCalibrerJambe;
-import frc.robot.commande.configuration.CommandeTesterJambe;
 
 public class ManetteConfiguration extends Manette implements RobotMap.Manette{
 
