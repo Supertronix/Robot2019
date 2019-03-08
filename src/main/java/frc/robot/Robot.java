@@ -15,6 +15,7 @@ import frc.robot.sousysteme.Cuisse;
 import frc.robot.sousysteme.Jambe;
 import frc.robot.sousysteme.Roues;
 import frc.robot.sousysteme.RouesMecanum;
+import frc.robot.sousysteme.Treuil;
 
 public class Robot extends TimedRobot {
 
@@ -23,6 +24,7 @@ public class Robot extends TimedRobot {
   public static Attrapeur attrapeur;
   public static Cuisse cuisse;
   public static Jambe jambe;
+  public static Treuil treuil;
 
   // Interactions
   protected Manette manette;
@@ -36,6 +38,7 @@ public class Robot extends TimedRobot {
 	Journal.activer(); Journal.activerNiveau(1);
 	Robot.roues = new RouesMecanum();
 	Robot.attrapeur = new Attrapeur();
+	Robot.treuil = new Treuil();
 
     //Robot.cuisse = new Cuisse();
     //Robot.jambe = new Jambe();
@@ -105,6 +108,8 @@ public class Robot extends TimedRobot {
 		CommandeDesactiverAnnonceAttrapage annulation = new CommandeDesactiverAnnonceAttrapage();
 		annulation.start();
 	}
+	
+	Robot.treuil.compterLesPas();
 	
 	//Robot.cuisse.lirePosition();
 	//Robot.jambe.lirePosition();
