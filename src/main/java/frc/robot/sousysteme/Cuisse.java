@@ -41,18 +41,16 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurPrincipal.setSensorPhase(true);
 	  this.moteurPrincipal.config_kP(0, 1, 10);
 	  
+	  //this.moteurPrincipal.setSelectedSensorPosition(0);
+	  
 	  this.configurerMinirupteur();
 	  
 	  this.moteurSecondaire.configFactoryDefault();	  
 	  this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
 	  this.moteurSecondaire.setInverted(true);
 	  this.moteurSecondaire.follow(this.moteurPrincipal);
-	  
-	  
-	  
-	  
   }
-  
+    
   @Override
   public void initDefaultCommand() {}
   
@@ -68,7 +66,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   // Limit switches
   public void configurerMinirupteur()
   {	  
-	  this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+	  ////this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 	  this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
 	  
 	  //this.moteurPrincipal.configLimitSwitchDisableNeutralOnLOS(true, 10);
@@ -125,6 +123,26 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		return false;
 	}
  
-  
+	protected float positionCible = 0.0f;
+	public float getPositionCible()
+	{
+		return this.positionCible;
+	}
+	public void positionner(float position)
+	{
+		this.positionCible = position;
+	}
+	public void incrementerPosition(float incrementPosition)
+	{
+		this.positionCible += incrementPosition;
+	}
+	public boolean estArrivePositionCible()
+	{
+		int distanceRestante = (int)(positionCible - lirePosition());
+		System.out.println("Distance restante cuisse " + distanceRestante);
+		if (Math.abs(distanceRestante) < 10) return true;
+		return false;
+	}
+
 
 }

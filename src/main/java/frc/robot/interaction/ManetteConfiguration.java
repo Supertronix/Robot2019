@@ -7,6 +7,8 @@ import frc.robot.commande.CommandeDeplierCuisse;
 import frc.robot.commande.CommandeDeplierJambe;
 import frc.robot.commande.CommandeGrimperRobot;
 import frc.robot.commande.CommandeInitialiserRobot;
+import frc.robot.commande.configuration.CommandeTesterDeplierCuisse;
+import frc.robot.commande.configuration.CommandeTesterDeplierJambe;
 
 public class ManetteConfiguration extends Manette implements RobotMap.Manette{
 
@@ -30,15 +32,15 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         //this.boutonTestJambe = new JoystickButton(this.manette, BOUTON_DROIT);
         //this.boutonTestJambe.whenPressed(new CommandeTesterJambe());
         
-        this.boutonTestCuisse = new JoystickButton(this.manette, BOUTON_Y);
-        this.boutonTestCuisse.whenPressed(new CommandeDeplierCuisse(100));
+        this.boutonTestCuisse = new JoystickButton(this.manette, BOUTON_B);
+        this.boutonTestCuisse.whenPressed(new CommandeTesterDeplierCuisse(10,0.1f));
         this.boutonTestCuisse = new JoystickButton(this.manette, BOUTON_A);
-        this.boutonTestCuisse.whenPressed(new CommandeDeplierCuisse(-100));
+        this.boutonTestCuisse.whenPressed(new CommandeTesterDeplierCuisse(-10,-0.1f));
         
+        this.boutonTestJambe = new JoystickButton(this.manette, BOUTON_Y);
+        this.boutonTestJambe.whenPressed(new CommandeTesterDeplierJambe(10,0.1f));
         this.boutonTestJambe = new JoystickButton(this.manette, BOUTON_X);
-        this.boutonTestJambe.whenPressed(new CommandeDeplierJambe(200));
-        this.boutonTestJambe = new JoystickButton(this.manette, BOUTON_B);
-        this.boutonTestJambe.whenPressed(new CommandeDeplierJambe(-200));
+        this.boutonTestJambe.whenPressed(new CommandeTesterDeplierJambe(-10,-0.1f));
         
         //this.boutonTesterInitialisationJambe = new JoystickButton(this.manette, BOUTON_DEMARRER);
         //this.boutonTesterInitialisationJambe.whenPressed(new CommandeTesterInitialiserJambeAvecPID());
@@ -47,15 +49,15 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         //this.boutonTesterInitialisationCuisse.whenPressed(new CommandeTesterInitialiserCuisseAvecPID());
         //this.boutonTestMaintenirConsigne = new JoystickButton(this.manette, BOUTON_DEMARRER);
         
-        this.boutonTesterInitialiserRobot = new JoystickButton(this.manette, BOUTON_DEMARRER);
-        this.boutonTesterInitialiserRobot.whenPressed(new CommandeInitialiserRobot());
+        //this.boutonTesterInitialiserRobot = new JoystickButton(this.manette, BOUTON_DEMARRER);
+        //this.boutonTesterInitialiserRobot.whenPressed(new CommandeInitialiserRobot());
         
-        this.boutonTesterMonterRobot = new JoystickButton(this.manette, BOUTON_RETOUR);
-        this.boutonTesterMonterRobot.whenPressed(new CommandeGrimperRobot());
+        //this.boutonTesterMonterRobot = new JoystickButton(this.manette, BOUTON_RETOUR);
+        //this.boutonTesterMonterRobot.whenPressed(new CommandeGrimperRobot());
 
         
-        this.commandeTesterInitialiserRobot = new CommandeInitialiserRobot();
-        this.commandeTesterInitialiserRobot.start();
+        //this.commandeTesterInitialiserRobot = new CommandeInitialiserRobot();
+        //this.commandeTesterInitialiserRobot.start();
 ;
         //this.commandeTesterEleverRobot = new CommandeTesterEleverRobot();
         //this.commandeTesterEleverRobot.start();

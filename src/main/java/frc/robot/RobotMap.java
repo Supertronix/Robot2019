@@ -44,7 +44,7 @@ public interface RobotMap {
         public static final float SERVO_GOUPILLE_BAS = 0f; //the angle the release servo is for letting go when about to climb	
     }
 
-    // winches
+    // Winches
     public interface Treuil
     {
 	    public static final int MOTEUR_TREUIL = 8; 

@@ -35,15 +35,15 @@ public class Robot extends TimedRobot {
   {
 	Journal.activer(); Journal.activerNiveau(1);
 	Robot.roues = new RouesMecanum();
-	Robot.attrapeur = new Attrapeur();
-	Robot.treuil = new Treuil();
+	//Robot.attrapeur = new Attrapeur();
+	//Robot.treuil = new Treuil();
 
-    //Robot.cuisse = new Cuisse();
-    //Robot.jambe = new Jambe();
+    Robot.cuisse = new Cuisse();
+    Robot.jambe = new Jambe();
     
     //this.capteurUltrason = new CapteurUltrason();
-    this.camera = new Camera();
-	this.detecteurEcoutille = new DetecteurEcoutilleAttrapee();
+    //this.camera = new Camera();
+	//this.detecteurEcoutille = new DetecteurEcoutilleAttrapee();
   }
 
   @Override
@@ -91,7 +91,7 @@ public class Robot extends TimedRobot {
 	
 	//Journal.ecrire(Journal.NIVEAU.NOTIFICATION,"Droit : " + this.detecteurEcoutille.estDetecteCoteDroit());
 	//Journal.ecrire(Journal.NIVEAU.NOTIFICATION,"Gauche : " + this.detecteurEcoutille.estDetecteCoteGauche());
-
+/*
 	this.estAttrape = this.detecteurEcoutille.estAttrapee();
 	//Journal.ecrire(Journal.NIVEAU.DETAIL,"EST ATTRAPE = " + estAttrape);
 	if(this.estAttrape && !annoncePubliee)
@@ -108,7 +108,7 @@ public class Robot extends TimedRobot {
 		//annonce.close();
 		annulation.start();
 	}
-		
+*/	
 	//Robot.cuisse.lirePosition();
 	//Robot.jambe.lirePosition();
 	 

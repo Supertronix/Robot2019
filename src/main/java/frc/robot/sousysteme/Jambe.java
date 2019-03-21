@@ -29,6 +29,8 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		  this.moteurPrincipal.setSensorPhase(true);
 		  this.moteurPrincipal.config_kP(0, 1, 9);
 		  
+		  this.moteurPrincipal.setSelectedSensorPosition(0); // todo placer
+		  
 
 		  configurerMinirupteur();
 		  
@@ -81,8 +83,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	public void monter(float vitesse)
 	{
 		this.moteurPrincipal.set(ControlMode.PercentOutput, vitesse);
-	}
-	
+	}	
 	  
 	public double limiterPID(double val, double min, double max) 
 	{
@@ -91,7 +92,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	  
 	public void configurerMinirupteur()
 	{	  
-		this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+		////this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 		this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
 		  
 		  //this.moteurPrincipal.configLimitSwitchDisableNeutralOnLOS(true, 10);
@@ -112,5 +113,27 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		if (distanceRestante < 500) return true;
 		return false;
 	}
+	
+	protected float positionCible = 0.0f;
+	public float getPositionCible()
+	{
+		return this.positionCible;
+	}
+	public void positionner(float position)
+	{
+		this.positionCible = position;
+	}
+	public void incrementerPosition(float incrementPosition)
+	{
+		this.positionCible += incrementPosition;
+	}
+	public boolean estArrivePositionCible()
+	{
+		int distanceRestante = (int)(positionCible - lirePosition());
+		System.out.println("Distance restante jambe " + distanceRestante);
+		if (Math.abs(distanceRestante) < 10) return true;
+		return false;
+	}
+
 	
 }
