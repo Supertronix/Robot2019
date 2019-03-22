@@ -12,7 +12,7 @@ import frc.robot.commande.attrapeur.CommandeEteindreTableTournante;
 import frc.robot.commande.attrapeur.CommandeMonterGoupille;
 import frc.robot.commande.attrapeur.CommandeRelacherEcoutille;
 
-public class ManetteConfigurationRobotPratique extends Manette implements RobotMap.Manette{
+public class ManettePratique extends Manette implements RobotMap.Manette{
 
     protected JoystickButton boutonControllerAttrapeur;
     protected JoystickButton boutonAllumerTableTournante;
@@ -23,7 +23,7 @@ public class ManetteConfigurationRobotPratique extends Manette implements RobotM
     protected JoystickButton boutonRoulerTreuil;
     protected JoystickButton boutonDeroulerTreuil;
 
-    protected ManetteConfigurationRobotPratique()
+    protected ManettePratique()
     {
         this.manette = new Joystick(MANETTE);
         
