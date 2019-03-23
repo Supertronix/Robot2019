@@ -10,7 +10,8 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
 
     protected JoystickButton boutonTestCuisseDeplier;
     protected JoystickButton boutonTestCuissePlier;
-    protected JoystickButton boutonTestJambe;
+    protected JoystickButton boutonTestJambeDeplier;
+    protected JoystickButton boutonTestJambePlier;
     protected JoystickButton boutonTestMaintenirConsigne;
     protected JoystickButton boutonTesterInitialisationJambe;
     protected JoystickButton boutonTesterInitialisationCuisse;
@@ -28,10 +29,10 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         this.boutonTestCuisseDeplier.whenPressed(new CommandeTesterDeplierCuisse(20,0.1f));
         this.boutonTestCuissePlier = new JoystickButton(this.manette, BOUTON_A);
         this.boutonTestCuissePlier.whenPressed(new CommandeTesterDeplierCuisse(-20,-0.1f));
-        this.boutonTestJambe = new JoystickButton(this.manette, BOUTON_Y);
-        this.boutonTestJambe.whenPressed(new CommandeTesterDeplierJambe(20,0.1f));
-        this.boutonTestJambe = new JoystickButton(this.manette, BOUTON_X);
-        this.boutonTestJambe.whenPressed(new CommandeTesterDeplierJambe(-20,-0.1f));
+        this.boutonTestJambeDeplier = new JoystickButton(this.manette, BOUTON_Y);
+        this.boutonTestJambeDeplier.whenPressed(new CommandeTesterDeplierJambe(20,0.1f));
+        this.boutonTestJambePlier = new JoystickButton(this.manette, BOUTON_X);
+        this.boutonTestJambePlier.whenPressed(new CommandeTesterDeplierJambe(-20,-0.1f));
         
         //this.boutonTestCuisse = new JoystickButton(this.manette, BOUTON_GAUCHE);
         //this.boutonTestCuisse.whenPressed(new CommandeTesterCuisse());
