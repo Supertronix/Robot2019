@@ -29,7 +29,7 @@ public class CommandeTesterDeplierJambe extends Command{
     protected double positionReelle;
     private double calculerPositionReelle()
     {
-    	return Robot.cuisse.lirePosition() - this.decalagePosition;
+    	return Robot.jambe.lirePosition() - this.decalagePosition;
     }    
 
     @Override
@@ -43,7 +43,7 @@ public class CommandeTesterDeplierJambe extends Command{
         this.decalagePosition = Robot.jambe.lirePosition();
         System.out.println("initialize() : decalage position = " + this.decalagePosition + " position reelle = " + this.calculerPositionReelle());
         
-        Robot.cuisse.monter(this.vitesse);
+        Robot.jambe.monter(this.vitesse);
     }
     
     protected void execute(){
@@ -67,8 +67,8 @@ public class CommandeTesterDeplierJambe extends Command{
         if(this.increment < 0) System.out.println("isFinished() : (this.distanceRestante > -this.SEUIL) " + (this.distanceRestante > -this.SEUIL));
     	if(this.increment < 0) if (this.distanceRestante > -this.SEUIL) {Robot.jambe.arreter(); return true;}
     	
-        //System.out.println("isFinished() : this.positionReelle >= Robot.cuisse.POSITION_MAX " + (this.positionReelle >= Robot.cuisse.POSITION_MAX));
-    	//if(this.positionReelle >= Robot.cuisse.POSITION_MAX) {Robot.cuisse.arreter(); return true;}	
+        //System.out.println("isFinished() : this.positionReelle >= Robot.jambe.POSITION_MAX " + (this.positionReelle >= Robot.jambe.POSITION_MAX));
+    	//if(this.positionReelle >= Robot.jambe.POSITION_MAX) {Robot.jambe.arreter(); return true;}	
     	return false;    
 	}
 
