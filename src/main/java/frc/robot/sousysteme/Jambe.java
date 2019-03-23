@@ -78,6 +78,10 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		  return this.position;
 	  }
 	
+	  public void arreter()
+	  {
+		this.moteurPrincipal.set(ControlMode.PercentOutput, 0.0);
+	  }
 	public void monter()
 	{
 		this.moteurPrincipal.set(ControlMode.PercentOutput, 0.1);
