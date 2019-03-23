@@ -15,6 +15,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 // Aussi appelé Hanche par l'équipe	
 public class Cuisse extends Subsystem implements RobotMap.Cuisse{
+	
+	public double POSITION_MIN = 0;
+	public double POSITION_MAX = 3700.0;	
 
 	// http://www.ctr-electronics.com/downloads/api/java/html/classcom_1_1ctre_1_1phoenix_1_1motorcontrol_1_1can_1_1_talon_s_r_x.html
 	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
@@ -54,6 +57,10 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   @Override
   public void initDefaultCommand() {}
   
+  public void arreter()
+  {
+	this.moteurPrincipal.set(ControlMode.PercentOutput, 0.0);
+  }
   public void monter()
   {
 	this.moteurPrincipal.set(ControlMode.PercentOutput, 0.1);
@@ -72,23 +79,23 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //this.moteurPrincipal.configLimitSwitchDisableNeutralOnLOS(true, 10);
   }
   
-  double position; 
+  protected double position; 
   public double lirePosition() // max 3712
   {	  
 	  //position = this.encodeur.getDistance();
-	  position = this.moteurPrincipal.getSelectedSensorPosition(); // -748 (limit switch a 2964 
+	  this.position = this.moteurPrincipal.getSelectedSensorPosition(); // -748 (limit switch a 2964 
 	  //position = this.moteurPrincipal.getSensorCollection().getQuadraturePosition(); // 742 (limit switch) a -2962
-	  System.out.println("Position cuisse " + position);
-      SmartDashboard.putNumber("Position cuisse", position);	  
-	  return position;
+	  System.out.println("Position cuisse " + this.position);
+      SmartDashboard.putNumber("Position cuisse", this.position);	  
+	  return this.position;
   }
-  
-  double consigne = 0;
+    
+  protected double consigne = 0;
   public void augmenterConsignePID(float increment) {
 	  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
 
 	  //Active close loop
-		consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, 0, 3700.0);
+		consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
 		this.moteurPrincipal.set(ControlMode.Position, consigne);
 
   }
@@ -96,7 +103,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   public void reduireConsignePID(float decrement) {
 	  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
 
-		consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, 0, 3700.0);
+		consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
 		this.moteurPrincipal.set(ControlMode.Position, consigne);
 
   }
@@ -136,11 +143,14 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	{
 		this.positionCible += incrementPosition;
 	}
+	
+	protected int distanceRestante;
 	public boolean estArrivePositionCible()
 	{
-		int distanceRestante = (int)(positionCible - lirePosition());
-		System.out.println("Distance restante cuisse " + distanceRestante);
-		if (Math.abs(distanceRestante) < 10) return true;
+		this.distanceRestante = (int)(this.positionCible - lirePosition());
+		System.out.println("Distance restante cuisse " + this.distanceRestante);
+		if (Math.abs(this.distanceRestante) < 10) return true;
+		if(this.position >= this.POSITION_MAX) return true;	
 		return false;
 	}
 

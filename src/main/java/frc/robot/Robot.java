@@ -38,11 +38,11 @@ public class Robot extends TimedRobot {
 	Robot.attrapeur = new Attrapeur();
 	Robot.treuil = new Treuil();
 
-    //Robot.cuisse = new Cuisse();
+    Robot.cuisse = new Cuisse();
     //Robot.jambe = new Jambe();
     
     //this.capteurUltrason = new CapteurUltrason();
-    this.camera = new Camera();
+    //this.camera = new Camera();
 	this.detecteurEcoutille = new DetecteurEcoutilleAttrapee();
   }
 

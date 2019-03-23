@@ -16,7 +16,7 @@ public class Manette implements RobotMap.Manette{
     protected static Manette instance = null;
     public static Manette getInstance()
     {
-      if(null == Manette.instance) Manette.instance = new ManettePratique();
+      if(null == Manette.instance) Manette.instance = new ManetteConfiguration();
       return Manette.instance;
     };
     public static void desactiverInstance()

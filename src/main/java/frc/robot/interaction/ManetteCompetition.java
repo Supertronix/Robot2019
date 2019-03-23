@@ -11,7 +11,6 @@ public class ManetteCompetition extends Manette implements RobotMap.Manette{
     protected JoystickButton boutonControllerAttrapeur;
 
     protected ManetteCompetition()
-    // Design pattern Singleton fin
     {
         this.manette = new Joystick(MANETTE);
         this.boutonControllerAttrapeur = new JoystickButton(this.manette, BOUTON_DROIT);

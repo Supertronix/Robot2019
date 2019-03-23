@@ -14,6 +14,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 // Aussi appelé Genoux par l'équipe
 public class Jambe extends Subsystem implements RobotMap.Jambe{
 
+	public double POSITION_MIN = 0.0;
+	public double POSITION_MAX = 7923.0;	
+	
 	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
 	protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
 	
@@ -45,14 +48,13 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 
 	@Override
 	protected void initDefaultCommand() {}
-	
-	
-	double consigne = 0;
+		
+	protected double consigne = 0;
 	public void augmenterConsignePID(float increment) {
 		  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
 
 		  //Active close loop
-			consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, 0, 7923.0);
+			consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
 			this.moteurPrincipal.set(ControlMode.Position, consigne);
 
 	  }
@@ -60,20 +62,20 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	  public void reduireConsignePID(float decrement) {
 		  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
 
-		  consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, 0, 7923.0);
+		  consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
 			this.moteurPrincipal.set(ControlMode.Position, consigne);
 
 	  }
 	  
-	  double position; 
+	  protected double position; 
 	  public double lirePosition()
 	  {	  
 		  //position = this.encodeur.getDistance();
-		  position = this.moteurPrincipal.getSelectedSensorPosition(); // 0-7923 
+		  this.position = this.moteurPrincipal.getSelectedSensorPosition(); // 0-7923 
 		  //position = this.moteurPrincipal.getSensorCollection().getQuadraturePosition(); 
-		  System.out.println("Position jambe " + position);
-	      SmartDashboard.putNumber("Position jambe", position);	  
-		  return position;
+		  System.out.println("Position jambe " + this.position);
+	      SmartDashboard.putNumber("Position jambe", this.position);	  
+		  return this.position;
 	  }
 	
 	public void monter()
@@ -127,11 +129,15 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	{
 		this.positionCible += incrementPosition;
 	}
+	
+	protected int distanceRestante;
 	public boolean estArrivePositionCible()
 	{
-		int distanceRestante = (int)(positionCible - lirePosition());
-		System.out.println("Distance restante jambe " + distanceRestante);
-		if (Math.abs(distanceRestante) < 10) return true;
+		this.position = lirePosition();
+		this.distanceRestante = (int)(this.positionCible - lirePosition());
+		System.out.println("Distance restante jambe " + this.distanceRestante);
+		if (Math.abs(this.distanceRestante) < 10) return true;
+		if(this.position >= this.POSITION_MAX) return true;
 		return false;
 	}
 
