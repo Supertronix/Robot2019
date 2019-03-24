@@ -37,6 +37,10 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //this.moteurPrincipal.configSetParameter(ParamEnum.eClearPositionOnLimitR, 1, 0, 0);
 	  //this.moteurPrincipal.overrideLimitSwitchesEnable(true);
 	
+	public double PID_P = 0.1;
+	public double PID_I = 0.2;
+	
+	
   public Cuisse()
   {
 	  this.moteurPrincipal.configFactoryDefault();	  
@@ -45,7 +49,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 	  this.moteurPrincipal.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
 	  this.moteurPrincipal.setSensorPhase(true);
-	  this.moteurPrincipal.config_kP(0, 1, 10);
+	  this.moteurPrincipal.config_kP(0, PID_P, 10);
+	  this.moteurPrincipal.config_kP(0, PID_I, 10);
 	  this.moteurPrincipal.setInverted(INVERSE);
 	  this.moteurPrincipal.setSensorPhase(INVERSE);
 	  //this.moteurPrincipal.setSelectedSensorPosition(0);
