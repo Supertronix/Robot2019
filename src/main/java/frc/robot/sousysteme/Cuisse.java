@@ -19,6 +19,9 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	public double POSITION_MIN = 0;
 	public double POSITION_MAX = 3700.0;	
 
+	public int ERREUR_DISTANCE_PERMISE= 5;
+	public int INVERSION = -1;
+	  
 	// http://www.ctr-electronics.com/downloads/api/java/html/classcom_1_1ctre_1_1phoenix_1_1motorcontrol_1_1can_1_1_talon_s_r_x.html
 	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
 	protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
@@ -33,10 +36,9 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //this.moteurPrincipal.configSetParameter(ParamEnum.eClearPositionOnLimitR, 1, 0, 0);
 	  //this.moteurPrincipal.overrideLimitSwitchesEnable(true);
 	
-	int ERREUR_DISTANCE_PERMISE= 5;
   public Cuisse()
   {
-	  //this.moteurPrincipal.configFactoryDefault();	  
+	  this.moteurPrincipal.configFactoryDefault();	  
 	  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	  
 	  
 	  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
@@ -53,7 +55,6 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurSecondaire.setInverted(true);
 	  this.moteurSecondaire.follow(this.moteurPrincipal);
   }
-    
   @Override
   public void initDefaultCommand() {}
   
@@ -63,17 +64,18 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   }
   public void monter()
   {
-	this.moteurPrincipal.set(ControlMode.PercentOutput, 0.1);
+	this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*0.1);
   }
   public void monter(float vitesse)
   {
-	this.moteurPrincipal.set(ControlMode.PercentOutput, vitesse);
+	this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*vitesse);
   }
 
   // Limit switches
   public void configurerMinirupteur()
   {	  
-	  ////this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+	  //this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+	  //this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 	  this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
 	  
 	  //this.moteurPrincipal.configLimitSwitchDisableNeutralOnLOS(true, 10);
@@ -85,9 +87,9 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //position = this.encodeur.getDistance();
 	  this.position = this.moteurPrincipal.getSelectedSensorPosition(); // -748 (limit switch a 2964 
 	  //position = this.moteurPrincipal.getSensorCollection().getQuadraturePosition(); // 742 (limit switch) a -2962
-	  System.out.println("Position cuisse " + this.position);
-      SmartDashboard.putNumber("Position cuisse", this.position);	  
-	  return this.position;
+	  System.out.println("Cuisse.lirePosition() : " + INVERSION*this.position);
+      SmartDashboard.putNumber("Position cuisse", INVERSION*this.position);	  
+	  return INVERSION*this.position;
   }
     
   protected double consigne = 0;
@@ -133,15 +135,18 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	protected float positionCible = 0.0f;
 	public float getPositionCible()
 	{
+        System.out.println("Cuisse.getPositionCible() : la position cible est " + this.positionCible);
 		return this.positionCible;
 	}
 	public void positionner(float position)
 	{
 		this.positionCible = position;
+		System.out.println("Cuisse.positionner() : la nouvelle position desiree est " + this.positionCible);
 	}
 	public void incrementerPosition(float incrementPosition)
 	{
-		this.positionCible += incrementPosition;
+		this.positionCible = (float) (this.lirePosition() + incrementPosition);
+		System.out.println("Cuisse.incrementerPosition() : la nouvelle position desirée est " + this.positionCible);
 	}
 	
 	protected int distanceRestante;

@@ -16,13 +16,14 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 
 	public double POSITION_MIN = 0.0;
 	public double POSITION_MAX = 7923.0;	
+	public int INVERSION = 1;
+	public int ERREUR_DISTANCE_PERMISE = 5;
 	
 	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
 	protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
 	
 	//protected Encoder encodeurMoteurPrincipal = new Encoder(ENCODEUR_MOTEUR_PRINCIPAL_A, ENCODEUR_MOTEUR_PRINCIPAL_B,  ENCODEUR_MOTEUR_PRINCIPAL_INVERSION, Encoder.EncodingType.k2X);
 	
-	int ERREUR_DISTANCE_PERMISE = 5;
 	public Jambe() {
 		  //this.moteurPrincipal.configFactoryDefault();
 		  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	
@@ -73,9 +74,9 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		  //position = this.encodeur.getDistance();
 		  this.position = this.moteurPrincipal.getSelectedSensorPosition(); // 0-7923 
 		  //position = this.moteurPrincipal.getSensorCollection().getQuadraturePosition(); 
-		  System.out.println("Position jambe " + this.position);
-	      SmartDashboard.putNumber("Position jambe", this.position);	  
-		  return this.position;
+		  System.out.println("Position jambe " + INVERSION*this.position);
+	      SmartDashboard.putNumber("Position jambe", INVERSION*this.position);	  
+		  return INVERSION*this.position;
 	  }
 	
 	  public void arreter()
@@ -84,11 +85,11 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	  }
 	public void monter()
 	{
-		this.moteurPrincipal.set(ControlMode.PercentOutput, 0.1);
+		this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*0.1);
 	}
 	public void monter(float vitesse)
 	{
-		this.moteurPrincipal.set(ControlMode.PercentOutput, vitesse);
+		this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*vitesse);
 	}	
 	  
 	public double limiterPID(double val, double min, double max) 
@@ -98,7 +99,9 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	  
 	public void configurerMinirupteur()
 	{	  
-		////this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+		//this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+		//this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+		
 		this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
 		  
 		  //this.moteurPrincipal.configLimitSwitchDisableNeutralOnLOS(true, 10);
@@ -123,15 +126,18 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	protected float positionCible = 0.0f;
 	public float getPositionCible()
 	{
-		return this.positionCible;
+		   System.out.println("Jambe.getPositionCible() : la position cible est " + this.positionCible);
+		   return this.positionCible;
 	}
 	public void positionner(float position)
 	{
 		this.positionCible = position;
+		System.out.println("Jambe.positionner() : la nouvelle position desiree est " + this.positionCible);		
 	}
 	public void incrementerPosition(float incrementPosition)
 	{
 		this.positionCible += incrementPosition;
+		System.out.println("Jambe.incrementerPosition() : la nouvelle position desiree est " + this.positionCible);
 	}
 	
 	protected int distanceRestante;
