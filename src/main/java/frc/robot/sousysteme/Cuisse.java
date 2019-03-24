@@ -17,11 +17,11 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	
 	public double POSITION_MIN = 0;
-	public double POSITION_MAX = 3700.0;	
+	public double POSITION_MAX = 6400; // 3700 sur robot competition	
 
-	public int ERREUR_DISTANCE_PERMISE= 5;
+	public int ERREUR_DISTANCE_PERMISE = 5;
 	public int INVERSION = 1; // inutile depuis moteur.setIntverted(true) - le manuel etait non compatible avec limit switch
-	public boolean INVERSE = true; // TODO inverser pour le robot original
+	public boolean INVERSE = true; // TODO inverser pour le robot competition
 	  
 	// http://www.ctr-electronics.com/downloads/api/java/html/classcom_1_1ctre_1_1phoenix_1_1motorcontrol_1_1can_1_1_talon_s_r_x.html
 	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
@@ -38,7 +38,11 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //this.moteurPrincipal.overrideLimitSwitchesEnable(true);
 	
 	public double PID_P = 0.1;
-	public double PID_I = 0.2;
+	public double PID_I = 0.00005;
+	
+	// marche ralenti
+	//public double PID_P = 0.1;
+	//public double PID_I = 0.00005;
 	
 	
   public Cuisse()
@@ -50,7 +54,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurPrincipal.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
 	  this.moteurPrincipal.setSensorPhase(true);
 	  this.moteurPrincipal.config_kP(0, PID_P, 10);
-	  this.moteurPrincipal.config_kP(0, PID_I, 10);
+	  this.moteurPrincipal.config_kI(0, PID_I, 10);
 	  this.moteurPrincipal.setInverted(INVERSE);
 	  this.moteurPrincipal.setSensorPhase(INVERSE);
 	  //this.moteurPrincipal.setSelectedSensorPosition(0);
@@ -135,7 +139,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	{
 		int distanceRestante = Math.abs((int)(lirePosition() - consigne));
 		System.out.println("Distance restante cuisse " + distanceRestante);
-		if (distanceRestante <= 500) return true;
+		if (distanceRestante <= 10) return true;
 		return false;
 	}
  

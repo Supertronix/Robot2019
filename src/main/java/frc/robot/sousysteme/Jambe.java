@@ -15,9 +15,12 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 public class Jambe extends Subsystem implements RobotMap.Jambe{
 
 	public double POSITION_MIN = 0.0;
-	public double POSITION_MAX = 7923.0;	
+	public double POSITION_MAX = 7000.0; // 7923.0 pour le robot de competition	
 	public int INVERSION = 1;
 	public int ERREUR_DISTANCE_PERMISE = 5;
+	
+	public double PID_P = 0.1;
+	public double PID_I = 0.00005;
 	
 	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
 	protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
@@ -31,7 +34,8 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 		  this.moteurPrincipal.configAllowableClosedloopError(0, 0, ERREUR_DISTANCE_PERMISE);
 		  this.moteurPrincipal.setSensorPhase(true);
-		  this.moteurPrincipal.config_kP(0, 1, 9);
+		  this.moteurPrincipal.config_kP(0, PID_P, 10);
+		  this.moteurPrincipal.config_kI(0, PID_I, 10);
 		  
 		  this.moteurPrincipal.setSelectedSensorPosition(0); // todo placer
 		  
@@ -119,7 +123,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	{
 		int distanceRestante = Math.abs((int)(lirePosition() - consigne));
 		System.out.println("Distance restante jambe " + distanceRestante);
-		if (distanceRestante < 500) return true;
+		if (distanceRestante < 10) return true;
 		return false;
 	}
 	
