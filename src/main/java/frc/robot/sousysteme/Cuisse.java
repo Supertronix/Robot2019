@@ -20,7 +20,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	public double POSITION_MAX = 3700.0;	
 
 	public int ERREUR_DISTANCE_PERMISE= 5;
-	public int INVERSION = -1;
+	public int INVERSION = 1; // inutile depuis moteur.setIntverted(true) - le manuel etait non compatible avec limit switch
+	public boolean INVERSE = true; // TODO inverser pour le robot original
 	  
 	// http://www.ctr-electronics.com/downloads/api/java/html/classcom_1_1ctre_1_1phoenix_1_1motorcontrol_1_1can_1_1_talon_s_r_x.html
 	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
@@ -45,14 +46,15 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurPrincipal.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
 	  this.moteurPrincipal.setSensorPhase(true);
 	  this.moteurPrincipal.config_kP(0, 1, 10);
-	  
+	  this.moteurPrincipal.setInverted(INVERSE);
+	  this.moteurPrincipal.setSensorPhase(INVERSE);
 	  //this.moteurPrincipal.setSelectedSensorPosition(0);
 	  
 	  this.configurerMinirupteur();
 	  
 	  this.moteurSecondaire.configFactoryDefault();	  
 	  this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
-	  this.moteurSecondaire.setInverted(true);
+	  this.moteurSecondaire.setInverted(!INVERSE);
 	  this.moteurSecondaire.follow(this.moteurPrincipal);
   }
   @Override
@@ -74,7 +76,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   // Limit switches
   public void configurerMinirupteur()
   {	  
-	  //this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+	  this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 	  //this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 	  this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
 	  
