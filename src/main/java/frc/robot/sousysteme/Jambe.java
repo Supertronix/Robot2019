@@ -19,8 +19,8 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	public int INVERSION = 1;
 	public int ERREUR_DISTANCE_PERMISE = 5;
 	
-	public double PID_P = 0.1;
-	public double PID_I = 0.00005;
+	public double PID_P = 0.6;
+	public double PID_I = 0.00055;
 	
 	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
 	protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
@@ -123,7 +123,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	{
 		int distanceRestante = Math.abs((int)(lirePosition() - consigne));
 		System.out.println("Distance restante jambe " + distanceRestante);
-		if (distanceRestante < 10) return true;
+		if (distanceRestante < 50) return true;
 		return false;
 	}
 	

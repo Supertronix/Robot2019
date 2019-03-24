@@ -37,8 +37,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //this.moteurPrincipal.configSetParameter(ParamEnum.eClearPositionOnLimitR, 1, 0, 0);
 	  //this.moteurPrincipal.overrideLimitSwitchesEnable(true);
 	
-	public double PID_P = 0.1;
-	public double PID_I = 0.00005;
+	public double PID_P = 0.5;
+	public double PID_I = 0.00055;
 	
 	// marche ralenti
 	//public double PID_P = 0.1;
@@ -139,7 +139,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	{
 		int distanceRestante = Math.abs((int)(lirePosition() - consigne));
 		System.out.println("Distance restante cuisse " + distanceRestante);
-		if (distanceRestante <= 10) return true;
+		if (distanceRestante <= 50) return true;
 		return false;
 	}
  
