@@ -100,7 +100,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	public void configurerMinirupteur()
 	{	  
 		this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-		//this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+		this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 		
 		this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
 		  
