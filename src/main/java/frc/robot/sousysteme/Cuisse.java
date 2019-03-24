@@ -77,7 +77,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   public void configurerMinirupteur()
   {	  
 	  this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-	  //this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+	  this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 	  this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
 	  
 	  //this.moteurPrincipal.configLimitSwitchDisableNeutralOnLOS(true, 10);
