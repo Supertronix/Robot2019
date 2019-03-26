@@ -45,7 +45,7 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         this.boutonTestJambePlier.whenPressed(new CommandeTesterDeplierJambeAvecMinirupteur(-100,-0.3f));
          */
         this.boutonTestGrimpage = new JoystickButton(this.manette, this.BOUTON_DEMARRER);
-        this.boutonTestGrimpage.whenPressed(new CommandeGrimperRobotAvecRampe());
+        this.boutonTestGrimpage.whenPressed(new CommandeGrimperRobot());
         
 
         //this.boutonTestCuisse = new JoystickButton(this.manette, BOUTON_GAUCHE);

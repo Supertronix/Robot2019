@@ -36,11 +36,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		  this.moteurPrincipal.setSensorPhase(true);
 		  this.moteurPrincipal.config_kP(0, PID_P, 10);
 		  this.moteurPrincipal.config_kI(0, PID_I, 10);
-		  
-		  this.moteurPrincipal.config_IntegralZone(0, 1024, 10); // (slotIdx, izone, timeoutMs)
-		  this.moteurPrincipal.config_kF(0, 0.0001, 10); // (slotIdx, value, timeoutMs)
-		  this.moteurPrincipal.configClosedloopRamp(1, 10);//(secondsFromNeutralToFull, timeoutMs)
-		  
+		  		  
 		  this.moteurPrincipal.setSelectedSensorPosition(0); // todo placer
 		  
 

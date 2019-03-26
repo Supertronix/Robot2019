@@ -14,6 +14,7 @@ public class CommandeGrimperRobot extends CommandGroup{
     	this.addParallel(new CommandeDeplierJambe(1700));
     	this.addSequential(new CommandeDeplierCuisse(1000));
     	
+    	/*
     	this.addParallel(new CommandeDeplierJambe(1200));
     	this.addSequential(new CommandeDeplierCuisse(1700));
     	
@@ -21,6 +22,7 @@ public class CommandeGrimperRobot extends CommandGroup{
     	this.addSequential(new CommandeDeplierCuisse(300));
     	
     	this.addParallel(new CommandeDeplierJambe(600));
+    	*/
     	//this.setTimeout(3);    	
     }
 

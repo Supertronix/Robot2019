@@ -60,14 +60,9 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurPrincipal.setSensorPhase(true);
 	  this.moteurPrincipal.config_kP(0, PID_P, 10);
 	  this.moteurPrincipal.config_kI(0, PID_I, 10);
-	  
-	  
-	  this.moteurPrincipal.config_IntegralZone(0, 1024, 10); // (slotIdx, izone, timeoutMs)
-	  this.moteurPrincipal.config_kF(0, 0.0001, 10); // (slotIdx, value, timeoutMs)
-	  this.moteurPrincipal.configClosedloopRamp(1, 10);//(secondsFromNeutralToFull, timeoutMs)
-	  
+	  	  
 	  this.moteurPrincipal.setInverted(INVERSE);
-	  this.moteurPrincipal.setSensorPhase(INVERSE);
+	  //this.moteurPrincipal.setSensorPhase(INVERSE);
 	  //this.moteurPrincipal.setSelectedSensorPosition(0);
 	  
 	  this.configurerMinirupteur();
@@ -75,7 +70,13 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurSecondaire.configFactoryDefault();	  
 	  this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
 	  this.moteurSecondaire.setInverted(!INVERSE);
-	  this.moteurSecondaire.follow(this.moteurPrincipal);
+	  //this.moteurSecondaire.follow(this.moteurPrincipal);
+	  this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);	  
+	  this.moteurSecondaire.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
+	  this.moteurSecondaire.setSensorPhase(true);
+	  this.moteurSecondaire.config_kP(0, PID_P, 10);
+	  this.moteurSecondaire.config_kI(0, PID_I, 10);
+
   }
   @Override
   public void initDefaultCommand() {}
@@ -83,14 +84,18 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   public void arreter()
   {
 	this.moteurPrincipal.set(ControlMode.PercentOutput, 0.0);
+	this.moteurSecondaire.set(ControlMode.PercentOutput, 0.0);
   }
   public void monter()
   {
 	this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*0.1);
+	this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*0.1);
   }
   public void monter(float vitesse)
   {
 	this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*vitesse);
+	this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*vitesse);
+	
   }
 
   // Limit switches
@@ -121,6 +126,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //Active close loop
 		consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
 		this.moteurPrincipal.set(ControlMode.Position, consigne);
+		this.moteurSecondaire.set(ControlMode.Position, consigne);
 
   }
   
@@ -129,6 +135,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 
 		consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
 		this.moteurPrincipal.set(ControlMode.Position, consigne);
+		this.moteurSecondaire.set(ControlMode.Position, consigne);
 
   }
   
