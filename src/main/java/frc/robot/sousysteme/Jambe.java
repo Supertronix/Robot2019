@@ -28,7 +28,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	//protected Encoder encodeurMoteurPrincipal = new Encoder(ENCODEUR_MOTEUR_PRINCIPAL_A, ENCODEUR_MOTEUR_PRINCIPAL_B,  ENCODEUR_MOTEUR_PRINCIPAL_INVERSION, Encoder.EncodingType.k2X);
 	
 	public Jambe() {
-		  //this.moteurPrincipal.configFactoryDefault();
+		  this.moteurPrincipal.configFactoryDefault();
 		  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	
 		  //this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 		  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
@@ -36,6 +36,10 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		  this.moteurPrincipal.setSensorPhase(true);
 		  this.moteurPrincipal.config_kP(0, PID_P, 10);
 		  this.moteurPrincipal.config_kI(0, PID_I, 10);
+		  
+		  this.moteurPrincipal.config_IntegralZone(0, 1024, 10); // (slotIdx, izone, timeoutMs)
+		  this.moteurPrincipal.config_kF(0, 0.0001, 10); // (slotIdx, value, timeoutMs)
+		  this.moteurPrincipal.configClosedloopRamp(1, 10);//(secondsFromNeutralToFull, timeoutMs)
 		  
 		  this.moteurPrincipal.setSelectedSensorPosition(0); // todo placer
 		  

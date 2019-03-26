@@ -40,6 +40,11 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	public double PID_P = 0.5;
 	public double PID_I = 0.00099;
 	
+	// valeurs video
+	//public double PID_P = 0.5;
+	//public double PID_I = 0.00099;
+
+	
 	// marche ralenti
 	//public double PID_P = 0.1;
 	//public double PID_I = 0.00005;
@@ -50,11 +55,17 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurPrincipal.configFactoryDefault();	  
 	  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	  
 	  
-	  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+	  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);	  
 	  this.moteurPrincipal.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
 	  this.moteurPrincipal.setSensorPhase(true);
 	  this.moteurPrincipal.config_kP(0, PID_P, 10);
 	  this.moteurPrincipal.config_kI(0, PID_I, 10);
+	  
+	  
+	  this.moteurPrincipal.config_IntegralZone(0, 1024, 10); // (slotIdx, izone, timeoutMs)
+	  this.moteurPrincipal.config_kF(0, 0.0001, 10); // (slotIdx, value, timeoutMs)
+	  this.moteurPrincipal.configClosedloopRamp(1, 10);//(secondsFromNeutralToFull, timeoutMs)
+	  
 	  this.moteurPrincipal.setInverted(INVERSE);
 	  this.moteurPrincipal.setSensorPhase(INVERSE);
 	  //this.moteurPrincipal.setSelectedSensorPosition(0);
