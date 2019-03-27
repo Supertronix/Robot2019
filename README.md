@@ -45,3 +45,6 @@ http://first.wpi.edu/FRC/roborio/beta/docs/java/edu/wpi/first/wpilibj/Servo.html
 https://www.chiefdelphi.com/t/how-to-program-encoders-with-pid-subsystem/140456/3
 
 The PID Subsystem was designed for a single sensor input and a single output. The way you’re doing it will use a single sensor and send the same output value to both the left and right motors, which would allow you to drive a distance approximately straight. Is that what you want?
+
+**TODO: **
+quand un ou l'autre des minirupteurs de l'attrapeur est activé mettre digital ouptut 3 à true.
