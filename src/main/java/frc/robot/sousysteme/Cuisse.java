@@ -77,7 +77,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurSecondaire.setSensorPhase(true);
 	  
 	  EncodeurPrincipalSource sourceEncodeur = new EncodeurPrincipalSource(this.moteurPrincipal);
-	  PIDController pidSecondaire = new PIDController(PID_P, PID_I, 0, sourceEncodeur, (PIDOutput) this.moteurSecondaire);
+	  PIDController pidSecondaire = new PIDController(PID_P, PID_I, 0, sourceEncodeur, new TalonCible(this.moteurSecondaire));
 	  // PIDController(double Kp, double Ki, double Kd, PIDSource source, PIDOutput output)
 	  // PIDController(double Kp, double Ki, double Kd, double Kf, PIDSource source, PIDOutput output)
 	  //this.moteurSecondaire.follow(this.moteurPrincipal);
@@ -116,6 +116,18 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	@Override
 	public double pidGet() {
 		return this.talon.getSelectedSensorPosition();
+	}
+  }
+  private class TalonCible implements PIDOutput
+  {
+	  private TalonSRX talon;
+	  public TalonCible(TalonSRX talon)
+	  {
+		  this.talon = talon;
+	  }
+	@Override
+	public void pidWrite(double valeur) {
+		this.talon.set(ControlMode.Position,valeur);
 	}
 	  
   }
