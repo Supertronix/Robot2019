@@ -19,9 +19,13 @@ public class CommandeCalibrerCuisse extends Command {
         Robot.cuisse.monter(-0.2f); 
 
     }
+	
+	protected boolean estBloque;
 
 	@Override
 	protected boolean isFinished() {
-		return Robot.cuisse.estBloqueParLimite();
+		this.estBloque = Robot.cuisse.estBloqueParLimite();
+		if(this.estBloque) Robot.cuisse.donnerConsignePID(0);
+		return this.estBloque;
 	}
 }

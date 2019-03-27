@@ -71,5 +71,11 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         this.commandeTesterInitialiserRobot.start();
         //this.commandeTesterEleverRobot = new CommandeTesterEleverRobot();
         //this.commandeTesterEleverRobot.start();
+        
+        //this.boutonAllumerTableTournante = new JoystickButton(this.manette, this.BOUTON_DROIT);
+        //this.boutonAllumerTableTournante.whenPressed(new CommandeAllumerTableTournante());
+        //this.boutonEteindreTableTournante = new JoystickButton(this.manette, this.BOUTON_GAUCHE);
+        //this.boutonEteindreTableTournante.whenPressed(new CommandeEteindreTableTournante());
+        
     }
 }

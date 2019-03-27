@@ -18,10 +18,13 @@ public class CommandeCalibrerJambe extends Command {
 
     }
 
+	protected boolean estBloque;
+	
 	@Override
 	protected boolean isFinished() {
-		
-		return Robot.jambe.estBloquerParLimite();
+		this.estBloque = Robot.jambe.estBloquerParLimite();
+		if(this.estBloque) Robot.jambe.donnerConsignePID(0);
+		return this.estBloque;
 
 	}
 }

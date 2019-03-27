@@ -55,6 +55,11 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	protected void initDefaultCommand() {}
 		
 	protected double consigne = 0;
+	public void donnerConsignePID(float consigne) {
+			//consigne = limiterPID(consigne, POSITION_MIN, POSITION_MAX);
+			this.moteurPrincipal.set(ControlMode.Position, consigne);
+	  }
+
 	public void augmenterConsignePID(float increment) {
 		  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
 
