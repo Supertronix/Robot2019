@@ -1,5 +1,11 @@
 package frc.robot.sousysteme;
 
+import edu.wpi.first.wpilibj.DigitalSource;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
@@ -13,7 +19,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 
 
-// Aussi appel� Hanche par l'�quipe	
+// Aussi appelé Hanche par l'équipe	
 public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	
 	public double POSITION_MIN = 0;
@@ -53,30 +59,65 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   public Cuisse()
   {
 	  this.moteurPrincipal.configFactoryDefault();	  
-	  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	  
+	  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	  	  
+	  this.moteurPrincipal.setInverted(INVERSE);
+	  this.moteurPrincipal.setSensorPhase(true);
 	  
+	  //this.moteurPrincipal.setSelectedSensorPosition(0);
 	  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);	  
 	  this.moteurPrincipal.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
-	  this.moteurPrincipal.setSensorPhase(true);
 	  this.moteurPrincipal.config_kP(0, PID_P, 10);
-	  this.moteurPrincipal.config_kI(0, PID_I, 10);
-	  	  
-	  this.moteurPrincipal.setInverted(INVERSE);
-	  //this.moteurPrincipal.setSensorPhase(INVERSE);
-	  //this.moteurPrincipal.setSelectedSensorPosition(0);
+	  this.moteurPrincipal.config_kI(0, PID_I, 10);	  	  
 	  
 	  this.configurerMinirupteur();
 	  
 	  this.moteurSecondaire.configFactoryDefault();	  
 	  this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
 	  this.moteurSecondaire.setInverted(!INVERSE);
+	  this.moteurSecondaire.setSensorPhase(true);
+	  
+	  EncodeurPrincipalSource sourceEncodeur = new EncodeurPrincipalSource(this.moteurPrincipal);
+	  PIDController pidSecondaire = new PIDController(PID_P, PID_I, 0, sourceEncodeur, (PIDOutput) this.moteurSecondaire);
+	  // PIDController(double Kp, double Ki, double Kd, PIDSource source, PIDOutput output)
+	  // PIDController(double Kp, double Ki, double Kd, double Kf, PIDSource source, PIDOutput output)
 	  //this.moteurSecondaire.follow(this.moteurPrincipal);
+	  
 	  this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);	  
 	  this.moteurSecondaire.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
-	  this.moteurSecondaire.setSensorPhase(true);
 	  this.moteurSecondaire.config_kP(0, PID_P, 10);
 	  this.moteurSecondaire.config_kI(0, PID_I, 10);
+  }
+  
+  // la stratégie est soit de synchroniser les outputs de voltage avec la fonction synchroniser qu'on doit appeler à chaque itération
+  // ou encore d'appliquer une simulation de pid identique ou tres similaire a celle du moteur principal
+  public void synchroniser()
+  {
+	  //this.moteurSecondaire.set(ControlMode.Position, this.moteurPrincipal.getSelectedSensorPosition());
+	  this.moteurSecondaire.set(ControlMode.Current, this.moteurPrincipal.getOutputCurrent());
+  }
+  
+  private class EncodeurPrincipalSource implements PIDSource
+  {
+	TalonSRX talon = null;
+	@SuppressWarnings("unused")
+	public EncodeurPrincipalSource(TalonSRX talon) 
+	{
+		  this.talon = talon;
+	}
+	@Override
+	public void setPIDSourceType(PIDSourceType pidSource) {
+	}
 
+	@Override
+	public PIDSourceType getPIDSourceType() {
+		return  PIDSourceType.kDisplacement;
+	}
+
+	@Override
+	public double pidGet() {
+		return this.talon.getSelectedSensorPosition();
+	}
+	  
   }
   @Override
   public void initDefaultCommand() {}
@@ -175,7 +216,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	public void incrementerPosition(float incrementPosition)
 	{
 		this.positionCible = (float) (this.lirePosition() + incrementPosition);
-		System.out.println("Cuisse.incrementerPosition() : la nouvelle position desir�e est " + this.positionCible);
+		System.out.println("Cuisse.incrementerPosition() : la nouvelle position desirée est " + this.positionCible);
 	}
 	
 	protected int distanceRestante;
