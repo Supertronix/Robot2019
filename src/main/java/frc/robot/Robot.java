@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.commande.attrapeur.CommandeAnnoncerAttrapage;
@@ -29,6 +30,8 @@ public class Robot extends TimedRobot {
   protected Camera camera;
   protected CapteurUltrason capteurUltrason;
   protected DetecteurEcoutilleAttrapee detecteurEcoutille;
+  protected DigitalOutput animateurDisqueLed = null;
+
   
   @Override
   public void robotInit() 
@@ -41,6 +44,7 @@ public class Robot extends TimedRobot {
     Robot.cuisse = new Cuisse();
     Robot.jambe = new Jambe();
     
+    this.animateurDisqueLed = new DigitalOutput(3);
     //this.capteurUltrason = new CapteurUltrason();
     //this.camera = new Camera();
 	this.detecteurEcoutille = new DetecteurEcoutilleAttrapee();
@@ -107,6 +111,14 @@ public class Robot extends TimedRobot {
 		annoncePubliee = false;
 		//annonce.close();
 		annulation.start();
+	}
+	if(this.detecteurEcoutille.estDetecteCoteDroit() || this.detecteurEcoutille.estDetecteCoteGauche())
+	{
+		this.animateurDisqueLed.set(true);
+	}
+	else
+	{
+		this.animateurDisqueLed.set(false);
 	}
 		
 	//Robot.cuisse.lirePosition();
