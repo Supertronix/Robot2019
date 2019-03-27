@@ -1,4 +1,4 @@
-** TODO: **
+**TODO:**
 quand un ou l'autre des minirupteurs de l'attrapeur est activé mettre digital ouptut 3 à true.
 
 
