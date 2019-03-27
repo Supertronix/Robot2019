@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.commande.attrapeur.CommandeAnnoncerAttrapage;
 import frc.robot.commande.attrapeur.CommandeDesactiverAnnonceAttrapage;
+import frc.robot.interaction.AnimateurLed;
 import frc.robot.interaction.Camera;
 import frc.robot.interaction.Manette;
 import frc.robot.interaction.CapteurUltrason;
@@ -30,8 +31,7 @@ public class Robot extends TimedRobot {
   protected Camera camera;
   protected CapteurUltrason capteurUltrason;
   protected DetecteurEcoutilleAttrapee detecteurEcoutille;
-  protected DigitalOutput animateurDisqueLed = null;
-
+  protected AnimateurLed animateurLed;
   
   @Override
   public void robotInit() 
@@ -44,10 +44,10 @@ public class Robot extends TimedRobot {
     Robot.cuisse = new Cuisse();
     Robot.jambe = new Jambe();
     
-    this.animateurDisqueLed = new DigitalOutput(3);
     //this.capteurUltrason = new CapteurUltrason();
     //this.camera = new Camera();
 	this.detecteurEcoutille = new DetecteurEcoutilleAttrapee();
+	this.animateurLed = new AnimateurLed(this.detecteurEcoutille);
   }
 
   @Override
@@ -112,14 +112,7 @@ public class Robot extends TimedRobot {
 		//annonce.close();
 		annulation.start();
 	}
-	if(this.detecteurEcoutille.estDetecteCoteDroit() || this.detecteurEcoutille.estDetecteCoteGauche())
-	{
-		this.animateurDisqueLed.set(true);
-	}
-	else
-	{
-		this.animateurDisqueLed.set(false);
-	}
+	this.animateurLed.animerSelonSignal();
 		
 	//Robot.cuisse.lirePosition();
 	//Robot.jambe.lirePosition();

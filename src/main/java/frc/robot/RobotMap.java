@@ -73,6 +73,11 @@ public interface RobotMap {
     public static final int MAIN_DROITE_AXE_Y = 5;
     public static final int MAIN_DROITE_AXE_X = 4;
   }
+  
+  public interface Affichage
+  {
+	public static final int SIGNAL_ANIMATION_LED = 3;
+  }
 
   public interface Camera
   {
