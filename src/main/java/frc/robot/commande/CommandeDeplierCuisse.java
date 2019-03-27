@@ -2,6 +2,7 @@ package frc.robot.commande;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Journal;
 import frc.robot.Robot;
 
 public class CommandeDeplierCuisse extends Command{
@@ -43,6 +44,7 @@ public class CommandeDeplierCuisse extends Command{
     // TODO trouver une maniere de valider la condition de sortie basee sur la non-progression car parfois il n'arrive jamais selon la batterie
 	@Override
 	protected boolean isFinished() {
+		Journal.ecrire("CommandeDeplierCuisse.isFinished() " + Robot.cuisse.estArrive());  
         System.out.println("CommandeDeplierCuisse.isFinished() " + Robot.cuisse.estArrive());
 		return Robot.cuisse.estArrive();
 	}

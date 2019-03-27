@@ -20,7 +20,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	public int ERREUR_DISTANCE_PERMISE = 5;
 	
 	public double PID_P = 0.6;
-	public double PID_I = 0.00055;
+	public double PID_I = 0.00155; //0.00055;
 	
 	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
 	protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);

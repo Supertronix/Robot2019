@@ -23,7 +23,7 @@ public class CommandeDeroulerTreuil  extends Command{
 	protected void execute(){
         System.out.println("CommandeDeroulerTreuil.execute()");
         Robot.treuil.tourner(-1f);
-        Robot.treuil.compterLesPas();
+        //Robot.treuil.compterLesPas();
     }
 	
 	@Override

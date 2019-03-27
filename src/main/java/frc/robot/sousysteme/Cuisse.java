@@ -1,13 +1,12 @@
 package frc.robot.sousysteme;
 
-import edu.wpi.first.wpilibj.DigitalSource;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Journal;
 import frc.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -32,7 +31,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	// http://www.ctr-electronics.com/downloads/api/java/html/classcom_1_1ctre_1_1phoenix_1_1motorcontrol_1_1can_1_1_talon_s_r_x.html
 	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
 	protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
-	
+	PIDController pidSecondaire;
 	  //this.moteurSecondaire.setSensorPhase(false);
 	  //this.moteurSecondaire.setInverted(false);
 	  //this.moteurSecondaire.clearStickyFaults();
@@ -76,14 +75,14 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurSecondaire.setInverted(!INVERSE);
 	  this.moteurSecondaire.setSensorPhase(true);
 	  
-	  EncodeurPrincipalSource sourceEncodeur = new EncodeurPrincipalSource(this.moteurPrincipal);
-	  PIDController pidSecondaire = new PIDController(PID_P, PID_I, 0, sourceEncodeur, new TalonCible(this.moteurSecondaire));
+	  ////EncodeurPrincipalSource sourceEncodeur = new EncodeurPrincipalSource(this.moteurPrincipal);
+	  ////pidSecondaire = new PIDController(PID_P, PID_I, 0, sourceEncodeur, new TalonCible(this.moteurSecondaire));
 	  // PIDController(double Kp, double Ki, double Kd, PIDSource source, PIDOutput output)
 	  // PIDController(double Kp, double Ki, double Kd, double Kf, PIDSource source, PIDOutput output)
 	  //this.moteurSecondaire.follow(this.moteurPrincipal);
 	  
-	  this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);	  
-	  this.moteurSecondaire.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
+	  this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+	  this.moteurSecondaire.configAllowableClosedloopError(0, 0, this.ERREUR_DISTANCE_PERMISE);
 	  this.moteurSecondaire.config_kP(0, PID_P, 10);
 	  this.moteurSecondaire.config_kI(0, PID_I, 10);
   }
@@ -92,8 +91,22 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   // ou encore d'appliquer une simulation de pid identique ou tres similaire a celle du moteur principal
   public void synchroniser()
   {
+	  Journal.ecrire("Cuisse.synchroniser()");
 	  //this.moteurSecondaire.set(ControlMode.Position, this.moteurPrincipal.getSelectedSensorPosition());
-	  this.moteurSecondaire.set(ControlMode.Current, this.moteurPrincipal.getOutputCurrent());
+
+	  // MARCHE PAS
+	  //Journal.ecrire("Courant ENVOYE " + this.moteurPrincipal.getOutputCurrent());
+	  //this.moteurSecondaire.set(ControlMode.Current, this.moteurPrincipal.getOutputCurrent());
+	  //Journal.ecrire("Courant RECU " + this.moteurSecondaire.getOutputCurrent());
+	  
+	  //Journal.ecrire("Pourcent ENVOYE " + this.moteurPrincipal.getMotorOutputPercent());
+	  this.moteurSecondaire.set(ControlMode.PercentOutput, (3)*this.moteurPrincipal.getMotorOutputPercent());
+	  //Journal.ecrire("Pourcent RECU " + this.moteurSecondaire.getMotorOutputPercent());
+
+	  // EXISTE PAS ENCORE ControlMode.VOLTAGE
+	  //Journal.ecrire("Voltage ENVOYE " + this.moteurPrincipal.getMotorOutputVoltage());
+	  //this.moteurSecondaire.set(ControlMode.VOLTAGE, this.moteurPrincipal.getMotorOutputVoltage());
+	  //Journal.ecrire("Voltage RECU " + this.moteurSecondaire.getMotorOutputVoltage());
   }
   
   private class EncodeurPrincipalSource implements PIDSource
@@ -137,17 +150,17 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   public void arreter()
   {
 	this.moteurPrincipal.set(ControlMode.PercentOutput, 0.0);
-	this.moteurSecondaire.set(ControlMode.PercentOutput, 0.0);
+	////this.moteurSecondaire.set(ControlMode.PercentOutput, 0.0);
   }
   public void monter()
   {
 	this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*0.1);
-	this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*0.1);
+	////this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*0.1);
   }
   public void monter(float vitesse)
   {
 	this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*vitesse);
-	this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*vitesse);
+	////this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*vitesse);
 	
   }
 
@@ -179,8 +192,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //Active close loop
 		consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
 		this.moteurPrincipal.set(ControlMode.Position, consigne);
-		this.moteurSecondaire.set(ControlMode.Position, consigne);
-
+		//this.moteurSecondaire.set(ControlMode.Position, consigne);
+		////this.pidSecondaire.setSetpoint(consigne);
   }
   
   public void reduireConsignePID(float decrement) {
@@ -188,8 +201,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 
 		consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
 		this.moteurPrincipal.set(ControlMode.Position, consigne);
-		this.moteurSecondaire.set(ControlMode.Position, consigne);
-
+		//this.moteurSecondaire.set(ControlMode.Position, consigne);
+		////this.pidSecondaire.setSetpoint(consigne);
   }
   
   public double limiterPID(double val, double min, double max) 
