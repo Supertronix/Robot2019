@@ -2,6 +2,8 @@ package frc.robot.interaction;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.Journal;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commande.CommandeDeplierCuisse;
 import frc.robot.commande.CommandeDeplierJambe;
@@ -44,8 +46,8 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         this.boutonTestJambePlier = new JoystickButton(this.manette, BOUTON_X);
         this.boutonTestJambePlier.whenPressed(new CommandeTesterDeplierJambeAvecMinirupteur(-100,-0.3f));
          */
-        this.boutonTestGrimpage = new JoystickButton(this.manette, this.BOUTON_DEMARRER);
-        this.boutonTestGrimpage.whenPressed(new CommandeGrimperRobot());
+        //this.boutonTestGrimpage = new JoystickButton(this.manette, this.BOUTON_DEMARRER);
+        //this.boutonTestGrimpage.whenPressed(new CommandeGrimperRobot());
         
 
         //this.boutonTestCuisse = new JoystickButton(this.manette, BOUTON_GAUCHE);
@@ -78,4 +80,10 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         //this.boutonEteindreTableTournante.whenPressed(new CommandeEteindreTableTournante());
         
     }
+    
+    public void executerActions()
+    {
+  	  Journal.ecrire("treuil.getPositionLecteur = " + Robot.treuil.getPositionLecteur());
+    }
+
 }

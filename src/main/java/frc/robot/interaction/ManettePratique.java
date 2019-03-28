@@ -2,14 +2,13 @@ package frc.robot.interaction;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commande.CommandeDeroulerTreuil;
 import frc.robot.commande.CommandeInitialiserRobot;
 import frc.robot.commande.CommandeRoulerTreuil;
-import frc.robot.commande.attrapeur.CommandeAllumerTableTournante;
 import frc.robot.commande.attrapeur.CommandeArmerAttrapeur;
 import frc.robot.commande.attrapeur.CommandeDescendreGoupille;
-import frc.robot.commande.attrapeur.CommandeEteindreTableTournante;
 import frc.robot.commande.attrapeur.CommandeMonterGoupille;
 import frc.robot.commande.attrapeur.CommandeRelacherEcoutille;
 
@@ -46,8 +45,19 @@ public class ManettePratique extends Manette implements RobotMap.Manette{
         this.boutonDeroulerTreuil.whenPressed(new CommandeDeroulerTreuil());
         
         this.commandeTesterInitialiserRobot = new CommandeInitialiserRobot();
-        this.commandeTesterInitialiserRobot.start();
-        
+        this.commandeTesterInitialiserRobot.start();   
     }
+    
+    public void executerActions()
+    {
+  	  //Journal.ecrire("Test Cuisse Moteur " + RobotMap.Cuisse.MOTEUR_SECONDAIRE);	
+    	Robot.cuisse.synchroniser();
+    	Robot.animateurDisque.animerSelonSignal();
+    	Robot.animateurLed.animerSelonSignal();
+    	Robot.roues.conduire();
+    	//this.capteurUltrason.detecter();
+
+    }
+    
         
 }

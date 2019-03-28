@@ -1,10 +1,7 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import frc.robot.commande.attrapeur.CommandeAnnoncerAttrapage;
-import frc.robot.commande.attrapeur.CommandeDesactiverAnnonceAttrapage;
 import frc.robot.interaction.AnimateurDisque;
 import frc.robot.interaction.AnimateurLed;
 import frc.robot.interaction.Camera;
@@ -32,8 +29,8 @@ public class Robot extends TimedRobot {
   protected Camera camera;
   protected CapteurUltrason capteurUltrason;
   protected DetecteurEcoutilleAttrapee detecteurEcoutille;
-  protected AnimateurLed animateurLed;
-  protected AnimateurDisque animateurDisque;
+  public static AnimateurLed animateurLed;
+  public static AnimateurDisque animateurDisque;
   
   @Override
   public void robotInit() 
@@ -90,19 +87,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() 
   {
-	Scheduler.getInstance().run();
-    //Journal.ecrire("teleopPeriodic()");
-	
-	Robot.cuisse.synchroniser();
-    //Journal.ecrire("Test Cuisse Moteur " + RobotMap.Cuisse.MOTEUR_SECONDAIRE);
-	
-	this.animateurDisque.animerSelonSignal();
-	this.animateurLed.animerSelonSignal();
-	 
-	Robot.roues.conduire();
-	//this.capteurUltrason.detecter();
-	
-	Journal.ecrire("treuil.getPositionLecteur = "+treuil.getPositionLecteur());
+	  //Journal.ecrire("teleopPeriodic()");
+	  Scheduler.getInstance().run();
+	  Manette.getInstance().executerActions(); 
   }
 
   @Override

@@ -134,7 +134,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   private class TalonCible implements PIDOutput
   {
 	  private TalonSRX talon;
-	  public TalonCible(TalonSRX talon)
+	  @SuppressWarnings("unused")
+	public TalonCible(TalonSRX talon)
 	  {
 		  this.talon = talon;
 	  }
