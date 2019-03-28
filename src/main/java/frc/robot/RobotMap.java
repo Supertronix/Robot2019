@@ -33,7 +33,7 @@ public interface RobotMap {
     public interface TableTournante
     {
         public static final int MOTEUR_TABLE_TOURNANTE = 7; 
-        public static final float MOTEUR_TABLE_TOURNANTE_VITESSE = 0.2f;
+        public static final float MOTEUR_TABLE_TOURNANTE_VITESSE = 0.4f;
         public static final float MOTEUR_TABLE_TOURNANTE_ARRET = 0.0f;    	
     }
     
