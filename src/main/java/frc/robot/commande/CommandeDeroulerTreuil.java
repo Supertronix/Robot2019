@@ -16,7 +16,7 @@ public class CommandeDeroulerTreuil  extends Command{
     protected void initialize()
     {
         System.out.println("CommandeDeroulerTreuil.initialize()");
-        Robot.treuil.setNombrePas(15);
+        //Robot.treuil.setNombrePas(15);
         this.debut = System.currentTimeMillis();
     }
 	

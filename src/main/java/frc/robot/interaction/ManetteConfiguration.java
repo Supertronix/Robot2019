@@ -5,7 +5,9 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.Journal;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.commande.CommandeDeroulerTreuil;
 import frc.robot.commande.CommandeInitialiserRobot;
+import frc.robot.commande.CommandeRoulerTreuil;
 
 public class ManetteConfiguration extends Manette implements RobotMap.Manette{
 
@@ -20,6 +22,8 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
     protected JoystickButton boutonTesterMonterRobot;
     
     protected JoystickButton boutonTestGrimpage;
+    protected JoystickButton boutonRoulerTreuil;
+    protected JoystickButton boutonDeroulerTreuil;
 
     protected CommandeInitialiserRobot commandeTesterInitialiserRobot = null;
     
@@ -71,11 +75,15 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         //this.boutonEteindreTableTournante = new JoystickButton(this.manette, this.BOUTON_GAUCHE);
         //this.boutonEteindreTableTournante.whenPressed(new CommandeEteindreTableTournante());
         
+        this.boutonRoulerTreuil = new JoystickButton(this.manette, BOUTON_DROIT);
+        this.boutonRoulerTreuil.whenPressed(new CommandeRoulerTreuil());
+        this.boutonDeroulerTreuil = new JoystickButton(this.manette, BOUTON_GAUCHE);
+        this.boutonDeroulerTreuil.whenPressed(new CommandeDeroulerTreuil());
     }
     
     public void executerActions()
     {
-    	this.deplacerTreuilSelonAxes();
+    	//this.deplacerTreuilSelonAxes();
     }
     
     public void deplacerTreuilSelonAxes()

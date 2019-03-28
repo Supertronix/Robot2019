@@ -16,14 +16,13 @@ public class CommandeRoulerTreuil  extends Command{
     protected void initialize()
     {
         System.out.println("CommandeRoulerTreuil.initialize()");
-        Robot.treuil.setNombrePas(15);
+        //Robot.treuil.setNombrePas(15);
         this.debut = System.currentTimeMillis();
     }
 	
 	protected void execute(){
         System.out.println("CommandeRoulerTreuil.execute()");
         Robot.treuil.tourner(1f);
-        //Robot.treuil.compterLesPas();
     }
 	
 	@Override
