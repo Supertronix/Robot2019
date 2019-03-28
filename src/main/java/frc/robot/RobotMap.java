@@ -76,7 +76,9 @@ public interface RobotMap {
   
   public interface Affichage
   {
-	public static final int SIGNAL_ANIMATION_LED = 3;
+	public static final int SIGNAL_ANIMATION_LED = 0;
+	public static final int SIGNAL_ECOUTILLE_DROIT = 2;
+	public static final int SIGNAL_ECOUTILLE_GAUCHE = 1;
   }
 
   public interface Camera

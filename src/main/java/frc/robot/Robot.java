@@ -45,7 +45,7 @@ public class Robot extends TimedRobot {
     Robot.jambe = new Jambe();
     
     //this.capteurUltrason = new CapteurUltrason();
-    //this.camera = new Camera();
+    this.camera = new Camera();
 	this.detecteurEcoutille = new DetecteurEcoutilleAttrapee();
 	this.animateurLed = new AnimateurLed(this.detecteurEcoutille);
   }
@@ -84,7 +84,8 @@ public class Robot extends TimedRobot {
 	 this.manette = Manette.getInstance();
   }
 
-  
+  CommandeAnnoncerAttrapage annonce;  
+  CommandeDesactiverAnnonceAttrapage annulation;
   protected boolean annoncePubliee = false;
   protected boolean estAttrape = false;
   @Override
@@ -102,22 +103,21 @@ public class Robot extends TimedRobot {
 	//Journal.ecrire(Journal.NIVEAU.DETAIL,"EST ATTRAPE = " + estAttrape);
 	if(this.estAttrape && !annoncePubliee)
 	{
-		CommandeAnnoncerAttrapage annonce = new CommandeAnnoncerAttrapage();
+		Journal.ecrire("estAttrape & !annoncePubliee");
+		annonce = new CommandeAnnoncerAttrapage();
 		annonce.start();
 		annoncePubliee = true;
 		//annulation.close();
 	}
 	if(!this.estAttrape && annoncePubliee)
 	{
-		CommandeDesactiverAnnonceAttrapage annulation = new CommandeDesactiverAnnonceAttrapage();
+		Journal.ecrire("! estAttrape & annoncePubliee");
+		annulation = new CommandeDesactiverAnnonceAttrapage();
 		annoncePubliee = false;
 		//annonce.close();
 		annulation.start();
 	}
 	this.animateurLed.animerSelonSignal();
-		
-	//Robot.cuisse.lirePosition();
-	//Robot.jambe.lirePosition();
 	 
 	Robot.roues.conduire();
 	//this.capteurUltrason.detecter();
