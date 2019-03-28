@@ -122,6 +122,8 @@ public class Robot extends TimedRobot {
 	Robot.roues.conduire();
 	//this.capteurUltrason.detecter();
     //Journal.ecrire("Test Cuisse Moteur " + RobotMap.Cuisse.MOTEUR_SECONDAIRE);
+	
+	Journal.ecrire("treuil.getPositionLecteur "+treuil.getPositionLecteur());
   }
 
   @Override

@@ -48,7 +48,7 @@ public interface RobotMap {
     public interface Treuil
     {
 	    public static final int MOTEUR_TREUIL = 8; 
-	    public static final int COMPTEUR_TREUIL = 3;
+	    public static final int COMPTEUR_TREUIL = 0;
 		public static final long DELAI_MAXIMUM = 3000;
     }
   }
