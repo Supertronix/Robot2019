@@ -84,8 +84,8 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
     
     public void executerActions()
     {
-    	//this.deplacerTreuilSelonAxes();
-    	this.roulerEtDeroulerTreuil();
+    	this.deplacerTreuilSelonAxes();
+    	//this.roulerEtDeroulerTreuil();
     }
 
     protected Command commandeRoulerTreuil = null;
