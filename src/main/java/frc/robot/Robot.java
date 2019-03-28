@@ -36,7 +36,7 @@ public class Robot extends TimedRobot {
   public void robotInit() 
   {
 	Journal.activer(); Journal.activerNiveau(1);
-	Robot.roues = new RouesMecanum();
+	//Robot.roues = new RouesMecanum();
 	Robot.attrapeur = new Attrapeur();
 	Robot.treuil = new Treuil();
 

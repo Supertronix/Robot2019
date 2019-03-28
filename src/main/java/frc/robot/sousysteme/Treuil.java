@@ -12,8 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 public class Treuil extends Subsystem implements RobotMap.Attrapeur.Treuil{
 	
 	// http://www.ctr-electronics.com/downloads/api/java/html/classcom_1_1ctre_1_1phoenix_1_1motorcontrol_1_1can_1_1_talon_s_r_x.html
-	//protected TalonSRX moteur = new TalonSRX(this.MOTEUR_TREUIL);
-	protected VictorSPX moteur = new VictorSPX(this.MOTEUR_TREUIL);
+	protected VictorSPX moteur = new VictorSPX(MOTEUR_TREUIL);
 	protected LecteurPositionTreuil lecteurPosition;
 			
   public Treuil()
@@ -22,18 +21,21 @@ public class Treuil extends Subsystem implements RobotMap.Attrapeur.Treuil{
 	  this.lecteurPosition = new LecteurPositionTreuil();
   }
   
+  public void initialiser()
+  {
+  }
+  
   public double getPositionLecteur()
   {
 	  return lecteurPosition.getPosition();
   }
   
-  public boolean estRentreDansRoot()
+  public boolean estRentre()
   {
-	  return lecteurPosition.estAuMinimum();
-	  
+	  return lecteurPosition.estAuMinimum();	  
   }
   
-  public boolean estSortiDuRoot()
+  public boolean estSorti()
   {
 	  return lecteurPosition.estAuMaximum();	  
   }

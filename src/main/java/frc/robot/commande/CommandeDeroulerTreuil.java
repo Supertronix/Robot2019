@@ -28,7 +28,7 @@ public class CommandeDeroulerTreuil  extends Command{
 	
 	@Override
 	protected boolean isFinished() {
-        if(Robot.treuil.estSortiDuRoot() || ((System.currentTimeMillis() - this.debut) > Treuil.DELAI_MAXIMUM))
+        if(Robot.treuil.estSorti() || ((System.currentTimeMillis() - this.debut) > Treuil.DELAI_MAXIMUM))
         {
         	Robot.treuil.arreter();
         	return true;

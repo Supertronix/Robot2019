@@ -75,7 +75,20 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
     
     public void executerActions()
     {
-  	  Journal.ecrire("treuil.getPositionLecteur = " + Robot.treuil.getPositionLecteur());
+    	this.deplacerTreuilSelonAxes();
+    }
+    
+    public void deplacerTreuilSelonAxes()
+    {
+    	  Journal.ecrire("treuil.getPositionLecteur = " + Robot.treuil.getPositionLecteur());
+      	  Robot.treuil.tourner((float)(this.getAxeMainGauche().y));
+      	  Journal.ecrire("treuil.estRentre : " + Robot.treuil.estRentre());
+      	  Journal.ecrire("treuil.estSorti : " + Robot.treuil.estSorti());
+    }
+    
+    public void deplacerCuisseSelonAxes()
+    {
+    	
     }
 
 }

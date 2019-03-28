@@ -28,7 +28,7 @@ public class CommandeRoulerTreuil  extends Command{
 	
 	@Override
 	protected boolean isFinished() {
-        if(Robot.treuil.estRentreDansRoot() || ((System.currentTimeMillis() - this.debut) > Treuil.DELAI_MAXIMUM))
+        if(Robot.treuil.estRentre() || ((System.currentTimeMillis() - this.debut) > Treuil.DELAI_MAXIMUM))
         {
         	Robot.treuil.arreter();
         	return true;
