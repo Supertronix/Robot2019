@@ -7,7 +7,10 @@ import frc.robot.interaction.LecteurPositionTreuil;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
+/*
+ * Energie + le rentre davantage
+ * Energie - le fait sortir
+ * */
 // Aussi appelé Winches par l'équipe	
 public class Treuil extends Subsystem implements RobotMap.Attrapeur.Treuil{
 	
@@ -25,7 +28,7 @@ public class Treuil extends Subsystem implements RobotMap.Attrapeur.Treuil{
   {
   }
   
-  public double getPositionLecteur()
+  public double getPosition()
   {
 	  return lecteurPosition.getPosition();
   }
@@ -49,16 +52,19 @@ public class Treuil extends Subsystem implements RobotMap.Attrapeur.Treuil{
     
   @Override
   public void initDefaultCommand() {}
-  
+  /*
   public void tourner()
   {
 	Journal.ecrire(Journal.NIVEAU.DETAIL, "Treuil.tourner()");	  
 	this.moteur.set(ControlMode.PercentOutput, 0.1);
-  }
+  }*/
   public void tourner(float vitesse)
   {
-	Journal.ecrire(Journal.NIVEAU.DETAIL, "Treuil.tourner("+vitesse+")");	  
-	this.moteur.set(ControlMode.PercentOutput, vitesse);
+	Journal.ecrire(Journal.NIVEAU.DETAIL, "Treuil.tourner("+vitesse+")");
+	Journal.ecrire("S'il rentre et n'est pas rentre " + (vitesse > 0 && !this.estRentre()));
+	if(vitesse > 0 && !this.estRentre()) this.moteur.set(ControlMode.PercentOutput, vitesse);
+	Journal.ecrire("S'il sort et n'est pas sorti " + (vitesse < 0 && !this.estSorti()));
+	if(vitesse < 0 && !this.estSorti()) this.moteur.set(ControlMode.PercentOutput, vitesse);
   }
   
   public void arreter()
