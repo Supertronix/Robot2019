@@ -5,11 +5,13 @@ import frc.robot.Robot;
 
 public class CommandeAllumerTableTournante extends Command{
 
-    public CommandeAllumerTableTournante(){
+    @SuppressWarnings("static-access")
+	public CommandeAllumerTableTournante(){
         requires(Robot.attrapeur.tableTournante);
     }
 
-    @Override
+    @SuppressWarnings("static-access")
+	@Override
     protected void initialize(){
         System.out.println("CommandeAllumerTableTournante.initialize()");       
         Robot.attrapeur.tableTournante.allumerTableTournante();

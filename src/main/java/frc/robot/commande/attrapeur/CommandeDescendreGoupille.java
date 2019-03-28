@@ -5,11 +5,13 @@ import frc.robot.Robot;
 
 public class CommandeDescendreGoupille extends Command{
 
-    public CommandeDescendreGoupille(){
+    @SuppressWarnings("static-access")
+	public CommandeDescendreGoupille(){
         requires(Robot.attrapeur.cremaillere);
     }
 
-    @Override
+    @SuppressWarnings("static-access")
+	@Override
     protected void initialize(){
         System.out.println("CommandeDescendreGoupille.initialize()");       
         Robot.attrapeur.cremaillere.descendreGoupille();

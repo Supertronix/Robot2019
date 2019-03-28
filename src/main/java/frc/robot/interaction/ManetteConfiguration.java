@@ -5,15 +5,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.Journal;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.commande.CommandeDeplierCuisse;
-import frc.robot.commande.CommandeDeplierJambe;
-import frc.robot.commande.CommandeGrimperRobot;
-import frc.robot.commande.CommandeGrimperRobotAvecRampe;
 import frc.robot.commande.CommandeInitialiserRobot;
-import frc.robot.commande.configuration.CommandeTesterDeplierCuisse;
-import frc.robot.commande.configuration.CommandeTesterDeplierCuisseAvecMinirupteur;
-import frc.robot.commande.configuration.CommandeTesterDeplierJambe;
-import frc.robot.commande.configuration.CommandeTesterDeplierJambeAvecMinirupteur;
 
 public class ManetteConfiguration extends Manette implements RobotMap.Manette{
 

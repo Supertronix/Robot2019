@@ -1,7 +1,6 @@
 package frc.robot.interaction;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import frc.robot.Journal;
 import frc.robot.RobotMap;
 
 public class DetecteurEcoutilleAttrapee  implements RobotMap.Affichage{

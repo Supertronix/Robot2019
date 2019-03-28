@@ -26,9 +26,9 @@ public class Robot extends TimedRobot {
 
   // Interactions
   protected Manette manette;
-  protected Camera camera;
-  protected CapteurUltrason capteurUltrason;
-  protected DetecteurEcoutilleAttrapee detecteurEcoutille;
+  protected static Camera camera;
+  public static CapteurUltrason capteurUltrason;
+  public static DetecteurEcoutilleAttrapee detecteurEcoutille;
   public static AnimateurLed animateurLed;
   public static AnimateurDisque animateurDisque;
   
@@ -44,10 +44,10 @@ public class Robot extends TimedRobot {
     Robot.jambe = new Jambe();
     
     //this.capteurUltrason = new CapteurUltrason();
-    this.camera = new Camera();
-	this.detecteurEcoutille = new DetecteurEcoutilleAttrapee();
-	this.animateurLed = new AnimateurLed(this.detecteurEcoutille);
-	this.animateurDisque = new AnimateurDisque(this.detecteurEcoutille);
+    Robot.camera = new Camera();
+	Robot.detecteurEcoutille = new DetecteurEcoutilleAttrapee();
+	Robot.animateurLed = new AnimateurLed(Robot.detecteurEcoutille);
+	Robot.animateurDisque = new AnimateurDisque(Robot.detecteurEcoutille);
   }
 
   @Override
