@@ -2,6 +2,8 @@ package frc.robot.interaction;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Journal;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commande.CommandeDeroulerTreuil;
@@ -56,8 +58,30 @@ public class ManettePratique extends Manette implements RobotMap.Manette{
     	Robot.animateurLed.animerSelonSignal();
     	Robot.roues.conduire();
     	//this.capteurUltrason.detecter();
-
+    	this.roulerEtDeroulerTreuil();
     }
+    
+    protected Command commandeRoulerTreuil = null;
+    protected Command commandeDeroulerTreuil = null;
+
+    public void roulerEtDeroulerTreuil()
+    {
+    	Journal.ecrire("Declencheur main droite " + this.getDeclencheurMainDroite());
+    	if(this.getDeclencheurMainDroite() > 0.5 && this.commandeDeroulerTreuil == null) 
+    	{
+    		this.commandeRoulerTreuil = null;
+    		this.commandeDeroulerTreuil = new CommandeDeroulerTreuil();
+    		this.commandeDeroulerTreuil.start();
+    	}
+    	Journal.ecrire("Declencheur main gauche " + this.getDeclencheurMainGauche());
+    	if(this.getDeclencheurMainGauche() > 0.5 && this.commandeRoulerTreuil == null) 
+    	{
+    		this.commandeDeroulerTreuil = null;
+    		this.commandeRoulerTreuil = new CommandeRoulerTreuil();
+    		this.commandeRoulerTreuil.start();
+    	}
+    }
+
     
         
 }

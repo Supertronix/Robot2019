@@ -81,12 +81,17 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         //this.boutonDeroulerTreuil = new JoystickButton(this.manette, BOUTON_GAUCHE);
         //this.boutonDeroulerTreuil.whenPressed(new CommandeDeroulerTreuil());
     }
-    protected Command commandeRoulerTreuil = null;
-    protected Command commandeDeroulerTreuil = null;
     
     public void executerActions()
     {
     	//this.deplacerTreuilSelonAxes();
+    	this.roulerEtDeroulerTreuil();
+    }
+
+    protected Command commandeRoulerTreuil = null;
+    protected Command commandeDeroulerTreuil = null;
+    public void roulerEtDeroulerTreuil()
+    {
     	Journal.ecrire("Declencheur main droite " + this.getDeclencheurMainDroite());
     	if(this.getDeclencheurMainDroite() > 0.5 && this.commandeDeroulerTreuil == null) 
     	{
@@ -101,9 +106,7 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
     		this.commandeRoulerTreuil = new CommandeRoulerTreuil();
     		this.commandeRoulerTreuil.start();
     	}
-    	
     }
-    
     public void deplacerTreuilSelonAxes()
     {
     	  Journal.ecrire("treuil.getPositionLecteur = " + Robot.treuil.getPosition());
