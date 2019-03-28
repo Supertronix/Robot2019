@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.commande.attrapeur.CommandeAnnoncerAttrapage;
 import frc.robot.commande.attrapeur.CommandeDesactiverAnnonceAttrapage;
+import frc.robot.interaction.AnimateurDisque;
 import frc.robot.interaction.AnimateurLed;
 import frc.robot.interaction.Camera;
 import frc.robot.interaction.Manette;
@@ -32,6 +33,7 @@ public class Robot extends TimedRobot {
   protected CapteurUltrason capteurUltrason;
   protected DetecteurEcoutilleAttrapee detecteurEcoutille;
   protected AnimateurLed animateurLed;
+  protected AnimateurDisque animateurDisque;
   
   @Override
   public void robotInit() 
@@ -48,6 +50,7 @@ public class Robot extends TimedRobot {
     this.camera = new Camera();
 	this.detecteurEcoutille = new DetecteurEcoutilleAttrapee();
 	this.animateurLed = new AnimateurLed(this.detecteurEcoutille);
+	this.animateurDisque = new AnimateurDisque(this.detecteurEcoutille);
   }
 
   @Override
@@ -84,46 +87,22 @@ public class Robot extends TimedRobot {
 	 this.manette = Manette.getInstance();
   }
 
-  CommandeAnnoncerAttrapage annonce;  
-  CommandeDesactiverAnnonceAttrapage annulation;
-  protected boolean annoncePubliee = false;
-  protected boolean estAttrape = false;
   @Override
   public void teleopPeriodic() 
   {
 	Scheduler.getInstance().run();
     //Journal.ecrire("teleopPeriodic()");
 	
-	//Journal.ecrire(Journal.NIVEAU.NOTIFICATION,"Droit : " + this.detecteurEcoutille.estDetecteCoteDroit());
-	//Journal.ecrire(Journal.NIVEAU.NOTIFICATION,"Gauche : " + this.detecteurEcoutille.estDetecteCoteGauche());
-
 	this.cuisse.synchroniser();
+    //Journal.ecrire("Test Cuisse Moteur " + RobotMap.Cuisse.MOTEUR_SECONDAIRE);
 	
-	this.estAttrape = this.detecteurEcoutille.estAttrapee();
-	//Journal.ecrire(Journal.NIVEAU.DETAIL,"EST ATTRAPE = " + estAttrape);
-	if(this.estAttrape && !annoncePubliee)
-	{
-		Journal.ecrire("estAttrape & !annoncePubliee");
-		annonce = new CommandeAnnoncerAttrapage();
-		annonce.start();
-		annoncePubliee = true;
-		//annulation.close();
-	}
-	if(!this.estAttrape && annoncePubliee)
-	{
-		Journal.ecrire("! estAttrape & annoncePubliee");
-		annulation = new CommandeDesactiverAnnonceAttrapage();
-		annoncePubliee = false;
-		//annonce.close();
-		annulation.start();
-	}
+	this.animateurDisque.animerSelonSignal();
 	this.animateurLed.animerSelonSignal();
 	 
 	Robot.roues.conduire();
 	//this.capteurUltrason.detecter();
-    //Journal.ecrire("Test Cuisse Moteur " + RobotMap.Cuisse.MOTEUR_SECONDAIRE);
 	
-	Journal.ecrire("treuil.getPositionLecteur "+treuil.getPositionLecteur());
+	Journal.ecrire("treuil.getPositionLecteur = "+treuil.getPositionLecteur());
   }
 
   @Override
