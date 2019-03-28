@@ -60,11 +60,21 @@ public class Treuil extends Subsystem implements RobotMap.Attrapeur.Treuil{
   }*/
   public void tourner(float vitesse)
   {
-	Journal.ecrire(Journal.NIVEAU.DETAIL, "Treuil.tourner("+vitesse+")");
 	Journal.ecrire("S'il rentre et n'est pas rentre " + (vitesse > 0 && !this.estRentre()));
+	if(vitesse > 0 && !this.estRentre())
+	{
+		Journal.ecrire(Journal.NIVEAU.DETAIL, "Treuil.tourner("+vitesse+")");
+		this.moteur.set(ControlMode.PercentOutput, vitesse);
+		return;
+	}
 	Journal.ecrire("S'il sort et n'est pas sorti " + (vitesse < 0 && !this.estSorti()));
-	if((vitesse > 0 && !this.estRentre()) || (vitesse < 0 && !this.estSorti())) this.moteur.set(ControlMode.PercentOutput, vitesse);
-	else this.arreter();
+	if(vitesse < 0 && !this.estSorti()) 
+	{
+		Journal.ecrire(Journal.NIVEAU.DETAIL, "Treuil.tourner("+vitesse+")");
+		this.moteur.set(ControlMode.PercentOutput, vitesse);
+		return;
+	}
+	this.arreter();
   }
   
   public void arreter()
