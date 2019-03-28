@@ -93,7 +93,7 @@ public class Robot extends TimedRobot {
 	Scheduler.getInstance().run();
     //Journal.ecrire("teleopPeriodic()");
 	
-	this.cuisse.synchroniser();
+	Robot.cuisse.synchroniser();
     //Journal.ecrire("Test Cuisse Moteur " + RobotMap.Cuisse.MOTEUR_SECONDAIRE);
 	
 	this.animateurDisque.animerSelonSignal();
