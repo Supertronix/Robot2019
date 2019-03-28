@@ -47,6 +47,14 @@ public class Manette implements RobotMap.Manette{
       this.axeMainGauche = new Axe(manette.getRawAxis(MAIN_GAUCHE_AXE_X), manette.getRawAxis(MAIN_GAUCHE_AXE_Y));
 		  return this.axeMainGauche;
     }
+    public double getDeclencheurMainGauche() 
+    {
+    	return manette.getRawAxis(MAIN_GAUCHE_AXE_DECLENCHEUR);
+    }
+    public double getDeclencheurMainDroite() 
+    {
+    	return manette.getRawAxis(MAIN_DROITE_AXE_DECLENCHEUR);
+    }
 
     enum Direction {DEVANT, DERRIERE, LATERAL_DROIT, LATERAL_GAUCHE, ROTATION_DROITE, ROTATION_GAUCHE};
 

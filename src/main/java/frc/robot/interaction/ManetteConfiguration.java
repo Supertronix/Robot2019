@@ -2,6 +2,7 @@ package frc.robot.interaction;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Journal;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -75,15 +76,32 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         //this.boutonEteindreTableTournante = new JoystickButton(this.manette, this.BOUTON_GAUCHE);
         //this.boutonEteindreTableTournante.whenPressed(new CommandeEteindreTableTournante());
         
-        this.boutonRoulerTreuil = new JoystickButton(this.manette, BOUTON_DROIT);
-        this.boutonRoulerTreuil.whenPressed(new CommandeRoulerTreuil());
-        this.boutonDeroulerTreuil = new JoystickButton(this.manette, BOUTON_GAUCHE);
-        this.boutonDeroulerTreuil.whenPressed(new CommandeDeroulerTreuil());
+        //this.boutonRoulerTreuil = new JoystickButton(this.manette, BOUTON_DROIT);
+        //this.boutonRoulerTreuil.whenPressed(new CommandeRoulerTreuil());
+        //this.boutonDeroulerTreuil = new JoystickButton(this.manette, BOUTON_GAUCHE);
+        //this.boutonDeroulerTreuil.whenPressed(new CommandeDeroulerTreuil());
     }
+    protected Command commandeRoulerTreuil = null;
+    protected Command commandeDeroulerTreuil = null;
     
     public void executerActions()
     {
     	//this.deplacerTreuilSelonAxes();
+    	Journal.ecrire("Declencheur main droite " + this.getDeclencheurMainDroite());
+    	if(this.getDeclencheurMainDroite() > 0.5 && this.commandeDeroulerTreuil == null) 
+    	{
+    		this.commandeRoulerTreuil = null;
+    		this.commandeDeroulerTreuil = new CommandeDeroulerTreuil();
+    		this.commandeDeroulerTreuil.start();
+    	}
+    	Journal.ecrire("Declencheur main gauche " + this.getDeclencheurMainGauche());
+    	if(this.getDeclencheurMainGauche() > 0.5 && this.commandeRoulerTreuil == null) 
+    	{
+    		this.commandeDeroulerTreuil = null;
+    		this.commandeRoulerTreuil = new CommandeRoulerTreuil();
+    		this.commandeRoulerTreuil.start();
+    	}
+    	
     }
     
     public void deplacerTreuilSelonAxes()
@@ -100,3 +118,4 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
     }
 
 }
+

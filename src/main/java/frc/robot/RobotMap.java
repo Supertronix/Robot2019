@@ -75,7 +75,9 @@ public interface RobotMap {
     public static final int MAIN_GAUCHE_AXE_Y = 1;
     public static final int MAIN_GAUCHE_AXE_X = 0;
     public static final int MAIN_DROITE_AXE_Y = 5;
-    public static final int MAIN_DROITE_AXE_X = 4;
+    public static final int MAIN_DROITE_AXE_X = 4;    
+    public static final int MAIN_GAUCHE_AXE_DECLENCHEUR = 2;
+    public static final int MAIN_DROITE_AXE_DECLENCHEUR = 3;
   }
   
   public interface Affichage
