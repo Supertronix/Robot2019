@@ -30,27 +30,41 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	public Jambe() {
 		  this.moteurPrincipal.configFactoryDefault();
 		  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	
-		  //this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 		  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 		  this.moteurPrincipal.configAllowableClosedloopError(0, 0, ERREUR_DISTANCE_PERMISE);
 		  this.moteurPrincipal.setSensorPhase(true);
 		  this.moteurPrincipal.config_kP(0, PID_P, 10);
-		  this.moteurPrincipal.config_kI(0, PID_I, 10);
-		  		  
-		  this.moteurPrincipal.setSelectedSensorPosition(0); // todo placer
+		  this.moteurPrincipal.config_kI(0, PID_I, 10);		  		  
+		  this.moteurPrincipal.setSelectedSensorPosition(0);
 		  
 
 		  configurerMinirupteur();
 		  
-		  //this.moteurSecondaire.configFactoryDefault();
+		  this.moteurSecondaire.configFactoryDefault();
 		  this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
-		  this.moteurSecondaire.setInverted(false);
-		  this.moteurSecondaire.follow(this.moteurPrincipal);
-
+		  this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+		  this.moteurSecondaire.configAllowableClosedloopError(0, 0, ERREUR_DISTANCE_PERMISE);
+		  this.moteurSecondaire.setSensorPhase(true);
+		  this.moteurSecondaire.config_kP(0, PID_P, 10);
+		  this.moteurSecondaire.config_kI(0, PID_I, 10);		  		  
+		  this.moteurSecondaire.setSelectedSensorPosition(0);
 		  
-		  //encodeurGenouxPrincipal = new Encoder()
+		  this.moteurSecondaire.setInverted(false);
+		  //this.moteurSecondaire.follow(this.moteurPrincipal);
 	}
 
+	public void configurerMinirupteur()
+	{	  
+		this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+		this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+		this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
+		this.moteurSecondaire.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+		this.moteurSecondaire.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+		this.moteurSecondaire.configClearPositionOnLimitR(true, 0);
+		  
+		  //this.moteurPrincipal.configLimitSwitchDisableNeutralOnLOS(true, 10);
+	}
+	
 	@Override
 	protected void initDefaultCommand() {}
 		
@@ -58,6 +72,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	public void donnerConsignePID(float consigne) {
 			//consigne = limiterPID(consigne, POSITION_MIN, POSITION_MAX);
 			this.moteurPrincipal.set(ControlMode.Position, consigne);
+			this.moteurSecondaire.set(ControlMode.Position, consigne);
 	  }
 
 	public void augmenterConsignePID(float increment) {
@@ -66,6 +81,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		  //Active close loop
 			consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
 			this.moteurPrincipal.set(ControlMode.Position, consigne);
+			this.moteurSecondaire.set(ControlMode.Position, consigne);
 
 	  }
 	  
@@ -74,7 +90,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 
 		  consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
 			this.moteurPrincipal.set(ControlMode.Position, consigne);
-
+			this.moteurSecondaire.set(ControlMode.Position, consigne);
 	  }
 	  
 	  protected double position; 
@@ -91,31 +107,24 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	  public void arreter()
 	  {
 		this.moteurPrincipal.set(ControlMode.PercentOutput, 0.0);
+		this.moteurSecondaire.set(ControlMode.PercentOutput, 0.0);
 	  }
 	public void monter()
 	{
 		this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*0.1);
+		this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*0.1);
 	}
 	public void monter(float vitesse)
 	{
 		this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*vitesse);
+		this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*vitesse);
 	}	
 	  
 	public double limiterPID(double val, double min, double max) 
 	{
 		return Math.max(min, Math.min(max, val));
 	}
-	  
-	public void configurerMinirupteur()
-	{	  
-		this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-		this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-		
-		this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
-		  
-		  //this.moteurPrincipal.configLimitSwitchDisableNeutralOnLOS(true, 10);
-	}
-	
+	  	
 	public boolean estBloquerParLimite() {
 		  System.out.println("estBloquerParLimiteJambe() "+this.moteurPrincipal.getMotorOutputVoltage());
 		  if(this.moteurPrincipal.getMotorOutputVoltage() > 0) {
