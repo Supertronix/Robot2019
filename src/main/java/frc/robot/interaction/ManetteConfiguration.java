@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Journal;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.commande.CommandeDeplierCuisse;
 import frc.robot.commande.CommandeDeroulerTreuil;
 import frc.robot.commande.CommandeInitialiserRobot;
 import frc.robot.commande.CommandeRoulerTreuil;
@@ -84,10 +85,24 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
     
     public void executerActions()
     {
-    	this.deplacerTreuilSelonAxes();
+    	//this.deplacerTreuilSelonAxes();
     	//this.roulerEtDeroulerTreuil();
+    	this.plierEtDeplierCuisse();
     }
 
+    public void plierEtDeplierCuisse()
+    {
+    	Journal.ecrire("Axe " + this.getAxeMainGauche().y);
+    	if(this.getAxeMainGauche().y > 0.1) 
+    	{
+    		Robot.cuisse.monter((float) this.getAxeMainGauche().y);
+    	}
+    	else
+    	{
+    		Robot.cuisse.arreter();
+    	}
+    }
+    
     protected Command commandeRoulerTreuil = null;
     protected Command commandeDeroulerTreuil = null;
     public void roulerEtDeroulerTreuil()

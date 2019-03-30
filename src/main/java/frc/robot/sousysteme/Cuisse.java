@@ -87,6 +87,19 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurSecondaire.config_kI(0, PID_I, 10);
   }
   
+  // Limit switches
+  public void configurerMinirupteur()
+  {	  
+	  this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+	  this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+	  this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
+	  this.moteurSecondaire.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+	  this.moteurSecondaire.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+	  this.moteurSecondaire.configClearPositionOnLimitR(true, 0);
+	  
+	  //this.moteurPrincipal.configLimitSwitchDisableNeutralOnLOS(true, 10);
+  }
+  
   // la stratégie est soit de synchroniser les outputs de voltage avec la fonction synchroniser qu'on doit appeler à chaque itération
   // ou encore d'appliquer une simulation de pid identique ou tres similaire a celle du moteur principal
   public void synchroniser()
@@ -151,28 +164,20 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   public void arreter()
   {
 	this.moteurPrincipal.set(ControlMode.PercentOutput, 0.0);
+	this.moteurSecondaire.set(ControlMode.PercentOutput, 0.0);
 	////this.moteurSecondaire.set(ControlMode.PercentOutput, 0.0);
   }
   public void monter()
   {
 	this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*0.1);
+	this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*0.1);
 	////this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*0.1);
   }
   public void monter(float vitesse)
   {
 	this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*vitesse);
+	this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*vitesse);
 	////this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*vitesse);
-	
-  }
-
-  // Limit switches
-  public void configurerMinirupteur()
-  {	  
-	  this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-	  this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-	  this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
-	  
-	  //this.moteurPrincipal.configLimitSwitchDisableNeutralOnLOS(true, 10);
   }
   
   protected double position; 
@@ -190,6 +195,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	public void donnerConsignePID(float consigne) {
 		//consigne = limiterPID(consigne, POSITION_MIN, POSITION_MAX);
 		this.moteurPrincipal.set(ControlMode.Position, consigne);
+		this.moteurSecondaire.set(ControlMode.Position, consigne);
   }
   public void augmenterConsignePID(float increment) {
 	  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
@@ -197,6 +203,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //Active close loop
 		consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
 		this.moteurPrincipal.set(ControlMode.Position, consigne);
+		this.moteurSecondaire.set(ControlMode.Position, consigne);
 		//this.moteurSecondaire.set(ControlMode.Position, consigne);
 		////this.pidSecondaire.setSetpoint(consigne);
   }
@@ -206,6 +213,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 
 		consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
 		this.moteurPrincipal.set(ControlMode.Position, consigne);
+		this.moteurSecondaire.set(ControlMode.Position, consigne);
 		//this.moteurSecondaire.set(ControlMode.Position, consigne);
 		////this.pidSecondaire.setSetpoint(consigne);
   }
