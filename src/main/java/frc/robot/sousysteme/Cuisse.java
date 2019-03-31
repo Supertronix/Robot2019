@@ -10,6 +10,7 @@ import frc.robot.Journal;
 import frc.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
@@ -94,7 +95,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 			  this.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
 			  this.config_kP(0, p, 10);
 			  this.config_kI(0, i, 10);	  	  
-			  this.config_kD(0, d, 10);	  	  
+			  this.config_kD(0, d, 10);	
+			  //this.configClosedLoopPeriod(0, 1);
 		}		
 		
 		public void activerMinirupteur()
@@ -115,11 +117,22 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 			
 		}
 		
+		public void initialiserPIDAuxiliaire(double p, double i, double d)
+		{
+			this.configAllowableClosedloopError(1, 0,  this.ERREUR_DISTANCE_PERMISE);
+			this.config_kP(1, p, 10);
+			this.config_kI(1, i, 10);	  	  
+			this.config_kD(1, d, 10);	
+			//this.configClosedLoopPeriod(1, 1);
+			this.configClosedLoopPeakOutput(1, 1, 10);
+		}		
 
 	}
 	
   public Cuisse()
   {
+	  this.consignePrincipale = 0;
+	  this.consigneSecondaire = 0;
 		this.moteurPrincipalActif = true;
 		this.moteurSecondaireActif = true;
 		
@@ -153,17 +166,12 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 			this.moteurSecondaire.setStatusFramePeriod(StatusFrame.Status_12_Feedback1, 20, 10);
 			this.moteurSecondaire.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 20, 10);
 			this.moteurSecondaire.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 20, 10);
+			
 			this.moteurPrincipal.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20, 10);
 			
-			this.moteurSecondaire.config_kP(1, 2, 10);
-			this.moteurSecondaire.config_kI(1, 0, 10);
-			this.moteurSecondaire.config_kD(1, 4, 10);
+			this.moteurSecondaire.initialiserPIDAuxiliaire(2, 0, 4);
 			this.moteurSecondaire.config_IntegralZone(1, 200, 10);
-			this.moteurSecondaire.configClosedLoopPeakOutput(1, 1, 10);			
-			this.moteurSecondaire.configClosedLoopPeriod(1, 1);
-			
-			this.moteurSecondaire.configClosedLoopPeriod(0, 1);
-			
+						
 			this.moteurSecondaire.configAuxPIDPolarity(false, 10);
 			this.moteurPrincipal.follow(this.moteurSecondaire, FollowerType.AuxOutput1);
 			
@@ -284,9 +292,14 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
     
   protected double consignePrincipale = 0;
   protected double consigneSecondaire = 0;
+  public void initialiser()
+  {
+		this.moteurSecondaire.set(ControlMode.PercentOutput, 0 , DemandType.ArbitraryFeedForward, 0);
+		this.moteurPrincipal.set(ControlMode.PercentOutput, 0, DemandType.ArbitraryFeedForward, 0);			
+  }
 	public void donnerConsignePID(float consigne) {
 		//consigne = limiterPID(consigne, POSITION_MIN, POSITION_MAX);
-		if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.Position, consigne);
+		if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.Position, consigne, DemandType.AuxPID, 0);
 		//if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.Position, -consigne);
   }
 	
@@ -300,7 +313,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  
 	  if(this.moteurSecondaireActif) this.consigneSecondaire = limiterPID(this.moteurSecondaire.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
 	  if(this.moteurSecondaireActif) System.out.println("Consigne moteur secondaire " + this.consigneSecondaire);
-	  if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire);
+	  if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire, DemandType.AuxPID, 0);
 	  
 		////this.pidSecondaire.setSetpoint(consigne);
   }
@@ -339,7 +352,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   int distanceRestanteSelonConsigne;
 	public boolean estArrive()
 	{
-		this.distanceRestanteSelonConsigne = Math.abs((int)(lirePositionPrincipale() - this.consignePrincipale));
+		this.distanceRestanteSelonConsigne = Math.abs((int)(lirePositionSecondaire() - this.consigneSecondaire));
 		System.out.println("Distance restante cuisse " + this.distanceRestanteSelonConsigne);
 		if (distanceRestanteSelonConsigne <= 10) return true;
 		return false;
