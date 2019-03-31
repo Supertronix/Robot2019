@@ -11,16 +11,13 @@ import frc.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
-import com.ctre.phoenix.motorcontrol.SensorTerm;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 // Aussi appelé Hanche par l'équipe	
-public class Cuisse extends Subsystem implements RobotMap.Cuisse{
+public class CuisseSynchronisee extends Subsystem implements RobotMap.Cuisse{
 	
 	public double POSITION_MIN = 0;
 	public double POSITION_MAX = 20000; // 3700 sur robot competition	
@@ -58,6 +55,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	//public double PID_I = 0.00005;
 	
 	
+	//this.moteurPrincipal.getSensorCollection().setQuadraturePosition(0, 10);
+	//this.moteurPrincipal.getSensorCollection().isRevLimitSwitchClosed();
 	public class TalonSupertronix extends TalonSRX
 	{
 		public int ERREUR_DISTANCE_PERMISE = 5;
@@ -67,8 +66,6 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 			this.configFactoryDefault();
 			this.setNeutralMode(NeutralMode.Brake);	  	  
 			this.setSensorPhase(true);
-			this.set(ControlMode.PercentOutput,0);
-			this.getSensorCollection().setQuadraturePosition(0, 10);
 		}
 		
 		public TalonSupertronix(int numero, boolean inversion) {
@@ -82,7 +79,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		public void activerEncodeur()
 		{
 			  //this.setSelectedSensorPosition(0);
-			  this.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);	  
+			  this.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);	  
 		}
 
 		public void initialiserPID(double p, double i, double d)
@@ -99,20 +96,9 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 			  this.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 			  this.configClearPositionOnLimitR(true, 0);	
 		}
-		
-		public void suivre(TalonSupertronix talon)
-		{
-			this.follow(talon); 
-			//this.set(ControlMode.Follower, talon.getDeviceID());
-		}
-		
-		public void synchroniser(TalonSupertronix talon)
-		{
-			
-		}
 	}
 	
-  public Cuisse()
+  public CuisseSynchronisee()
   {
 		this.moteurPrincipalActif = true;
 		this.moteurSecondaireActif = true;
@@ -121,7 +107,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		{
 		  this.moteurPrincipal = new TalonSupertronix(MOTEUR_PRINCIPAL, INVERSION_PRINCIPALE);		  
 		  //this.moteurPrincipal.activerEncodeur();
-		  this.moteurPrincipal.initialiserPID(PID_P, PID_I, 0);
+		  //this.moteurPrincipal.initialiserPID(PID_P, PID_I, 0);
 		  this.moteurPrincipal.activerMinirupteur();
 		}
 			  
@@ -134,23 +120,12 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		  //this.moteurSecondaire.follow(this.moteurPrincipal);
 		}
 		
-		if(this.moteurPrincipalActif && this.moteurSecondaireActif) 
-		{
-			this.moteurPrincipal.configRemoteFeedbackFilter(MOTEUR_SECONDAIRE, RemoteSensorSource.TalonSRX_SelectedSensor, 1, 10);
-			this.moteurPrincipal.configSensorTerm(SensorTerm.Sum0, FeedbackDevice.RemoteSensor1, 10);
-			this.moteurPrincipal.configSensorTerm(SensorTerm.Sum1, FeedbackDevice.CTRE_MagEncoder_Relative, 10);
-			this.moteurPrincipal.configSensorTerm(SensorTerm.Diff1, FeedbackDevice.RemoteSensor1, 10);
-			this.moteurPrincipal.configSensorTerm(SensorTerm.Diff0, FeedbackDevice.CTRE_MagEncoder_Relative, 10);
-			
-			this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, 0, 10);
-			this.moteurPrincipal.configSelectedFeedbackCoefficient(0.5, 1, 10);
-			this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.SensorDifference, 1, 10);
-			
-			this.moteurPrincipal.follow(this.moteurSecondaire, FollowerType.AuxOutput1);
-		}
+		//if(this.moteurPrincipalActif && this.moteurSecondaireActif) 
+		//this.moteurPrincipal.follow(this.moteurSecondaire); 
+		//this.moteurPrincipal.set(ControlMode.Follower, this.MOTEUR_SECONDAIRE);
+		//this.moteurPrincipal.set(ControlMode.Follower, demand);
 		//this.moteurPrincipal.getControlMode();
 
-		
   }
   
   // la stratégie est soit de synchroniser les outputs de voltage avec la fonction synchroniser qu'on doit appeler à chaque itération

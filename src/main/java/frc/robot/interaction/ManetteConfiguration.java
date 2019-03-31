@@ -40,9 +40,9 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         this.manette = new Joystick(MANETTE);    	
         
         this.boutonTestCuisseDeplier = new JoystickButton(this.manette, BOUTON_B);
-        this.boutonTestCuisseDeplier.whenPressed(new CommandeDeplierCuisse(200));
+        this.boutonTestCuisseDeplier.whenPressed(new CommandeDeplierCuisse(100));
         this.boutonTestCuissePlier = new JoystickButton(this.manette, BOUTON_A);
-        this.boutonTestCuissePlier.whenPressed(new CommandeDeplierCuisse(-200));
+        this.boutonTestCuissePlier.whenPressed(new CommandeDeplierCuisse(-100));
         
         //this.boutonTestJambeDeplier = new JoystickButton(this.manette, BOUTON_Y);
         //this.boutonTestJambeDeplier.whenPressed(new CommandeDeplierJambe(100));
