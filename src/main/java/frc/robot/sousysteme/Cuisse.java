@@ -110,7 +110,9 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		}		
 
 	}
+
 	
+	private boolean encodeurAuxiliaireActif = true;
   public Cuisse()
   {
 	  this.consignePrincipale = 0;
@@ -136,31 +138,36 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		
 		if(this.moteurPrincipalActif && this.moteurSecondaireActif) 
 		{
-			/*
-			this.moteurSecondaire.configRemoteFeedbackFilter(this.moteurPrincipal.getDeviceID(), RemoteSensorSource.TalonSRX_SelectedSensor, 1, 10);
-			this.moteurSecondaire.configSensorTerm(SensorTerm.Sum0, FeedbackDevice.RemoteSensor1, 10);
-			this.moteurSecondaire.configSensorTerm(SensorTerm.Sum1, FeedbackDevice.CTRE_MagEncoder_Relative, 10);
-			this.moteurSecondaire.configSensorTerm(SensorTerm.Diff1, FeedbackDevice.RemoteSensor1, 10);
-			this.moteurSecondaire.configSensorTerm(SensorTerm.Diff0, FeedbackDevice.CTRE_MagEncoder_Relative, 10);
+			if(this.encodeurAuxiliaireActif)
+			{
 			
-			this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, 0, 10);
-			this.moteurSecondaire.configSelectedFeedbackCoefficient(0.33, 0, 10);
-			this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.SensorDifference, 1, 10);
-			this.moteurSecondaire.configSelectedFeedbackCoefficient(1, 1, 10);
-						
-			//this.moteurSecondaire.configAuxPIDPolarity(false, 10); 
-			
-			this.moteurSecondaire.setStatusFramePeriod(StatusFrame.Status_12_Feedback1, 20, 10);
-			this.moteurSecondaire.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 20, 10);
-			this.moteurSecondaire.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 20, 10);
-			this.moteurPrincipal.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20, 10);
-			
-			//this.moteurSecondaire.initialiserPIDAuxiliaire(2, 0, 4);
-			//this.moteurSecondaire.config_IntegralZone(1, 200, 10); // Integral Zone can be used to auto clear the integral accumulator if the sensor pos is too far from the target. This prevent unstable oscillation if the kI is too large. Value is in sensor units.
-						
-			this.moteurPrincipal.follow(this.moteurSecondaire, FollowerType.AuxOutput1);
-			 */
-			this.moteurPrincipal.follow(this.moteurSecondaire);
+				this.moteurSecondaire.configRemoteFeedbackFilter(this.moteurPrincipal.getDeviceID(), RemoteSensorSource.TalonSRX_SelectedSensor, 1, 10);
+				this.moteurSecondaire.configSensorTerm(SensorTerm.Sum0, FeedbackDevice.RemoteSensor1, 10);
+				this.moteurSecondaire.configSensorTerm(SensorTerm.Sum1, FeedbackDevice.CTRE_MagEncoder_Relative, 10);
+				this.moteurSecondaire.configSensorTerm(SensorTerm.Diff1, FeedbackDevice.RemoteSensor1, 10);
+				this.moteurSecondaire.configSensorTerm(SensorTerm.Diff0, FeedbackDevice.CTRE_MagEncoder_Relative, 10);
+				
+				this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, 0, 10);
+				this.moteurSecondaire.configSelectedFeedbackCoefficient(0.5, 0, 10);
+				this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.SensorDifference, 1, 10);
+				this.moteurSecondaire.configSelectedFeedbackCoefficient(-1, 1, 10);
+							
+				this.moteurSecondaire.configAuxPIDPolarity(false, 10); 
+				
+				this.moteurSecondaire.setStatusFramePeriod(StatusFrame.Status_12_Feedback1, 20, 10);
+				this.moteurSecondaire.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 20, 10);
+				this.moteurSecondaire.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 20, 10);
+				this.moteurPrincipal.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20, 10);
+				
+				this.moteurSecondaire.initialiserPIDAuxiliaire(2, 0, 4);
+				this.moteurSecondaire.config_IntegralZone(1, 200, 10); // Integral Zone can be used to auto clear the integral accumulator if the sensor pos is too far from the target. This prevent unstable oscillation if the kI is too large. Value is in sensor units.
+							
+				this.moteurPrincipal.follow(this.moteurSecondaire, FollowerType.AuxOutput1);
+			}
+			else
+			{
+				this.moteurPrincipal.follow(this.moteurSecondaire);
+			}
 		}
   }
   
@@ -176,14 +183,16 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //Journal.ecrire("Courant ENVOYE " + this.moteurSecondaire.getOutputCurrent());
 	  //Journal.ecrire("Courant RECU " + this.moteurPrincipal.getOutputCurrent());
 	  
-	  double erreur = this.lirePositionSecondaire() - this.lirePositionPrincipale();
-	  System.out.println("Erreur a corriger " + erreur);
+	  //double erreur = this.lirePositionSecondaire() - this.lirePositionPrincipale();
+	  //System.out.println("Erreur a corriger " + erreur);
 	  //this.moteurPrincipal.set(ControlMode.Velocity, erreur/1000);
 	  
-	  System.out.println("Esclave : l'erreur est de " + this.moteurPrincipal.getClosedLoopError(0) + " sur une cible de " + this.moteurPrincipal.getClosedLoopTarget(0));
-	  System.out.println("Auxiliaire : l'erreur est de " + this.moteurSecondaire.getClosedLoopError(1) + " sur une cible de " + this.moteurSecondaire.getClosedLoopTarget(1));
-	  System.out.println("Master : l'erreur est de " + this.moteurSecondaire.getClosedLoopError(0) + " sur une cible de " + this.moteurSecondaire.getClosedLoopTarget(0));
-
+		if(this.encodeurAuxiliaireActif)
+		{
+		  System.out.println("Esclave : l'erreur est de " + this.moteurPrincipal.getClosedLoopError(0) + " sur une cible de " + this.moteurPrincipal.getClosedLoopTarget(0));
+		  System.out.println("Auxiliaire : l'erreur est de " + this.moteurSecondaire.getClosedLoopError(1) + " sur une cible de " + this.moteurSecondaire.getClosedLoopTarget(1));
+		  System.out.println("Master : l'erreur est de " + this.moteurSecondaire.getClosedLoopError(0) + " sur une cible de " + this.moteurSecondaire.getClosedLoopTarget(0));
+		}
 	  
 	  /*
 	  this.moteurPrincipal.set(ControlMode.PercentOutput, this.moteurSecondaire.getMotorOutputPercent());
@@ -292,8 +301,11 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   {
 		//consigne = limiterPID(consigne, POSITION_MIN, POSITION_MAX);
 		this.consignePrincipale = consigne;
-		//if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.Position, consigne, DemandType.AuxPID, 0);
-		if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.Position, consigne);
+		  if(this.moteurSecondaireActif) 
+		  {
+			  if(this.encodeurAuxiliaireActif) if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire, DemandType.AuxPID, 0);
+			  else this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire);
+	      }
 		this.consigneSecondaire = consigne;
   }
 	
@@ -305,10 +317,13 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //if(this.moteurPrincipalActif) System.out.println("Consigne moteur principal " + this.consignePrincipale);
 	  //if(this.moteurPrincipalActif) this.moteurPrincipal.set(ControlMode.Position, this.consignePrincipale);
 	  
-	  if(this.moteurSecondaireActif) this.consigneSecondaire = limiterPID(this.moteurSecondaire.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
-	  if(this.moteurSecondaireActif) System.out.println("Consigne moteur secondaire " + this.consigneSecondaire);
-	  if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire);
-	  //if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire, DemandType.AuxPID, 0);
+	  if(this.moteurSecondaireActif) 
+	  {
+		  this.consigneSecondaire = limiterPID(this.moteurSecondaire.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
+		  System.out.println("Consigne moteur secondaire " + this.consigneSecondaire);
+		  if(this.encodeurAuxiliaireActif) if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire, DemandType.AuxPID, 0);
+		  else this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire);
+      }
 		////this.pidSecondaire.setSetpoint(consigne);
   }
   
@@ -319,9 +334,13 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //if(this.moteurPrincipalActif) System.out.println("Consigne moteur principal " + this.consignePrincipale);
 	  //if(this.moteurPrincipalActif) this.moteurPrincipal.set(ControlMode.Position, this.consignePrincipale);
 	  
-	  if(this.moteurSecondaireActif) this.consigneSecondaire = limiterPID(this.moteurSecondaire.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
-	  if(this.moteurSecondaireActif) System.out.println("Consigne moteur secondaire " + this.consigneSecondaire);
-	  if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire);
+	  if(this.moteurSecondaireActif) 
+	  {
+		  this.consigneSecondaire = limiterPID(this.moteurSecondaire.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
+		  System.out.println("Consigne moteur secondaire " + this.consigneSecondaire);
+		  if(this.encodeurAuxiliaireActif) if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire, DemandType.AuxPID, 0);
+		  else this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire);
+      }
 	  //if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire, DemandType.AuxPID, 0);
 	  //this.moteurPrincipal.follow(this.moteurSecondaire, FollowerType.AuxOutput1);	  
 	  ////this.pidSecondaire.setSetpoint(consigne);

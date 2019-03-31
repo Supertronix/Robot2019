@@ -11,7 +11,7 @@ public class CommandeInitialiserRobot extends CommandGroup{
     	System.out.println("new CommandeInitialiserRobot()");
     	this.addSequential(new CommandeCalibrerCuisse());
     	//this.addSequential(new CommandeCalibrerJambe());
-    	this.addSequential(new CommandeTesterCuisseAvecManette()); 
+    	//this.addSequential(new CommandeTesterCuisseAvecManette()); 
     }
 
     @Override
