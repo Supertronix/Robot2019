@@ -36,10 +36,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		  this.moteurPrincipal.config_kP(0, PID_P, 10);
 		  this.moteurPrincipal.config_kI(0, PID_I, 10);		  		  
 		  this.moteurPrincipal.setSelectedSensorPosition(0);
-		  
-
-		  configurerMinirupteur();
-		  
+		  		  
 		  this.moteurSecondaire.configFactoryDefault();
 		  this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
 		  this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
@@ -51,6 +48,9 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		  
 		  this.moteurSecondaire.setInverted(false);
 		  //this.moteurSecondaire.follow(this.moteurPrincipal);
+		  
+		  configurerMinirupteur();
+
 	}
 
 	public void configurerMinirupteur()
