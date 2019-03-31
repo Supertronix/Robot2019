@@ -80,11 +80,15 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		{
 			  //this.moteurPrincipal.setSelectedSensorPosition(0);
 			  this.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);	  
-			  this.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
 		}
 
+		////EncodeurPrincipalSource sourceEncodeur = new EncodeurPrincipalSource(this.moteurPrincipal);
+		////pidSecondaire = new PIDController(PID_P, PID_I, 0, sourceEncodeur, new TalonCible(this.moteurSecondaire));
+		// PIDController(double Kp, double Ki, double Kd, PIDSource source, PIDOutput output)
+		// PIDController(double Kp, double Ki, double Kd, double Kf, PIDSource source, PIDOutput output)
 		public void initialiserPID(double p, double i, double d)
 		{
+			  this.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
 			  this.config_kP(0, p, 10);
 			  this.config_kI(0, i, 10);	  	  
 			  this.config_kD(0, d, 10);	  	  
@@ -134,13 +138,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		  //this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
 		  //this.moteurSecondaire.setSensorPhase(true);
 		  //this.moteurSecondaire.setInverted(INVERSION_SECONDAIRE);
-		  
-		  ////EncodeurPrincipalSource sourceEncodeur = new EncodeurPrincipalSource(this.moteurPrincipal);
-		  ////pidSecondaire = new PIDController(PID_P, PID_I, 0, sourceEncodeur, new TalonCible(this.moteurSecondaire));
-		  // PIDController(double Kp, double Ki, double Kd, PIDSource source, PIDOutput output)
-		  // PIDController(double Kp, double Ki, double Kd, double Kf, PIDSource source, PIDOutput output)
-		  //this.moteurSecondaire.follow(this.moteurPrincipal);
-		  
+		  		  
 		  this.moteurSecondaire.activerEncodeur();
 		  //this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 		  //this.moteurSecondaire.configAllowableClosedloopError(0, 0, this.ERREUR_DISTANCE_PERMISE);
@@ -153,6 +151,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		  //this.moteurSecondaire.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 		  //this.moteurSecondaire.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 		  //this.moteurSecondaire.configClearPositionOnLimitR(true, 0);
+		  
+		  //this.moteurSecondaire.follow(this.moteurPrincipal);
 		}
   }
   
