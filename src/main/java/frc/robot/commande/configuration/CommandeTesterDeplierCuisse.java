@@ -28,7 +28,7 @@ public class CommandeTesterDeplierCuisse extends Command{
     protected double positionReelle;
     private double calculerPositionReelle()
     {
-    	return Robot.cuisse.lirePosition() - this.decalagePosition;
+    	return Robot.cuisse.lirePositionPrincipale() - this.decalagePosition;
     }    
     
     @Override
@@ -38,7 +38,7 @@ public class CommandeTesterDeplierCuisse extends Command{
         SmartDashboard.putNumber("Increment cuisse ", this.increment);        
         System.out.println("initialize() : Increment cuisse " + this.increment);
     	Robot.cuisse.positionner(this.increment);        
-        this.decalagePosition = Robot.cuisse.lirePosition();
+        this.decalagePosition = Robot.cuisse.lirePositionPrincipale();
         System.out.println("initialize() : decalage position = " + this.decalagePosition + " position reelle = " + this.calculerPositionReelle());
         
         Robot.cuisse.monter(this.vitesse);

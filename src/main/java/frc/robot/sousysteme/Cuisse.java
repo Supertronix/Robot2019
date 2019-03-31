@@ -26,11 +26,14 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 
 	public int ERREUR_DISTANCE_PERMISE = 5;
 	public int INVERSION = 1; // inutile depuis moteur.setIntverted(true) - le manuel etait non compatible avec limit switch
-	public boolean INVERSE = true; // TODO inverser pour le robot competition
+	public boolean INVERSION_PRINCIPALE = true; // TODO inverser pour le robot competition
+	public boolean INVERSION_SECONDAIRE = true; // TODO inverser pour le robot competition
 	  
 	// http://www.ctr-electronics.com/downloads/api/java/html/classcom_1_1ctre_1_1phoenix_1_1motorcontrol_1_1can_1_1_talon_s_r_x.html
-	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
-	protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
+	protected boolean moteurPrincipalActif = false;
+	protected TalonSRX moteurPrincipal = null;
+	protected boolean moteurSecondaireActif = false;
+	protected TalonSRX moteurSecondaire = null;
 	PIDController pidSecondaire;
 	  //this.moteurSecondaire.setSensorPhase(false);
 	  //this.moteurSecondaire.setInverted(false);
@@ -57,46 +60,66 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	
   public Cuisse()
   {
-	  this.moteurPrincipal.configFactoryDefault();	  
-	  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	  	  
-	  this.moteurPrincipal.setInverted(INVERSE);
-	  this.moteurPrincipal.setSensorPhase(true);
-	  
-	  //this.moteurPrincipal.setSelectedSensorPosition(0);
-	  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);	  
-	  this.moteurPrincipal.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
-	  this.moteurPrincipal.config_kP(0, PID_P, 10);
-	  this.moteurPrincipal.config_kI(0, PID_I, 10);	  	  
-	  
-	  this.configurerMinirupteur();
-	  
-	  this.moteurSecondaire.configFactoryDefault();	  
-	  this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
-	  this.moteurSecondaire.setInverted(!INVERSE);
-	  this.moteurSecondaire.setSensorPhase(true);
-	  
-	  ////EncodeurPrincipalSource sourceEncodeur = new EncodeurPrincipalSource(this.moteurPrincipal);
-	  ////pidSecondaire = new PIDController(PID_P, PID_I, 0, sourceEncodeur, new TalonCible(this.moteurSecondaire));
-	  // PIDController(double Kp, double Ki, double Kd, PIDSource source, PIDOutput output)
-	  // PIDController(double Kp, double Ki, double Kd, double Kf, PIDSource source, PIDOutput output)
-	  //this.moteurSecondaire.follow(this.moteurPrincipal);
-	  
-	  this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-	  this.moteurSecondaire.configAllowableClosedloopError(0, 0, this.ERREUR_DISTANCE_PERMISE);
-	  this.moteurSecondaire.config_kP(0, PID_P, 10);
-	  this.moteurSecondaire.config_kI(0, PID_I, 10);
+		this.moteurPrincipalActif = false;
+		this.moteurSecondaireActif = true;
+		
+		if(this.moteurPrincipalActif)
+		{
+		  this.moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
+		  this.moteurPrincipal.configFactoryDefault();	  
+		  
+		  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	  	  
+		  this.moteurPrincipal.setInverted(INVERSION_PRINCIPALE);
+		  this.moteurPrincipal.setSensorPhase(true);
+		  
+		  //this.moteurPrincipal.setSelectedSensorPosition(0);
+		  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);	  
+		  this.moteurPrincipal.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
+		  this.moteurPrincipal.config_kP(0, PID_P, 10);
+		  this.moteurPrincipal.config_kI(0, PID_I, 10);	  	  
+		}
+			  
+		if(this.moteurSecondaireActif)
+		{
+		  this.moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
+		  this.moteurSecondaire.configFactoryDefault();	  
+		  this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
+		  this.moteurSecondaire.setInverted(INVERSION_SECONDAIRE);
+		  this.moteurSecondaire.setSensorPhase(true);
+		  
+		  ////EncodeurPrincipalSource sourceEncodeur = new EncodeurPrincipalSource(this.moteurPrincipal);
+		  ////pidSecondaire = new PIDController(PID_P, PID_I, 0, sourceEncodeur, new TalonCible(this.moteurSecondaire));
+		  // PIDController(double Kp, double Ki, double Kd, PIDSource source, PIDOutput output)
+		  // PIDController(double Kp, double Ki, double Kd, double Kf, PIDSource source, PIDOutput output)
+		  //this.moteurSecondaire.follow(this.moteurPrincipal);
+		  
+		  this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+		  this.moteurSecondaire.configAllowableClosedloopError(0, 0, this.ERREUR_DISTANCE_PERMISE);
+		  this.moteurSecondaire.config_kP(0, PID_P, 10);
+		  this.moteurSecondaire.config_kI(0, PID_I, 10);
+		}
+		
+		// Maintenir cet appel après 
+		  this.configurerMinirupteur();
   }
   
   // Limit switches
   public void configurerMinirupteur()
   {	  
-	  this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-	  this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-	  this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
-	  this.moteurSecondaire.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-	  this.moteurSecondaire.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-	  this.moteurSecondaire.configClearPositionOnLimitR(true, 0);
-	  
+		if(this.moteurPrincipalActif)
+		{
+		  this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+		  this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+		  this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
+		  //this.moteurPrincipal.configClearPositionOnLimitF(true, 0);
+		}
+		if(this.moteurSecondaireActif)
+		{
+		  this.moteurSecondaire.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+		  this.moteurSecondaire.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+		  this.moteurSecondaire.configClearPositionOnLimitR(true, 0);
+		  //this.moteurSecondaire.configClearPositionOnLimitF(true, 0);
+		}
 	  //this.moteurPrincipal.configLimitSwitchDisableNeutralOnLOS(true, 10);
   }
   
@@ -113,7 +136,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //Journal.ecrire("Courant RECU " + this.moteurSecondaire.getOutputCurrent());
 	  
 	  //Journal.ecrire("Pourcent ENVOYE " + this.moteurPrincipal.getMotorOutputPercent());
-	  this.moteurSecondaire.set(ControlMode.PercentOutput, (3)*this.moteurPrincipal.getMotorOutputPercent());
+	  ////this.moteurSecondaire.set(ControlMode.PercentOutput, (3)*this.moteurPrincipal.getMotorOutputPercent());
 	  //Journal.ecrire("Pourcent RECU " + this.moteurSecondaire.getMotorOutputPercent());
 
 	  // EXISTE PAS ENCORE ControlMode.VOLTAGE
@@ -163,47 +186,58 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   
   public void arreter()
   {
-	this.moteurPrincipal.set(ControlMode.PercentOutput, 0.0);
-	this.moteurSecondaire.set(ControlMode.PercentOutput, 0.0);
+	if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0.0);
+	if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, 0.0);
 	////this.moteurSecondaire.set(ControlMode.PercentOutput, 0.0);
   }
   public void monter()
   {
-	this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*0.1);
-	this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*0.1);
+	if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*0.1);
+	if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*0.1);
 	////this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*0.1);
   }
   public void monter(float vitesse)
   {
-	this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*vitesse);
-	this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*vitesse);
+	if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*vitesse);
+	if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*vitesse);
 	////this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*vitesse);
   }
   
   protected double position; 
-  public double lirePosition() // max 3712
+  public double lirePositionPrincipale() // max 3712
   {	  
 	  //position = this.encodeur.getDistance();
-	  this.position = this.moteurPrincipal.getSelectedSensorPosition(); // -748 (limit switch a 2964 
+	  if(this.moteurPrincipalActif) this.position = this.moteurPrincipal.getSelectedSensorPosition(); // -748 (limit switch a 2964 
 	  //position = this.moteurPrincipal.getSensorCollection().getQuadraturePosition(); // 742 (limit switch) a -2962
 	  System.out.println("Cuisse.lirePosition() : " + INVERSION*this.position);
       SmartDashboard.putNumber("Position cuisse", INVERSION*this.position);	  
 	  return INVERSION*this.position;
   }
+  
+  protected double positionSecondaire; 
+  public double lirePositionSecondaire()
+  {
+	  if(this.moteurSecondaireActif) this.positionSecondaire = this.moteurSecondaire.getSelectedSensorPosition(); // -748 (limit switch a 2964 
+	  System.out.println("Cuisse.lirePositionSecondaire() : " + INVERSION*this.positionSecondaire);
+      SmartDashboard.putNumber("Position cuisse", INVERSION*this.positionSecondaire);	  
+	  return INVERSION*this.positionSecondaire;	  
+  }
     
-  protected double consigne = 0;
+  protected double consignePrincipale = 0;
+  protected double consigneSecondaire = 0;
 	public void donnerConsignePID(float consigne) {
 		//consigne = limiterPID(consigne, POSITION_MIN, POSITION_MAX);
-		this.moteurPrincipal.set(ControlMode.Position, consigne);
-		this.moteurSecondaire.set(ControlMode.Position, consigne);
+		if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.Position, consigne);
+		if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.Position, -consigne);
   }
   public void augmenterConsignePID(float increment) {
 	  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
 
 	  //Active close loop
-		consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
-		this.moteurPrincipal.set(ControlMode.Position, consigne);
-		this.moteurSecondaire.set(ControlMode.Position, consigne);
+	  if(this.moteurPrincipalActif) this.consignePrincipale = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
+	  if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.Position, consignePrincipale);
+	  if(this.moteurSecondaireActif)this.consigneSecondaire = limiterPID(this.moteurSecondaire.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
+	  if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.Position, consigneSecondaire);
 		//this.moteurSecondaire.set(ControlMode.Position, consigne);
 		////this.pidSecondaire.setSetpoint(consigne);
   }
@@ -211,9 +245,10 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   public void reduireConsignePID(float decrement) {
 	  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
 
-		consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
-		this.moteurPrincipal.set(ControlMode.Position, consigne);
-		this.moteurSecondaire.set(ControlMode.Position, consigne);
+	  if(this.moteurPrincipalActif)consignePrincipale = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
+		if(this.moteurPrincipalActif) this.moteurPrincipal.set(ControlMode.Position, consignePrincipale);
+		if(this.moteurSecondaireActif)this.consigneSecondaire = limiterPID(this.moteurSecondaire.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
+		if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.Position, consigneSecondaire);
 		//this.moteurSecondaire.set(ControlMode.Position, consigne);
 		////this.pidSecondaire.setSetpoint(consigne);
   }
@@ -225,7 +260,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   
   
   public boolean estBloqueParLimite() {
-	  System.out.println("estBloquerParLimiteCuisse() "+this.moteurPrincipal.getMotorOutputVoltage());
+	  if(this.moteurPrincipalActif)System.out.println("estBloquerParLimiteCuisse() "+this.moteurPrincipal.getMotorOutputVoltage());
+	  if(this.moteurPrincipalActif)
 	  if(this.moteurPrincipal.getMotorOutputVoltage() > 0) {
 		  return false;
 	  }
@@ -234,7 +270,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   
 	public boolean estArrive()
 	{
-		int distanceRestante = Math.abs((int)(lirePosition() - consigne));
+		int distanceRestante = Math.abs((int)(lirePositionPrincipale() - consignePrincipale));
 		System.out.println("Distance restante cuisse " + distanceRestante);
 		if (distanceRestante <= 50) return true;
 		return false;
@@ -253,14 +289,14 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	}
 	public void incrementerPosition(float incrementPosition)
 	{
-		this.positionCible = (float) (this.lirePosition() + incrementPosition);
+		this.positionCible = (float) (this.lirePositionPrincipale() + incrementPosition);
 		System.out.println("Cuisse.incrementerPosition() : la nouvelle position desirée est " + this.positionCible);
 	}
 	
 	protected int distanceRestante;
 	public boolean estArrivePositionCible()
 	{
-		this.distanceRestante = (int)(this.positionCible - lirePosition());
+		this.distanceRestante = (int)(this.positionCible - lirePositionPrincipale());
 		System.out.println("Distance restante cuisse " + this.distanceRestante);
 		if (Math.abs(this.distanceRestante) < 10) return true;
 		if(this.position >= this.POSITION_MAX) return true;	

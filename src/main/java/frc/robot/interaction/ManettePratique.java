@@ -46,14 +46,14 @@ public class ManettePratique extends Manette implements RobotMap.Manette{
         this.boutonDeroulerTreuil = new JoystickButton(this.manette, this.BOUTON_X);
         this.boutonDeroulerTreuil.whenPressed(new CommandeDeroulerTreuil());
         
-        this.commandeTesterInitialiserRobot = new CommandeInitialiserRobot();
-        this.commandeTesterInitialiserRobot.start();   
+        ////this.commandeTesterInitialiserRobot = new CommandeInitialiserRobot();
+        ////this.commandeTesterInitialiserRobot.start();   
     }
     
     public void executerActions()
     {
   	  //Journal.ecrire("Test Cuisse Moteur " + RobotMap.Cuisse.MOTEUR_SECONDAIRE);	
-    	Robot.cuisse.synchroniser();
+    	//Robot.cuisse.synchroniser();
     	Robot.animateurDisque.animerSelonSignal();
     	Robot.animateurLed.animerSelonSignal();
     	Robot.roues.conduire();

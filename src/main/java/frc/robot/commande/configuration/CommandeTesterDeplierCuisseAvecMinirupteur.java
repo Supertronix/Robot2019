@@ -49,7 +49,7 @@ public class CommandeTesterDeplierCuisseAvecMinirupteur extends Command{
 	protected boolean isFinished() {
         System.out.println("CommandeTesterDeplierCuisse.isFinished() ");
         
-        this.position = Robot.cuisse.lirePosition();
+        this.position = Robot.cuisse.lirePositionPrincipale();
         this.positionCible = Robot.cuisse.getPositionCible();
         //this.distanceRestante = (float) (this.positionCible - this.position);
         //System.out.println("isFinished() : Distance restante = " + this.distanceRestante);
