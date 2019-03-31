@@ -17,6 +17,7 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
 import com.ctre.phoenix.motorcontrol.SensorTerm;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 // Aussi appelé Hanche par l'équipe	
@@ -69,6 +70,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 			this.setSensorPhase(true);
 			this.set(ControlMode.PercentOutput,0);
 			this.getSensorCollection().setQuadraturePosition(0, 10);
+			this.configNeutralDeadband(0.001, 10);
 		}
 		
 		public TalonSupertronix(int numero, boolean inversion) {
@@ -76,6 +78,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 			this.configFactoryDefault();
 			this.setNeutralMode(NeutralMode.Brake);	  	  
 			this.setSensorPhase(true);
+			this.set(ControlMode.PercentOutput,0);
+			this.getSensorCollection().setQuadraturePosition(0, 10);
 			this.setInverted(inversion);
 		}
 		
@@ -90,7 +94,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 			  this.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
 			  this.config_kP(0, p, 10);
 			  this.config_kI(0, i, 10);	  	  
-			  //this.config_kD(0, d, 10);	  	  
+			  this.config_kD(0, d, 10);	  	  
 		}		
 		
 		public void activerMinirupteur()
@@ -110,6 +114,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		{
 			
 		}
+		
+
 	}
 	
   public Cuisse()
@@ -120,7 +126,6 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		if(this.moteurPrincipalActif)
 		{
 		  this.moteurPrincipal = new TalonSupertronix(MOTEUR_PRINCIPAL, INVERSION_PRINCIPALE);		  
-		  //this.moteurPrincipal.activerEncodeur();
 		  this.moteurPrincipal.initialiserPID(PID_P, PID_I, 0);
 		  this.moteurPrincipal.activerMinirupteur();
 		}
@@ -131,22 +136,37 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		  this.moteurSecondaire.activerEncodeur();
 		  this.moteurSecondaire.initialiserPID(PID_P, PID_I, 0);
 		  this.moteurSecondaire.activerMinirupteur();
-		  //this.moteurSecondaire.follow(this.moteurPrincipal);
 		}
 		
 		if(this.moteurPrincipalActif && this.moteurSecondaireActif) 
 		{
-			this.moteurPrincipal.configRemoteFeedbackFilter(MOTEUR_SECONDAIRE, RemoteSensorSource.TalonSRX_SelectedSensor, 1, 10);
-			this.moteurPrincipal.configSensorTerm(SensorTerm.Sum0, FeedbackDevice.RemoteSensor1, 10);
-			this.moteurPrincipal.configSensorTerm(SensorTerm.Sum1, FeedbackDevice.CTRE_MagEncoder_Relative, 10);
-			this.moteurPrincipal.configSensorTerm(SensorTerm.Diff1, FeedbackDevice.RemoteSensor1, 10);
-			this.moteurPrincipal.configSensorTerm(SensorTerm.Diff0, FeedbackDevice.CTRE_MagEncoder_Relative, 10);
+			this.moteurSecondaire.configRemoteFeedbackFilter(MOTEUR_SECONDAIRE, RemoteSensorSource.TalonSRX_SelectedSensor, 1, 10);
+			this.moteurSecondaire.configSensorTerm(SensorTerm.Sum0, FeedbackDevice.RemoteSensor1, 10);
+			this.moteurSecondaire.configSensorTerm(SensorTerm.Sum1, FeedbackDevice.CTRE_MagEncoder_Relative, 10);
+			this.moteurSecondaire.configSensorTerm(SensorTerm.Diff1, FeedbackDevice.RemoteSensor1, 10);
+			this.moteurSecondaire.configSensorTerm(SensorTerm.Diff0, FeedbackDevice.CTRE_MagEncoder_Relative, 10);
 			
-			this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, 0, 10);
-			this.moteurPrincipal.configSelectedFeedbackCoefficient(0.5, 1, 10);
-			this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.SensorDifference, 1, 10);
+			this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, 0, 10);
+			this.moteurSecondaire.configSelectedFeedbackCoefficient(0.5, 1, 10);
+			this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.SensorDifference, 1, 10);
 			
+			this.moteurSecondaire.setStatusFramePeriod(StatusFrame.Status_12_Feedback1, 20, 10);
+			this.moteurSecondaire.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 20, 10);
+			this.moteurSecondaire.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 20, 10);
+			this.moteurPrincipal.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20, 10);
+			
+			this.moteurSecondaire.config_kP(1, 2, 10);
+			this.moteurSecondaire.config_kI(1, 0, 10);
+			this.moteurSecondaire.config_kD(1, 4, 10);
+			this.moteurSecondaire.config_IntegralZone(1, 200, 10);
+			this.moteurSecondaire.configClosedLoopPeakOutput(1, 1, 10);			
+			this.moteurSecondaire.configClosedLoopPeriod(1, 1);
+			
+			this.moteurSecondaire.configClosedLoopPeriod(0, 1);
+			
+			this.moteurSecondaire.configAuxPIDPolarity(false, 10);
 			this.moteurPrincipal.follow(this.moteurSecondaire, FollowerType.AuxOutput1);
+			
 		}
 		//this.moteurPrincipal.getControlMode();
 
@@ -171,9 +191,11 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  
 
 	  
+	  /*
 	  this.moteurPrincipal.set(ControlMode.PercentOutput, this.moteurSecondaire.getMotorOutputPercent());
 	  System.out.println("Pourcent ENVOYE " + this.moteurSecondaire.getMotorOutputPercent());
 	  System.out.println("Pourcent RECU " + this.moteurPrincipal.getMotorOutputPercent());
+	  */
 	  
 	  // EXISTE PAS ENCORE ControlMode.VOLTAGE	  
 	  //Journal.ecrire("Voltage ENVOYE " + this.moteurSecondaire.getMotorOutputVoltage());
@@ -265,16 +287,16 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	public void donnerConsignePID(float consigne) {
 		//consigne = limiterPID(consigne, POSITION_MIN, POSITION_MAX);
 		if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.Position, consigne);
-		if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.Position, -consigne);
+		//if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.Position, -consigne);
   }
 	
   public void augmenterConsignePID(float increment) {
 	  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
 
 	  //Active close loop
-	  if(this.moteurPrincipalActif) this.consignePrincipale = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
-	  if(this.moteurPrincipalActif) System.out.println("Consigne moteur principal " + this.consignePrincipale);
-	  if(this.moteurPrincipalActif) this.moteurPrincipal.set(ControlMode.Position, this.consignePrincipale);
+	  //if(this.moteurPrincipalActif) this.consignePrincipale = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
+	  //if(this.moteurPrincipalActif) System.out.println("Consigne moteur principal " + this.consignePrincipale);
+	  //if(this.moteurPrincipalActif) this.moteurPrincipal.set(ControlMode.Position, this.consignePrincipale);
 	  
 	  if(this.moteurSecondaireActif) this.consigneSecondaire = limiterPID(this.moteurSecondaire.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
 	  if(this.moteurSecondaireActif) System.out.println("Consigne moteur secondaire " + this.consigneSecondaire);
@@ -286,15 +308,15 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   public void reduireConsignePID(float decrement) {
 	  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
 
-	  if(this.moteurPrincipalActif) this.consignePrincipale = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
-	  if(this.moteurPrincipalActif) System.out.println("Consigne moteur principal " + this.consignePrincipale);
-	  if(this.moteurPrincipalActif) this.moteurPrincipal.set(ControlMode.Position, this.consignePrincipale);
+	  //if(this.moteurPrincipalActif) this.consignePrincipale = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
+	  //if(this.moteurPrincipalActif) System.out.println("Consigne moteur principal " + this.consignePrincipale);
+	  //if(this.moteurPrincipalActif) this.moteurPrincipal.set(ControlMode.Position, this.consignePrincipale);
 	  
 	  if(this.moteurSecondaireActif) this.consigneSecondaire = limiterPID(this.moteurSecondaire.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
 	  if(this.moteurSecondaireActif) System.out.println("Consigne moteur secondaire " + this.consigneSecondaire);
 	  if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire);
 	  
-		////this.pidSecondaire.setSetpoint(consigne);
+	  ////this.pidSecondaire.setSetpoint(consigne);
   }
   
   public double limiterPID(double val, double min, double max) 
