@@ -242,8 +242,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //position = this.encodeur.getDistance();
 	  if(this.moteurPrincipalActif) this.position = this.moteurPrincipal.getSelectedSensorPosition(); // -748 (limit switch a 2964 
 	  //position = this.moteurPrincipal.getSensorCollection().getQuadraturePosition(); // 742 (limit switch) a -2962
-	  System.out.println("Cuisse.lirePosition() : " + INVERSION*this.position);
-      SmartDashboard.putNumber("Position cuisse", INVERSION*this.position);	  
+	  System.out.println("Cuisse.lirePositionPrincipale() : " + INVERSION*this.position + " avec consigne de " + this.consignePrincipale);
+      SmartDashboard.putNumber("Position cuisse C1", INVERSION*this.position);	  
 	  return INVERSION*this.position;
   }
   
@@ -251,8 +251,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   public double lirePositionSecondaire()
   {
 	  if(this.moteurSecondaireActif) this.positionSecondaire = this.moteurSecondaire.getSelectedSensorPosition(); // -748 (limit switch a 2964 
-	  System.out.println("Cuisse.lirePositionSecondaire() : " + INVERSION*this.positionSecondaire);
-      SmartDashboard.putNumber("Position cuisse", INVERSION*this.positionSecondaire);	  
+	  System.out.println("Cuisse.lirePositionSecondaire() : " + INVERSION*this.positionSecondaire + " avec consigne de " + this.consignePrincipale);
+      SmartDashboard.putNumber("Position cuisse C2", INVERSION*this.positionSecondaire);	  
 	  return INVERSION*this.positionSecondaire;	  
   }
     
@@ -313,7 +313,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	{
 		this.distanceRestanteSelonConsigne = Math.abs((int)(lirePositionPrincipale() - this.consignePrincipale));
 		System.out.println("Distance restante cuisse " + this.distanceRestanteSelonConsigne);
-		if (distanceRestanteSelonConsigne <= 50) return true;
+		if (distanceRestanteSelonConsigne <= 10) return true;
 		return false;
 	}
  
