@@ -36,6 +36,7 @@ public class CommandeCalibrerCuisse extends Command {
 		{
 			System.out.println("Timeout du homing de la cuisse");
 			Robot.cuisse.initialiser();
+			Robot.cuisse.donnerConsignePID(0);
 			return true;
 		}
 		return false;

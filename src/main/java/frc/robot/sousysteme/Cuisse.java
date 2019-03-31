@@ -304,8 +304,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   }
 	public void donnerConsignePID(float consigne) {
 		//consigne = limiterPID(consigne, POSITION_MIN, POSITION_MAX);
-		if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.Position, consigne, DemandType.AuxPID, 0);
-		//if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.Position, -consigne);
+		//if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.Position, consigne, DemandType.AuxPID, 0);
+		if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.Position, -consigne);
   }
 	
   public void augmenterConsignePID(float increment) {
