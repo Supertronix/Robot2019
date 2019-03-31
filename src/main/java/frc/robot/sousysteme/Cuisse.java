@@ -82,10 +82,6 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 			  this.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);	  
 		}
 
-		////EncodeurPrincipalSource sourceEncodeur = new EncodeurPrincipalSource(this.moteurPrincipal);
-		////pidSecondaire = new PIDController(PID_P, PID_I, 0, sourceEncodeur, new TalonCible(this.moteurSecondaire));
-		// PIDController(double Kp, double Ki, double Kd, PIDSource source, PIDOutput output)
-		// PIDController(double Kp, double Ki, double Kd, double Kf, PIDSource source, PIDOutput output)
 		public void initialiserPID(double p, double i, double d)
 		{
 			  this.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
@@ -109,48 +105,18 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		
 		if(this.moteurPrincipalActif)
 		{
-		  this.moteurPrincipal = new TalonSupertronix(MOTEUR_PRINCIPAL, INVERSION_PRINCIPALE);
-		  //this.moteurPrincipal.configFactoryDefault();	  
-		  //this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	  	  
-		  //this.moteurPrincipal.setSensorPhase(true);
-		  //this.moteurPrincipal.setInverted(INVERSION_PRINCIPALE);
-		  
+		  this.moteurPrincipal = new TalonSupertronix(MOTEUR_PRINCIPAL, INVERSION_PRINCIPALE);		  
 		  this.moteurPrincipal.activerEncodeur();
-		  //this.moteurPrincipal.setSelectedSensorPosition(0);
-		  //this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);	  
-		  //this.moteurPrincipal.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
-		  
 		  this.moteurPrincipal.initialiserPID(PID_P, PID_I, 0);
-		  //this.moteurPrincipal.config_kP(0, PID_P, 10);
-		  //this.moteurPrincipal.config_kI(0, PID_I, 10);	  	  
-		  
 		  this.moteurPrincipal.activerMinirupteur();
-		  //this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-		  //this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-		  //this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
-
 		}
 			  
 		if(this.moteurSecondaireActif)
 		{
 		  this.moteurSecondaire = new TalonSupertronix(MOTEUR_SECONDAIRE, INVERSION_SECONDAIRE);
-		  //this.moteurSecondaire.configFactoryDefault();	  
-		  //this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
-		  //this.moteurSecondaire.setSensorPhase(true);
-		  //this.moteurSecondaire.setInverted(INVERSION_SECONDAIRE);
-		  		  
 		  this.moteurSecondaire.activerEncodeur();
-		  //this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-		  //this.moteurSecondaire.configAllowableClosedloopError(0, 0, this.ERREUR_DISTANCE_PERMISE);
-		  
 		  this.moteurSecondaire.initialiserPID(PID_P, PID_I, 0);
-		  //this.moteurSecondaire.config_kP(0, PID_P, 10);
-		  //this.moteurSecondaire.config_kI(0, PID_I, 10);
-		  
 		  this.moteurSecondaire.activerMinirupteur();
-		  //this.moteurSecondaire.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-		  //this.moteurSecondaire.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-		  //this.moteurSecondaire.configClearPositionOnLimitR(true, 0);
 		  
 		  //this.moteurSecondaire.follow(this.moteurPrincipal);
 		}
