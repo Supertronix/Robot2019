@@ -43,10 +43,12 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         this.boutonTestCuisseDeplier.whenPressed(new CommandeDeplierCuisse(100));
         this.boutonTestCuissePlier = new JoystickButton(this.manette, BOUTON_A);
         this.boutonTestCuissePlier.whenPressed(new CommandeDeplierCuisse(-100));
+        
         this.boutonTestJambeDeplier = new JoystickButton(this.manette, BOUTON_Y);
         this.boutonTestJambeDeplier.whenPressed(new CommandeDeplierJambe(100));
         this.boutonTestJambePlier = new JoystickButton(this.manette, BOUTON_X);
         this.boutonTestJambePlier.whenPressed(new CommandeDeplierJambe(-100));
+        
         //this.boutonTestGrimpage = new JoystickButton(this.manette, this.BOUTON_DEMARRER);
         //this.boutonTestGrimpage.whenPressed(new CommandeGrimperRobot());
         
@@ -70,8 +72,8 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         //this.boutonTesterMonterRobot.whenPressed(new CommandeGrimperRobot());
 
         
-        //this.commandeTesterInitialiserRobot = new CommandeInitialiserRobot();
-        //this.commandeTesterInitialiserRobot.start();
+        this.commandeTesterInitialiserRobot = new CommandeInitialiserRobot();
+        this.commandeTesterInitialiserRobot.start();
         
         //this.commandeTesterEleverRobot = new CommandeTesterEleverRobot();
         //this.commandeTesterEleverRobot.start();

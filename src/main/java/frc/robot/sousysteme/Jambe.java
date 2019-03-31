@@ -22,12 +22,13 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	public double PID_P = 0.6;
 	public double PID_I = 0.00155; //0.00055;
 	
-	protected TalonSRX moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
-	protected TalonSRX moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
+	protected TalonSRX moteurPrincipal = null;
+	protected TalonSRX moteurSecondaire = null; 
 	
 	//protected Encoder encodeurMoteurPrincipal = new Encoder(ENCODEUR_MOTEUR_PRINCIPAL_A, ENCODEUR_MOTEUR_PRINCIPAL_B,  ENCODEUR_MOTEUR_PRINCIPAL_INVERSION, Encoder.EncodingType.k2X);
 	
 	public Jambe() {
+		  this.moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
 		  this.moteurPrincipal.configFactoryDefault();
 		  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	
 		  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
@@ -37,6 +38,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		  this.moteurPrincipal.config_kI(0, PID_I, 10);		  		  
 		  this.moteurPrincipal.setSelectedSensorPosition(0);
 		  		  
+		  this.moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
 		  this.moteurSecondaire.configFactoryDefault();
 		  this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
 		  this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
@@ -45,7 +47,6 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		  this.moteurSecondaire.config_kP(0, PID_P, 10);
 		  this.moteurSecondaire.config_kI(0, PID_I, 10);		  		  
 		  this.moteurSecondaire.setSelectedSensorPosition(0);
-		  
 		  this.moteurSecondaire.setInverted(false);
 		  //this.moteurSecondaire.follow(this.moteurPrincipal);
 		  

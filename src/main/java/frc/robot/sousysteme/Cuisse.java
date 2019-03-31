@@ -22,12 +22,12 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	
 	public double POSITION_MIN = 0;
-	public double POSITION_MAX = 6400; // 3700 sur robot competition	
+	public double POSITION_MAX = 20000; // 3700 sur robot competition	
 
 	public int ERREUR_DISTANCE_PERMISE = 5;
 	public int INVERSION = 1; // inutile depuis moteur.setIntverted(true) - le manuel etait non compatible avec limit switch
 	public boolean INVERSION_PRINCIPALE = true; // TODO inverser pour le robot competition
-	public boolean INVERSION_SECONDAIRE = true; // TODO inverser pour le robot competition
+	public boolean INVERSION_SECONDAIRE = false; // TODO inverser pour le robot competition
 	  
 	// http://www.ctr-electronics.com/downloads/api/java/html/classcom_1_1ctre_1_1phoenix_1_1motorcontrol_1_1can_1_1_talon_s_r_x.html
 	protected boolean moteurPrincipalActif = false;
@@ -58,19 +58,32 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	//public double PID_I = 0.00005;
 	
 	
+	public class TalonSupertronix extends TalonSRX
+	{
+
+		public TalonSupertronix(int deviceNumber) {
+			super(deviceNumber);
+			this.configFactoryDefault();
+			this.setNeutralMode(NeutralMode.Brake);	  	  
+			this.setSensorPhase(true);
+		}
+
+		
+		
+	}
+	
   public Cuisse()
   {
-		this.moteurPrincipalActif = false;
+		this.moteurPrincipalActif = true;
 		this.moteurSecondaireActif = true;
 		
 		if(this.moteurPrincipalActif)
 		{
-		  this.moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
-		  this.moteurPrincipal.configFactoryDefault();	  
-		  
-		  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	  	  
+		  this.moteurPrincipal = new TalonSupertronix(MOTEUR_PRINCIPAL);
+		  //this.moteurPrincipal.configFactoryDefault();	  
+		  //this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	  	  
+		  //this.moteurPrincipal.setSensorPhase(true);
 		  this.moteurPrincipal.setInverted(INVERSION_PRINCIPALE);
-		  this.moteurPrincipal.setSensorPhase(true);
 		  
 		  //this.moteurPrincipal.setSelectedSensorPosition(0);
 		  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);	  
@@ -81,11 +94,11 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 			  
 		if(this.moteurSecondaireActif)
 		{
-		  this.moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
-		  this.moteurSecondaire.configFactoryDefault();	  
-		  this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
+		  this.moteurSecondaire = new TalonSupertronix(MOTEUR_SECONDAIRE);
+		  //this.moteurSecondaire.configFactoryDefault();	  
+		  //this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
+		  //this.moteurSecondaire.setSensorPhase(true);
 		  this.moteurSecondaire.setInverted(INVERSION_SECONDAIRE);
-		  this.moteurSecondaire.setSensorPhase(true);
 		  
 		  ////EncodeurPrincipalSource sourceEncodeur = new EncodeurPrincipalSource(this.moteurPrincipal);
 		  ////pidSecondaire = new PIDController(PID_P, PID_I, 0, sourceEncodeur, new TalonCible(this.moteurSecondaire));
@@ -230,26 +243,33 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.Position, consigne);
 		if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.Position, -consigne);
   }
+	
   public void augmenterConsignePID(float increment) {
 	  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
 
 	  //Active close loop
 	  if(this.moteurPrincipalActif) this.consignePrincipale = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
-	  if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.Position, consignePrincipale);
-	  if(this.moteurSecondaireActif)this.consigneSecondaire = limiterPID(this.moteurSecondaire.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
-	  if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.Position, consigneSecondaire);
-		//this.moteurSecondaire.set(ControlMode.Position, consigne);
+	  if(this.moteurPrincipalActif) System.out.println("Consigne moteur principal " + this.consignePrincipale);
+	  if(this.moteurPrincipalActif) this.moteurPrincipal.set(ControlMode.Position, this.consignePrincipale);
+	  
+	  if(this.moteurSecondaireActif) this.consigneSecondaire = limiterPID(this.moteurSecondaire.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
+	  if(this.moteurSecondaireActif) System.out.println("Consigne moteur secondaire " + this.consigneSecondaire);
+	  if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire);
+	  
 		////this.pidSecondaire.setSetpoint(consigne);
   }
   
   public void reduireConsignePID(float decrement) {
 	  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
 
-	  if(this.moteurPrincipalActif)consignePrincipale = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
-		if(this.moteurPrincipalActif) this.moteurPrincipal.set(ControlMode.Position, consignePrincipale);
-		if(this.moteurSecondaireActif)this.consigneSecondaire = limiterPID(this.moteurSecondaire.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
-		if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.Position, consigneSecondaire);
-		//this.moteurSecondaire.set(ControlMode.Position, consigne);
+	  if(this.moteurPrincipalActif) this.consignePrincipale = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
+	  if(this.moteurPrincipalActif) System.out.println("Consigne moteur principal " + this.consignePrincipale);
+	  if(this.moteurPrincipalActif) this.moteurPrincipal.set(ControlMode.Position, this.consignePrincipale);
+	  
+	  if(this.moteurSecondaireActif) this.consigneSecondaire = limiterPID(this.moteurSecondaire.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
+	  if(this.moteurSecondaireActif) System.out.println("Consigne moteur secondaire " + this.consigneSecondaire);
+	  if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire);
+	  
 		////this.pidSecondaire.setSetpoint(consigne);
   }
   
@@ -268,11 +288,12 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  return true;
   }
   
+  int distanceRestanteSelonConsigne;
 	public boolean estArrive()
 	{
-		int distanceRestante = Math.abs((int)(lirePositionPrincipale() - consignePrincipale));
-		System.out.println("Distance restante cuisse " + distanceRestante);
-		if (distanceRestante <= 50) return true;
+		this.distanceRestanteSelonConsigne = Math.abs((int)(lirePositionPrincipale() - this.consignePrincipale));
+		System.out.println("Distance restante cuisse " + this.distanceRestanteSelonConsigne);
+		if (distanceRestanteSelonConsigne <= 50) return true;
 		return false;
 	}
  
