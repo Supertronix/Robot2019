@@ -24,16 +24,15 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	public double POSITION_MIN = 0;
 	public double POSITION_MAX = 20000; // 3700 sur robot competition	
 
-	public int ERREUR_DISTANCE_PERMISE = 5;
 	public int INVERSION = 1; // inutile depuis moteur.setIntverted(true) - le manuel etait non compatible avec limit switch
 	public boolean INVERSION_PRINCIPALE = true; // TODO inverser pour le robot competition
 	public boolean INVERSION_SECONDAIRE = false; // TODO inverser pour le robot competition
 	  
 	// http://www.ctr-electronics.com/downloads/api/java/html/classcom_1_1ctre_1_1phoenix_1_1motorcontrol_1_1can_1_1_talon_s_r_x.html
 	protected boolean moteurPrincipalActif = false;
-	protected TalonSRX moteurPrincipal = null;
+	protected TalonSupertronix moteurPrincipal = null;
 	protected boolean moteurSecondaireActif = false;
-	protected TalonSRX moteurSecondaire = null;
+	protected TalonSupertronix moteurSecondaire = null;
 	PIDController pidSecondaire;
 	  //this.moteurSecondaire.setSensorPhase(false);
 	  //this.moteurSecondaire.setInverted(false);
@@ -60,16 +59,43 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	
 	public class TalonSupertronix extends TalonSRX
 	{
+		public int ERREUR_DISTANCE_PERMISE = 5;
 
-		public TalonSupertronix(int deviceNumber) {
-			super(deviceNumber);
+		public TalonSupertronix(int numero) {
+			super(numero);
 			this.configFactoryDefault();
 			this.setNeutralMode(NeutralMode.Brake);	  	  
 			this.setSensorPhase(true);
 		}
+		
+		public TalonSupertronix(int numero, boolean inversion) {
+			super(numero);
+			this.configFactoryDefault();
+			this.setNeutralMode(NeutralMode.Brake);	  	  
+			this.setSensorPhase(true);
+			this.setInverted(inversion);
+		}
+		
+		public void activerEncodeur()
+		{
+			  //this.moteurPrincipal.setSelectedSensorPosition(0);
+			  this.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);	  
+			  this.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
+		}
 
+		public void initialiserPID(double p, double i, double d)
+		{
+			  this.config_kP(0, p, 10);
+			  this.config_kI(0, i, 10);	  	  
+			  this.config_kD(0, d, 10);	  	  
+		}		
 		
-		
+		public void activerMinirupteur()
+		{
+			  this.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+			  this.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+			  this.configClearPositionOnLimitR(true, 0);	
+		}
 	}
 	
   public Cuisse()
@@ -79,26 +105,35 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		
 		if(this.moteurPrincipalActif)
 		{
-		  this.moteurPrincipal = new TalonSupertronix(MOTEUR_PRINCIPAL);
+		  this.moteurPrincipal = new TalonSupertronix(MOTEUR_PRINCIPAL, INVERSION_PRINCIPALE);
 		  //this.moteurPrincipal.configFactoryDefault();	  
 		  //this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	  	  
 		  //this.moteurPrincipal.setSensorPhase(true);
-		  this.moteurPrincipal.setInverted(INVERSION_PRINCIPALE);
+		  //this.moteurPrincipal.setInverted(INVERSION_PRINCIPALE);
 		  
+		  this.moteurPrincipal.activerEncodeur();
 		  //this.moteurPrincipal.setSelectedSensorPosition(0);
-		  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);	  
-		  this.moteurPrincipal.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
-		  this.moteurPrincipal.config_kP(0, PID_P, 10);
-		  this.moteurPrincipal.config_kI(0, PID_I, 10);	  	  
+		  //this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);	  
+		  //this.moteurPrincipal.configAllowableClosedloopError(0, 0,  this.ERREUR_DISTANCE_PERMISE);
+		  
+		  this.moteurPrincipal.initialiserPID(PID_P, PID_I, 0);
+		  //this.moteurPrincipal.config_kP(0, PID_P, 10);
+		  //this.moteurPrincipal.config_kI(0, PID_I, 10);	  	  
+		  
+		  this.moteurPrincipal.activerMinirupteur();
+		  //this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+		  //this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+		  //this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
+
 		}
 			  
 		if(this.moteurSecondaireActif)
 		{
-		  this.moteurSecondaire = new TalonSupertronix(MOTEUR_SECONDAIRE);
+		  this.moteurSecondaire = new TalonSupertronix(MOTEUR_SECONDAIRE, INVERSION_SECONDAIRE);
 		  //this.moteurSecondaire.configFactoryDefault();	  
 		  //this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
 		  //this.moteurSecondaire.setSensorPhase(true);
-		  this.moteurSecondaire.setInverted(INVERSION_SECONDAIRE);
+		  //this.moteurSecondaire.setInverted(INVERSION_SECONDAIRE);
 		  
 		  ////EncodeurPrincipalSource sourceEncodeur = new EncodeurPrincipalSource(this.moteurPrincipal);
 		  ////pidSecondaire = new PIDController(PID_P, PID_I, 0, sourceEncodeur, new TalonCible(this.moteurSecondaire));
@@ -106,34 +141,19 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		  // PIDController(double Kp, double Ki, double Kd, double Kf, PIDSource source, PIDOutput output)
 		  //this.moteurSecondaire.follow(this.moteurPrincipal);
 		  
-		  this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-		  this.moteurSecondaire.configAllowableClosedloopError(0, 0, this.ERREUR_DISTANCE_PERMISE);
-		  this.moteurSecondaire.config_kP(0, PID_P, 10);
-		  this.moteurSecondaire.config_kI(0, PID_I, 10);
+		  this.moteurSecondaire.activerEncodeur();
+		  //this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+		  //this.moteurSecondaire.configAllowableClosedloopError(0, 0, this.ERREUR_DISTANCE_PERMISE);
+		  
+		  this.moteurSecondaire.initialiserPID(PID_P, PID_I, 0);
+		  //this.moteurSecondaire.config_kP(0, PID_P, 10);
+		  //this.moteurSecondaire.config_kI(0, PID_I, 10);
+		  
+		  this.moteurSecondaire.activerMinirupteur();
+		  //this.moteurSecondaire.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+		  //this.moteurSecondaire.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+		  //this.moteurSecondaire.configClearPositionOnLimitR(true, 0);
 		}
-		
-		// Maintenir cet appel après 
-		  this.configurerMinirupteur();
-  }
-  
-  // Limit switches
-  public void configurerMinirupteur()
-  {	  
-		if(this.moteurPrincipalActif)
-		{
-		  this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-		  this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-		  this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
-		  //this.moteurPrincipal.configClearPositionOnLimitF(true, 0);
-		}
-		if(this.moteurSecondaireActif)
-		{
-		  this.moteurSecondaire.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-		  this.moteurSecondaire.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-		  this.moteurSecondaire.configClearPositionOnLimitR(true, 0);
-		  //this.moteurSecondaire.configClearPositionOnLimitF(true, 0);
-		}
-	  //this.moteurPrincipal.configLimitSwitchDisableNeutralOnLOS(true, 10);
   }
   
   // la stratégie est soit de synchroniser les outputs de voltage avec la fonction synchroniser qu'on doit appeler à chaque itération
