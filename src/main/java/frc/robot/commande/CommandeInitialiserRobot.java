@@ -8,7 +8,7 @@ public class CommandeInitialiserRobot extends CommandGroup{
     {
     	System.out.println("new CommandeTesterInitialiserRobot()");
     	this.addParallel(new CommandeCalibrerCuisse());
-    	this.addSequential(new CommandeCalibrerJambe());
+    	//this.addSequential(new CommandeCalibrerJambe());
     }
 
     @Override

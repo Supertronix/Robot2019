@@ -16,8 +16,6 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-
-
 // Aussi appelé Hanche par l'équipe	
 public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	
@@ -57,6 +55,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	//public double PID_I = 0.00005;
 	
 	
+	//this.moteurPrincipal.getSensorCollection().setQuadraturePosition(0, 10);
+	//this.moteurPrincipal.getSensorCollection().isRevLimitSwitchClosed();
 	public class TalonSupertronix extends TalonSRX
 	{
 		public int ERREUR_DISTANCE_PERMISE = 5;
@@ -107,7 +107,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		{
 		  this.moteurPrincipal = new TalonSupertronix(MOTEUR_PRINCIPAL, INVERSION_PRINCIPALE);		  
 		  this.moteurPrincipal.activerEncodeur();
-		  this.moteurPrincipal.initialiserPID(PID_P, PID_I, 0);
+		  //this.moteurPrincipal.initialiserPID(PID_P, PID_I, 0);
 		  this.moteurPrincipal.activerMinirupteur();
 		}
 			  
@@ -117,9 +117,13 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		  this.moteurSecondaire.activerEncodeur();
 		  this.moteurSecondaire.initialiserPID(PID_P, PID_I, 0);
 		  this.moteurSecondaire.activerMinirupteur();
-		  
 		  //this.moteurSecondaire.follow(this.moteurPrincipal);
 		}
+		
+		//if(this.moteurPrincipalActif && this.moteurSecondaireActif) this.moteurPrincipal.follow(this.moteurSecondaire);
+		//this.moteurPrincipal.set(ControlMode.Follower, demand);
+		//this.moteurPrincipal.getControlMode();
+
   }
   
   // la stratégie est soit de synchroniser les outputs de voltage avec la fonction synchroniser qu'on doit appeler à chaque itération
@@ -130,18 +134,19 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //this.moteurSecondaire.set(ControlMode.Position, this.moteurPrincipal.getSelectedSensorPosition());
 
 	  // MARCHE PAS
-	  //Journal.ecrire("Courant ENVOYE " + this.moteurPrincipal.getOutputCurrent());
-	  //this.moteurSecondaire.set(ControlMode.Current, this.moteurPrincipal.getOutputCurrent());
-	  //Journal.ecrire("Courant RECU " + this.moteurSecondaire.getOutputCurrent());
+	  //this.moteurPrincipal.set(ControlMode.Current, this.moteurSecondaire.getOutputCurrent());
+	  //Journal.ecrire("Courant ENVOYE " + this.moteurSecondaire.getOutputCurrent());
+	  //Journal.ecrire("Courant RECU " + this.moteurPrincipal.getOutputCurrent());
 	  
-	  //Journal.ecrire("Pourcent ENVOYE " + this.moteurPrincipal.getMotorOutputPercent());
-	  ////this.moteurSecondaire.set(ControlMode.PercentOutput, (3)*this.moteurPrincipal.getMotorOutputPercent());
-	  //Journal.ecrire("Pourcent RECU " + this.moteurSecondaire.getMotorOutputPercent());
+	  //this.moteurPrincipal.set(ControlMode.PercentOutput, this.moteurSecondaire.getMotorOutputPercent());
+	  //Journal.ecrire("Pourcent ENVOYE " + this.moteurSecondaire.getMotorOutputPercent());
+	  //Journal.ecrire("Pourcent RECU " + this.moteurPrincipal.getMotorOutputPercent());
+	  
+	  // EXISTE PAS ENCORE ControlMode.VOLTAGE	  
+	  //Journal.ecrire("Voltage ENVOYE " + this.moteurSecondaire.getMotorOutputVoltage());
+	  //this.moteurPrincipal.set(ControlMode.VOLTAGE, this.moteurSecondaire.getMotorOutputVoltage());
+	  //Journal.ecrire("Voltage RECU " + this.moteurPrincipal.getMotorOutputVoltage());
 
-	  // EXISTE PAS ENCORE ControlMode.VOLTAGE
-	  //Journal.ecrire("Voltage ENVOYE " + this.moteurPrincipal.getMotorOutputVoltage());
-	  //this.moteurSecondaire.set(ControlMode.VOLTAGE, this.moteurPrincipal.getMotorOutputVoltage());
-	  //Journal.ecrire("Voltage RECU " + this.moteurSecondaire.getMotorOutputVoltage());
   }
   
   private class EncodeurPrincipalSource implements PIDSource
@@ -266,12 +271,14 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   
   
   public boolean estBloqueParLimite() {
-	  if(this.moteurPrincipalActif)System.out.println("estBloquerParLimiteCuisse() "+this.moteurPrincipal.getMotorOutputVoltage());
+	  /*if(this.moteurPrincipalActif)System.out.println("estBloquerParLimiteCuisse() "+this.moteurPrincipal.getMotorOutputVoltage());
 	  if(this.moteurPrincipalActif)
 	  if(this.moteurPrincipal.getMotorOutputVoltage() > 0) {
 		  return false;
 	  }
-	  return true;
+	  return true;*/
+	  System.out.println("estBloqueParLimite()" + this.moteurPrincipal.getSensorCollection().isRevLimitSwitchClosed());
+	  return this.moteurPrincipal.getSensorCollection().isRevLimitSwitchClosed();
   }
   
   int distanceRestanteSelonConsigne;
