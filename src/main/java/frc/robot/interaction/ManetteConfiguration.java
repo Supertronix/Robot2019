@@ -11,6 +11,7 @@ import frc.robot.commande.CommandeDeplierJambe;
 import frc.robot.commande.CommandeDeroulerTreuil;
 import frc.robot.commande.CommandeInitialiserRobot;
 import frc.robot.commande.CommandeRoulerTreuil;
+import frc.robot.commande.configuration.CommandeTesterCuisseAvecManette;
 import frc.robot.commande.configuration.CommandeTesterDeplierCuisse;
 import frc.robot.commande.configuration.CommandeTesterDeplierCuisseAvecMinirupteur;
 import frc.robot.commande.configuration.CommandeTesterDeplierJambe;
@@ -86,16 +87,19 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         
         this.commandeTesterInitialiserRobot = new CommandeInitialiserRobot();
         this.commandeTesterInitialiserRobot.start();
-		Robot.cuisse.annulerConsigne();
+        this.commandeTesterCuisseAvecManette.start();
     }
+
+    protected CommandeTesterCuisseAvecManette commandeTesterCuisseAvecManette = new CommandeTesterCuisseAvecManette();
+    
     
     public void executerActions()
     {
     	//this.deplacerTreuilSelonAxes();
     	//this.roulerEtDeroulerTreuil();
-    	if(Robot.cuisse.estCalibre()) 
+    	//if(Robot.cuisse.estCalibre()) 
     	{
-    		this.plierEtDeplierCuisse();
+    		//this.plierEtDeplierCuisse();
     	}
     	//this.plierEtDeplierJambe();
     	//Robot.cuisse.synchroniser();
@@ -105,14 +109,12 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
 
     public void plierEtDeplierCuisse()
     {
-    	//Robot.cuisse.monter(-0.3f);
     	System.out.println("==========================================");
     	System.out.println("AXE CUISSE : " + this.getAxeMainGauche().y);
     	if(this.getAxeMainGauche().y < -0.1) 
     	{
     		System.out.println("Le robot essaie de descendre " + this.getAxeMainGauche().y);
     		Robot.cuisse.monter((float) this.getAxeMainGauche().y);
-    		//Robot.cuisse.monter(-0.3f);
     	}
     	else if(this.getAxeMainGauche().y > 0.1) 
     	{
