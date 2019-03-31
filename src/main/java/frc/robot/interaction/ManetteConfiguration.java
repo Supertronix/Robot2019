@@ -39,10 +39,10 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
     	System.out.println("new ManetteConfiguration()");
         this.manette = new Joystick(MANETTE);    	
         
-        this.boutonTestCuisseDeplier = new JoystickButton(this.manette, BOUTON_B);
-        this.boutonTestCuisseDeplier.whenPressed(new CommandeDeplierCuisse(100));
-        this.boutonTestCuissePlier = new JoystickButton(this.manette, BOUTON_A);
-        this.boutonTestCuissePlier.whenPressed(new CommandeDeplierCuisse(-100));
+        //this.boutonTestCuisseDeplier = new JoystickButton(this.manette, BOUTON_B);
+        //this.boutonTestCuisseDeplier.whenPressed(new CommandeDeplierCuisse(100));
+        //this.boutonTestCuissePlier = new JoystickButton(this.manette, BOUTON_A);
+        //this.boutonTestCuissePlier.whenPressed(new CommandeDeplierCuisse(-100));
         
         //this.boutonTestJambeDeplier = new JoystickButton(this.manette, BOUTON_Y);
         //this.boutonTestJambeDeplier.whenPressed(new CommandeDeplierJambe(100));
@@ -70,10 +70,6 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         
         //this.boutonTesterMonterRobot = new JoystickButton(this.manette, BOUTON_RETOUR);
         //this.boutonTesterMonterRobot.whenPressed(new CommandeGrimperRobot());
-
-        
-        this.commandeTesterInitialiserRobot = new CommandeInitialiserRobot();
-        this.commandeTesterInitialiserRobot.start();
         
         //this.commandeTesterEleverRobot = new CommandeTesterEleverRobot();
         //this.commandeTesterEleverRobot.start();
@@ -87,24 +83,40 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         //this.boutonRoulerTreuil.whenPressed(new CommandeRoulerTreuil());
         //this.boutonDeroulerTreuil = new JoystickButton(this.manette, BOUTON_GAUCHE);
         //this.boutonDeroulerTreuil.whenPressed(new CommandeDeroulerTreuil());
+        
+        this.commandeTesterInitialiserRobot = new CommandeInitialiserRobot();
+        this.commandeTesterInitialiserRobot.start();
+		Robot.cuisse.annulerConsigne();
     }
     
     public void executerActions()
     {
     	//this.deplacerTreuilSelonAxes();
     	//this.roulerEtDeroulerTreuil();
-    	//this.plierEtDeplierCuisse();
+    	if(Robot.cuisse.estCalibre()) 
+    	{
+    		this.plierEtDeplierCuisse();
+    	}
     	//this.plierEtDeplierJambe();
-    	Robot.cuisse.synchroniser();
-    	Robot.cuisse.lirePositionPrincipale();
+    	//Robot.cuisse.synchroniser();
+    	//Robot.cuisse.lirePositionPrincipale();
     	Robot.cuisse.lirePositionSecondaire();
     }
 
     public void plierEtDeplierCuisse()
     {
-    	Journal.ecrire("Axe cuisse : " + this.getAxeMainGauche().y);
-    	if(this.getAxeMainGauche().y > 0.1) 
+    	//Robot.cuisse.monter(-0.3f);
+    	System.out.println("==========================================");
+    	System.out.println("AXE CUISSE : " + this.getAxeMainGauche().y);
+    	if(this.getAxeMainGauche().y < -0.1) 
     	{
+    		System.out.println("Le robot essaie de descendre " + this.getAxeMainGauche().y);
+    		Robot.cuisse.monter((float) this.getAxeMainGauche().y);
+    		//Robot.cuisse.monter(-0.3f);
+    	}
+    	else if(this.getAxeMainGauche().y > 0.1) 
+    	{
+    		System.out.println("Le robot essaie de monter " + this.getAxeMainGauche().y);
     		Robot.cuisse.monter((float) this.getAxeMainGauche().y);
     	}
     	else

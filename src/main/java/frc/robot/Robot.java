@@ -41,7 +41,7 @@ public class Robot extends TimedRobot {
 	Robot.treuil = new Treuil();
 
     Robot.cuisse = new Cuisse();
-    Robot.jambe = new Jambe();
+    //Robot.jambe = new Jambe();
     
     //this.capteurUltrason = new CapteurUltrason();
     Robot.camera = new Camera();

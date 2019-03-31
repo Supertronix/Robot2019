@@ -34,6 +34,7 @@ public class CommandeCalibrerCuisse extends Command {
 		if(this.estBloque) 
 		{
 			Robot.cuisse.donnerConsignePID(0);
+			Robot.cuisse.activerCalibration();
 			return this.estBloque;
 		}
 		this.duree = System.currentTimeMillis() - this.debut;
@@ -42,6 +43,7 @@ public class CommandeCalibrerCuisse extends Command {
 			System.out.println("Timeout du homing de la cuisse");
 			Robot.cuisse.initialiser();
 			Robot.cuisse.donnerConsignePID(0);
+			Robot.cuisse.activerCalibration();
 			return true;
 		}
 		return false;
