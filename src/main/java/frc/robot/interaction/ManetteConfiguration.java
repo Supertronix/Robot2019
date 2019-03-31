@@ -87,20 +87,16 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         
         this.commandeTesterInitialiserRobot = new CommandeInitialiserRobot();
         this.commandeTesterInitialiserRobot.start();
-        this.commandeTesterCuisseAvecManette.start();
-    }
-
-    protected CommandeTesterCuisseAvecManette commandeTesterCuisseAvecManette = new CommandeTesterCuisseAvecManette();
-    
+    }    
     
     public void executerActions()
     {
     	//this.deplacerTreuilSelonAxes();
     	//this.roulerEtDeroulerTreuil();
     	//if(Robot.cuisse.estCalibre()) 
-    	{
+    	//{
     		//this.plierEtDeplierCuisse();
-    	}
+    	//}
     	//this.plierEtDeplierJambe();
     	//Robot.cuisse.synchroniser();
     	//Robot.cuisse.lirePositionPrincipale();

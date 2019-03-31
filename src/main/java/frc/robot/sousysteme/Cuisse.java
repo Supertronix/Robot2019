@@ -239,18 +239,15 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   
   public void arreter()
   {
+	System.out.println("Cuisse.arreter()");
 	//if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0.0);
 	if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, 0.0);
 	////this.moteurSecondaire.set(ControlMode.PercentOutput, 0.0);
   }
-  public void monter()
+  public void monter(float vitesse) 
   {
-	//if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*0.1);
-	if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*0.1);
-	////this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*0.1);
-  }
-  public void monter(float vitesse)
-  {
+	  System.out.println("Cuisse.monter(" + vitesse + ")");
+	  //if(this.moteurSecondaireActif) System.out.println("Cuisse.moteurSecondaireActif = true");
 	//if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*vitesse);
 	if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*vitesse);
 	////this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*vitesse);
@@ -288,10 +285,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   }
   public void annulerConsigne()
   {
-	  this.moteurSecondaire.set(ControlMode.Disabled, 0);
-	  this.moteurPrincipal.set(ControlMode.Disabled, 0);
-	 //this.moteurSecondaire.neutralOutput();
-	  //this.moteurPrincipal.follow(this.moteurSecondaire);	  
+	  //this.moteurSecondaire.set(ControlMode.Disabled, 0);
+	  this.moteurSecondaire.neutralOutput();
   }
   public void donnerConsignePID(float consigne) 
   {

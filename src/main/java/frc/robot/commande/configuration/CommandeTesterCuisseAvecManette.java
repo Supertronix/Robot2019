@@ -9,7 +9,7 @@ import frc.robot.interaction.ManetteConfiguration;
 public class CommandeTesterCuisseAvecManette extends Command{
 
 	protected Manette manette;
-    public CommandeTesterCuisseAvecManette(Manette manette)
+    public CommandeTesterCuisseAvecManette()
     {
     	System.out.println("new CommandeTesterCuisseAvecManette()");
         requires(Robot.cuisse);
@@ -20,11 +20,12 @@ public class CommandeTesterCuisseAvecManette extends Command{
     {
         System.out.println("CommandeTesterCuisseAvecManette.initialize()");
 		Robot.cuisse.annulerConsigne();
+		this.manette = Manette.getInstance();
     }
     
     @Override
     protected void execute(){
-    	if(!Robot.cuisse.estCalibre()) return;
+    	//if(!Robot.cuisse.estCalibre()) return;
     	
     	System.out.println("==========================================");
     	System.out.println("AXE CUISSE : " + manette.getAxeMainGauche().y);
@@ -40,6 +41,7 @@ public class CommandeTesterCuisseAvecManette extends Command{
     	}
     	else
     	{
+    		System.out.println("Le robot n'essaie pas de bouger");
     		Robot.cuisse.arreter();
     	}
 
