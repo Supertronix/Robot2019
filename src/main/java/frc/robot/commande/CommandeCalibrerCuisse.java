@@ -5,12 +5,13 @@ import frc.robot.Robot;
 
 public class CommandeCalibrerCuisse extends Command {
 	
-
-	 
+	protected long debut = 0;
+	protected long duree = 0;
+	
 	public CommandeCalibrerCuisse()
 	{
-		
     	requires(Robot.cuisse);
+    	this.debut = System.currentTimeMillis();
 	}
 	
 	protected void execute(){
@@ -25,7 +26,18 @@ public class CommandeCalibrerCuisse extends Command {
 	@Override
 	protected boolean isFinished() {
 		this.estBloque = Robot.cuisse.estBloqueParLimite();
-		if(this.estBloque) Robot.cuisse.donnerConsignePID(0);
-		return this.estBloque;
+		if(this.estBloque) 
+		{
+			Robot.cuisse.donnerConsignePID(0);
+			return this.estBloque;
+		}
+		this.duree = System.currentTimeMillis() - this.debut;
+		if(this.duree > 3000)
+		{
+			System.out.println("Timeout du homing de la cuisse");
+			Robot.cuisse.initialiser();
+			return true;
+		}
+		return false;
 	}
 }

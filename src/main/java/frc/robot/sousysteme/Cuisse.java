@@ -96,7 +96,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 			  this.config_kP(0, p, 10);
 			  this.config_kI(0, i, 10);	  	  
 			  this.config_kD(0, d, 10);	
-			  //this.configClosedLoopPeriod(0, 1);
+			  this.configClosedLoopPeriod(0, 1);
 		}		
 		
 		public void activerMinirupteur()
@@ -123,7 +123,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 			this.config_kP(1, p, 10);
 			this.config_kI(1, i, 10);	  	  
 			this.config_kD(1, d, 10);	
-			//this.configClosedLoopPeriod(1, 1);
+			this.configClosedLoopPeriod(1, 1);
 			this.configClosedLoopPeakOutput(1, 1, 10);
 		}		
 
@@ -162,6 +162,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 			this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, 0, 10);
 			this.moteurSecondaire.configSelectedFeedbackCoefficient(0.5, 1, 10);
 			this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.SensorDifference, 1, 10);
+			
 			
 			this.moteurSecondaire.setStatusFramePeriod(StatusFrame.Status_12_Feedback1, 20, 10);
 			this.moteurSecondaire.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 20, 10);
@@ -295,7 +296,11 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   public void initialiser()
   {
 		this.moteurSecondaire.set(ControlMode.PercentOutput, 0 , DemandType.ArbitraryFeedForward, 0);
-		this.moteurPrincipal.set(ControlMode.PercentOutput, 0, DemandType.ArbitraryFeedForward, 0);			
+		this.moteurPrincipal.set(ControlMode.PercentOutput, 0, DemandType.ArbitraryFeedForward, 0);		
+		this.moteurPrincipal.getSensorCollection().setQuadraturePosition(0, 10);
+		this.moteurPrincipal.getSensorCollection().setAnalogPosition(0, 10);
+		this.moteurSecondaire.getSensorCollection().setQuadraturePosition(0, 10);
+		this.moteurSecondaire.getSensorCollection().setAnalogPosition(0, 10);
   }
 	public void donnerConsignePID(float consigne) {
 		//consigne = limiterPID(consigne, POSITION_MIN, POSITION_MAX);
