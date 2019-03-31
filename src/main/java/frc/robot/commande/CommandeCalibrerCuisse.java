@@ -11,8 +11,13 @@ public class CommandeCalibrerCuisse extends Command {
 	public CommandeCalibrerCuisse()
 	{
     	requires(Robot.cuisse);
-    	this.debut = System.currentTimeMillis();
 	}
+	
+    @Override
+    protected void initialize()
+    {
+    	this.debut = System.currentTimeMillis();
+    }	
 	
 	protected void execute(){
         System.out.println("CommandeCalibrerCuisse.execute()");
@@ -32,11 +37,11 @@ public class CommandeCalibrerCuisse extends Command {
 			return this.estBloque;
 		}
 		this.duree = System.currentTimeMillis() - this.debut;
-		if(this.duree > 3000)
+		if(this.duree > 2000)
 		{
 			System.out.println("Timeout du homing de la cuisse");
 			Robot.cuisse.initialiser();
-			Robot.cuisse.donnerConsignePID(0);
+			//Robot.cuisse.donnerConsignePID(0);
 			return true;
 		}
 		return false;

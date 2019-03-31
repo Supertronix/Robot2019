@@ -46,7 +46,6 @@ public class CommandeDeplierCuisse extends Command{
 	protected boolean isFinished() {
 		Journal.ecrire("CommandeDeplierCuisse.isFinished() " + Robot.cuisse.estArrive());  
         System.out.println("CommandeDeplierCuisse.isFinished() " + Robot.cuisse.estArrive());
-        if(Robot.cuisse.estArrive()) Robot.cuisse.initialiser();// todo deplacer ce test
 		return Robot.cuisse.estArrive();
 	}
     
