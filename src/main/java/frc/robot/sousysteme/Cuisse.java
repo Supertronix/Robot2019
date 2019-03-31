@@ -180,6 +180,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  System.out.println("Erreur a corriger " + erreur);
 	  //this.moteurPrincipal.set(ControlMode.Velocity, erreur/1000);
 	  
+	  System.out.println("Esclave : l'erreur est de " + this.moteurPrincipal.getClosedLoopError(0) + " sur une cible de " + this.moteurPrincipal.getClosedLoopTarget(0));
 	  System.out.println("Auxiliaire : l'erreur est de " + this.moteurSecondaire.getClosedLoopError(1) + " sur une cible de " + this.moteurSecondaire.getClosedLoopTarget(1));
 	  System.out.println("Master : l'erreur est de " + this.moteurSecondaire.getClosedLoopError(0) + " sur une cible de " + this.moteurSecondaire.getClosedLoopTarget(0));
 
@@ -288,8 +289,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	public void donnerConsignePID(float consigne) {
 		//consigne = limiterPID(consigne, POSITION_MIN, POSITION_MAX);
 		this.consignePrincipale = consigne;
-		if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.Position, consigne, DemandType.AuxPID, 0);
-		//if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.Position, consigne);
+		//if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.Position, consigne, DemandType.AuxPID, 0);
+		if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.Position, consigne);
 		this.consigneSecondaire = consigne;
   }
 	
@@ -303,8 +304,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  
 	  if(this.moteurSecondaireActif) this.consigneSecondaire = limiterPID(this.moteurSecondaire.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
 	  if(this.moteurSecondaireActif) System.out.println("Consigne moteur secondaire " + this.consigneSecondaire);
-	  //if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire);
-	  if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire, DemandType.AuxPID, 0);
+	  if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire);
+	  //if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire, DemandType.AuxPID, 0);
 	  this.moteurPrincipal.follow(this.moteurSecondaire);	  
 		////this.pidSecondaire.setSetpoint(consigne);
   }
@@ -318,8 +319,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  
 	  if(this.moteurSecondaireActif) this.consigneSecondaire = limiterPID(this.moteurSecondaire.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
 	  if(this.moteurSecondaireActif) System.out.println("Consigne moteur secondaire " + this.consigneSecondaire);
-	  //if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire);
-	  if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire, DemandType.AuxPID, 0);
+	  if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire);
+	  //if(this.moteurSecondaireActif) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire, DemandType.AuxPID, 0);
 	  //this.moteurPrincipal.follow(this.moteurSecondaire, FollowerType.AuxOutput1);	  
 	  ////this.pidSecondaire.setSetpoint(consigne);
   }
