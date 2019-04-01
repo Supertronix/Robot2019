@@ -24,7 +24,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	public double PID_I = 0.00155; //0.00055;
 	
 	protected TalonSupertronix moteurPrincipal = null;
-	//TEMPOprotected TalonSRX moteurSecondaire = null; 
+	protected TalonSupertronix moteurSecondaire = null; 
 	
 	//protected Encoder encodeurMoteurPrincipal = new Encoder(ENCODEUR_MOTEUR_PRINCIPAL_A, ENCODEUR_MOTEUR_PRINCIPAL_B,  ENCODEUR_MOTEUR_PRINCIPAL_INVERSION, Encoder.EncodingType.k2X);
 	
@@ -33,24 +33,13 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		this.moteurPrincipal.activerEncodeur();
 		this.moteurPrincipal.initialiserPID(0.6, 0.00155, 0);
 		this.moteurPrincipal.activerMinirupteur();
-		  		  
-		  /*
-		  this.moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
-		  this.moteurSecondaire.configFactoryDefault();
-		  this.moteurSecondaire.setNeutralMode(NeutralMode.Brake);
-		  this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-		  this.moteurSecondaire.setSensorPhase(true);
-		  //this.moteurSecondaire.configAllowableClosedloopError(0, 0, ERREUR_DISTANCE_PERMISE);
-		  //this.moteurSecondaire.config_kP(0, PID_P, 10);
-		  //this.moteurSecondaire.config_kI(0, PID_I, 10);		  		  
-		  this.moteurSecondaire.setSelectedSensorPosition(0);
-		  this.moteurSecondaire.setInverted(false);
-		  this.moteurSecondaire.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-		  this.moteurSecondaire.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-		  this.moteurSecondaire.configClearPositionOnLimitR(true, 0);
-		  
-		  this.moteurSecondaire.follow(this.moteurPrincipal);
-		   */
+		
+		this.moteurSecondaire = new TalonSupertronix(MOTEUR_SECONDAIRE, false);
+		this.moteurSecondaire.activerEncodeur();
+		//this.moteurSecondaire.initialiserPID(0.6, 0.00155, 0);
+		this.moteurSecondaire.activerMinirupteur();
+		
+		this.moteurSecondaire.follow(this.moteurPrincipal);
 	}
 	
 	@Override
@@ -95,18 +84,18 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	  public void arreter()
 	  {
 		this.moteurPrincipal.set(ControlMode.PercentOutput, 0.0);
-		//TEMPOthis.moteurSecondaire.set(ControlMode.PercentOutput, 0.0);
+		// TEMPO this.moteurSecondaire.set(ControlMode.PercentOutput, 0.0);
 	  }
 	  public void annulerConsigne()
 	  {
 		  //this.moteurSecondaire.set(ControlMode.Disabled, 0);
 		  this.moteurPrincipal.neutralOutput();
-		//TEMPOthis.moteurSecondaire.neutralOutput();
+		// TEMPO this.moteurSecondaire.neutralOutput();
 	  }	
 	  public void monter(float vitesse)
 	{
 		this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*vitesse);
-		//TEMPOthis.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*vitesse);
+		// TEMPO this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*vitesse);
 	}	
 	  
 	public double limiterPID(double val, double min, double max) 
@@ -168,7 +157,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		this.moteurPrincipal.getSensorCollection().setAnalogPosition(0, 10);
 		//if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, 0 , DemandType.ArbitraryFeedForward, 0);
 		//if(this.moteurSecondaireActif)
-		//TEMPOthis.moteurSecondaire.getSensorCollection().setAnalogPosition(0, 10);
+		// TEMPO this.moteurSecondaire.getSensorCollection().setAnalogPosition(0, 10);
 	}
 	
 
