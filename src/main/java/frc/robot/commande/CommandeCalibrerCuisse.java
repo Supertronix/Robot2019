@@ -33,6 +33,7 @@ public class CommandeCalibrerCuisse extends Command {
 		this.estBloque = Robot.cuisse.estBloqueParLimite();
 		if(this.estBloque) 
 		{
+			System.out.println("La cuisse estBloqueParLimite");
 			//Robot.cuisse.donnerConsignePID(0);
 			Robot.cuisse.activerCalibration();
 			return this.estBloque;
