@@ -31,14 +31,12 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	public Jambe() {
 		this.moteurPrincipal = new TalonSupertronix(MOTEUR_PRINCIPAL, false);
 		this.moteurPrincipal.activerEncodeur();
+		this.moteurPrincipal.activerMinirupteur(); // limit switches
 		this.moteurPrincipal.initialiserPID(0.6, 0.00155, 0);
-		this.moteurPrincipal.activerMinirupteur();
 		
 		this.moteurSecondaire = new TalonSupertronix(MOTEUR_SECONDAIRE, false);
 		this.moteurSecondaire.activerEncodeur();
-		//this.moteurSecondaire.initialiserPID(0.6, 0.00155, 0);
-		this.moteurSecondaire.activerMinirupteur();
-		
+		this.moteurSecondaire.activerMinirupteur();	// limit switches
 		this.moteurSecondaire.follow(this.moteurPrincipal);
 	}
 	
