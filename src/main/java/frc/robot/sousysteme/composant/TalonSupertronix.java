@@ -33,7 +33,7 @@ public class TalonSupertronix extends TalonSRX
 	
 	public void activerEncodeur()
 	{
-		  //this.setSelectedSensorPosition(0);
+		  this.setSelectedSensorPosition(0);
 		  this.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);	  
 	}
 

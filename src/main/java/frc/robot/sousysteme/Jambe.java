@@ -30,14 +30,9 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	
 	public Jambe() {
 		this.moteurPrincipal = new TalonSupertronix(MOTEUR_PRINCIPAL, false);
-		  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-		  this.moteurPrincipal.configAllowableClosedloopError(0, 0, ERREUR_DISTANCE_PERMISE);
-		  this.moteurPrincipal.config_kP(0, PID_P, 10);
-		  this.moteurPrincipal.config_kI(0, PID_I, 10);		  		  
-		  this.moteurPrincipal.setSelectedSensorPosition(0);
-		  this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-		  this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-		  this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
+		this.moteurPrincipal.activerEncodeur();
+		this.moteurPrincipal.initialiserPID(PID_P, PID_I, 0);
+		this.moteurPrincipal.activerMinirupteur();
 		  		  
 		  /*
 		  this.moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
