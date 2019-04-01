@@ -37,6 +37,9 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		  this.moteurPrincipal.config_kP(0, PID_P, 10);
 		  this.moteurPrincipal.config_kI(0, PID_I, 10);		  		  
 		  this.moteurPrincipal.setSelectedSensorPosition(0);
+			this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+			this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+			this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
 		  		  
 		  this.moteurSecondaire = new TalonSRX(MOTEUR_SECONDAIRE);
 		  this.moteurSecondaire.configFactoryDefault();
@@ -48,22 +51,12 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		  this.moteurSecondaire.config_kI(0, PID_I, 10);		  		  
 		  this.moteurSecondaire.setSelectedSensorPosition(0);
 		  this.moteurSecondaire.setInverted(false);
-		  //this.moteurSecondaire.follow(this.moteurPrincipal);
+			this.moteurSecondaire.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+			this.moteurSecondaire.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+			this.moteurSecondaire.configClearPositionOnLimitR(true, 0);
 		  
-		  configurerMinirupteur();
+		  this.moteurSecondaire.follow(this.moteurPrincipal);
 
-	}
-
-	public void configurerMinirupteur()
-	{	  
-		this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-		this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-		this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
-		this.moteurSecondaire.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-		this.moteurSecondaire.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-		this.moteurSecondaire.configClearPositionOnLimitR(true, 0);
-		  
-		  //this.moteurPrincipal.configLimitSwitchDisableNeutralOnLOS(true, 10);
 	}
 	
 	@Override
@@ -110,12 +103,13 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		this.moteurPrincipal.set(ControlMode.PercentOutput, 0.0);
 		this.moteurSecondaire.set(ControlMode.PercentOutput, 0.0);
 	  }
-	public void monter()
-	{
-		this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*0.1);
-		this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*0.1);
-	}
-	public void monter(float vitesse)
+	  public void annulerConsigne()
+	  {
+		  //this.moteurSecondaire.set(ControlMode.Disabled, 0);
+		  this.moteurPrincipal.neutralOutput();
+		  this.moteurSecondaire.neutralOutput();
+	  }	
+	  public void monter(float vitesse)
 	{
 		this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*vitesse);
 		this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*vitesse);
@@ -126,12 +120,15 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		return Math.max(min, Math.min(max, val));
 	}
 	  	
-	public boolean estBloquerParLimite() {
-		  System.out.println("estBloquerParLimiteJambe() "+this.moteurPrincipal.getMotorOutputVoltage());
+	public boolean estBloqueParLimite() {
+		  /*System.out.println("estBloquerParLimiteJambe() "+this.moteurPrincipal.getMotorOutputVoltage());
 		  if(this.moteurPrincipal.getMotorOutputVoltage() > 0) {
 			  return false;
 		  }
 		  return true;
+		  */
+		  System.out.println("estBloqueParLimite()" + this.moteurPrincipal.getSensorCollection().isRevLimitSwitchClosed());
+		  return this.moteurPrincipal.getSensorCollection().isRevLimitSwitchClosed();
 	  }
 	
 	public boolean estArrive()
@@ -170,7 +167,24 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		return false;
 	}
 	
+	public void initialiser()
+	{
+		//if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0, DemandType.ArbitraryFeedForward, 0);		
+		//if(this.moteurPrincipalActif)
+		this.moteurPrincipal.getSensorCollection().setAnalogPosition(0, 10);
+		//if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, 0 , DemandType.ArbitraryFeedForward, 0);
+		//if(this.moteurSecondaireActif)
+		this.moteurSecondaire.getSensorCollection().setAnalogPosition(0, 10);
+	}
 	
 
-	
+	protected boolean estCalibre = false;
+	public boolean estCalibre()
+	{
+		return this.estCalibre;
+	}
+	public void activerCalibration()
+	{
+		this.estCalibre = true;
+	}
 }

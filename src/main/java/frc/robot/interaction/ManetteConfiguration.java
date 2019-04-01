@@ -99,8 +99,9 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
     	//}
     	//this.plierEtDeplierJambe();
     	Robot.cuisse.synchroniser();
-    	Robot.cuisse.lirePositionPrincipale();
-    	Robot.cuisse.lirePositionSecondaire();
+    	//Robot.cuisse.lirePositionPrincipale();
+    	//Robot.cuisse.lirePositionSecondaire();
+    	Robot.jambe.lirePosition();
     }
 
     public void plierEtDeplierCuisse()
