@@ -47,8 +47,8 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		  this.moteurSecondaire.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 		  this.moteurSecondaire.configAllowableClosedloopError(0, 0, ERREUR_DISTANCE_PERMISE);
 		  this.moteurSecondaire.setSensorPhase(true);
-		  this.moteurSecondaire.config_kP(0, PID_P, 10);
-		  this.moteurSecondaire.config_kI(0, PID_I, 10);		  		  
+		  //this.moteurSecondaire.config_kP(0, PID_P, 10);
+		  //this.moteurSecondaire.config_kI(0, PID_I, 10);		  		  
 		  this.moteurSecondaire.setSelectedSensorPosition(0);
 		  this.moteurSecondaire.setInverted(false);
 			this.moteurSecondaire.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);

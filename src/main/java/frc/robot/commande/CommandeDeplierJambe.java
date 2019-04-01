@@ -2,11 +2,11 @@ package frc.robot.commande;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Journal;
 import frc.robot.Robot;
 
 public class CommandeDeplierJambe extends Command{
 	
-	 protected float incrementAccumule = 0;
 	 protected float increment = 0;
 	
     public CommandeDeplierJambe(int increment)
@@ -16,10 +16,6 @@ public class CommandeDeplierJambe extends Command{
     	requires(Robot.jambe);
     }
     
-    protected void execute(){
-        System.out.println("CommandeDeplierJambe.execute()");
-    }
-
     @Override
     protected void initialize()
     {
@@ -39,9 +35,15 @@ public class CommandeDeplierJambe extends Command{
         }
     }
 
+    @Override    
+    protected void execute(){
+        System.out.println("CommandeDeplierJambe.execute()");
+    }
+    
     // TODO trouver une maniere de valider la condition de sortie basee sur la non-progression car parfois il n'arrive jamais selon la batterie
 	@Override
 	protected boolean isFinished() {
+        Journal.ecrire("CommandeDeplierJambe.isFinished() " + Robot.jambe.estArrive());		
         System.out.println("CommandeDeplierJambe.isFinished() " + Robot.jambe.estArrive());		
 		return Robot.jambe.estArrive();
 	}
