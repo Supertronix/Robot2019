@@ -82,13 +82,13 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	  public void arreter()
 	  {
 		this.moteurPrincipal.set(ControlMode.PercentOutput, 0.0);
-		// TEMPO this.moteurSecondaire.set(ControlMode.PercentOutput, 0.0);
+		//this.moteurSecondaire.set(ControlMode.PercentOutput, 0.0);
 	  }
 	  public void annulerConsigne()
 	  {
 		  //this.moteurSecondaire.set(ControlMode.Disabled, 0);
 		  this.moteurPrincipal.neutralOutput();
-		// TEMPO this.moteurSecondaire.neutralOutput();
+		  //this.moteurSecondaire.neutralOutput();
 	  }	
 	  public void monter(float vitesse)
 	{
@@ -155,7 +155,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		this.moteurPrincipal.getSensorCollection().setAnalogPosition(0, 10);
 		//if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, 0 , DemandType.ArbitraryFeedForward, 0);
 		//if(this.moteurSecondaireActif)
-		// TEMPO this.moteurSecondaire.getSensorCollection().setAnalogPosition(0, 10);
+		this.moteurSecondaire.getSensorCollection().setAnalogPosition(0, 10);
 	}
 	
 
