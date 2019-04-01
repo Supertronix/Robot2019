@@ -169,6 +169,8 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		if(this.position >= this.POSITION_MAX) return true;
 		return false;
 	}
+	
+	
 
 	
 }

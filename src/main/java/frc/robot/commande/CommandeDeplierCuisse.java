@@ -7,7 +7,6 @@ import frc.robot.Robot;
 
 public class CommandeDeplierCuisse extends Command{
 	
-	 protected float incrementAccumule = 0;
 	 protected float increment = 0;
 
     public CommandeDeplierCuisse(int increment)

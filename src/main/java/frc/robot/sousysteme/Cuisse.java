@@ -150,7 +150,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		this.moteurPrincipal.configSensorTerm(SensorTerm.Sum1, FeedbackDevice.CTRE_MagEncoder_Relative, 10);
 		this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, 0, 10);
 		this.moteurPrincipal.configSelectedFeedbackCoefficient(0.5, 0, 10);
-		this.moteurPrincipal.initialiserPID(0.5, 0.00005, 0); //	public double PID_P = 0.1; public double PID_I = 0.00099;
+		this.moteurPrincipal.initialiserPID(0.8, 0.00005, 0); //	public double PID_P = 0.1; public double PID_I = 0.00099;
 		this.moteurPrincipal.setStatusFramePeriod(StatusFrame.Status_12_Feedback1, 20, 10);
 		this.moteurPrincipal.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 20, 10);
 		//this.moteurPrincipal.config_IntegralZone(1, 200, 10); // Integral Zone can be used to auto clear the integral accumulator if the sensor pos is too far from the target. This prevent unstable oscillation if the kI is too large. Value is in sensor units.
@@ -162,7 +162,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		this.moteurPrincipal.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 20, 10);
 		this.moteurSecondaire.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20, 10);
 		this.moteurPrincipal.configAuxPIDPolarity(false, 10); 
-		this.moteurPrincipal.initialiserPIDAuxiliaire(3, 0.1, 0); // 2 0 4
+		this.moteurPrincipal.initialiserPIDAuxiliaire(6, 0.1, 0); // 2 0 4
 		
 		//this.moteurSecondaire.follow(null);
 		this.moteurSecondaire.follow(this.moteurPrincipal, FollowerType.AuxOutput1);
