@@ -3,6 +3,7 @@ package frc.robot.sousysteme;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
+import frc.robot.sousysteme.composant.TalonSupertronix;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -22,13 +23,13 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	public double PID_P = 0.6;
 	public double PID_I = 0.00155; //0.00055;
 	
-	protected TalonSRX moteurPrincipal = null;
+	protected TalonSupertronix moteurPrincipal = null;
 	//TEMPOprotected TalonSRX moteurSecondaire = null; 
 	
 	//protected Encoder encodeurMoteurPrincipal = new Encoder(ENCODEUR_MOTEUR_PRINCIPAL_A, ENCODEUR_MOTEUR_PRINCIPAL_B,  ENCODEUR_MOTEUR_PRINCIPAL_INVERSION, Encoder.EncodingType.k2X);
 	
 	public Jambe() {
-		  this.moteurPrincipal = new TalonSRX(MOTEUR_PRINCIPAL);
+		this.moteurPrincipal = new TalonSupertronix(MOTEUR_PRINCIPAL, false);
 		  this.moteurPrincipal.configFactoryDefault();
 		  this.moteurPrincipal.setNeutralMode(NeutralMode.Brake);	
 		  this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
@@ -37,7 +38,6 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		  this.moteurPrincipal.config_kP(0, PID_P, 10);
 		  this.moteurPrincipal.config_kI(0, PID_I, 10);		  		  
 		  this.moteurPrincipal.setSelectedSensorPosition(0);
-		  this.moteurPrincipal.setInverted(false);
 		  this.moteurPrincipal.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 		  this.moteurPrincipal.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 		  this.moteurPrincipal.configClearPositionOnLimitR(true, 0);
