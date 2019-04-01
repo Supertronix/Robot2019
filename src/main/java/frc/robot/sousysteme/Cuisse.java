@@ -33,24 +33,23 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	public boolean INVERSION_SECONDAIRE = false; // TODO inverser pour le robot competition
 	  
 	// http://www.ctr-electronics.com/downloads/api/java/html/classcom_1_1ctre_1_1phoenix_1_1motorcontrol_1_1can_1_1_talon_s_r_x.html
+	private boolean encodeurAuxiliaireActif = false;
 	protected boolean moteurPrincipalActif = false;
 	protected TalonSupertronix moteurPrincipal = null;
 	protected boolean moteurSecondaireActif = false;
 	protected TalonSupertronix moteurSecondaire = null;
 	//protected PIDController pidSecondaire;
 	
-	public double PID_P = 0.1;
-	public double PID_I = 0.00099;
-	
+	public double PID_P = 1;
+	public double PID_I = 0.01;///0.00099;
 
 	
-	private boolean encodeurAuxiliaireActif = true;
   public Cuisse()
   {
 	  this.consignePrincipale = 0;
 	  this.consigneSecondaire = 0;
-		this.moteurPrincipalActif = true;
-		this.moteurSecondaireActif = true;
+	this.moteurPrincipalActif = true;
+	this.moteurSecondaireActif = true;
 		
 		if(this.moteurPrincipalActif)
 		{
@@ -64,7 +63,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		{
 		  this.moteurSecondaire = new TalonSupertronix(MOTEUR_PRINCIPAL, INVERSION_PRINCIPALE);
 		  this.moteurSecondaire.activerEncodeur();
-		  //this.moteurSecondaire.initialiserPID(PID_P, PID_I, 0);
+		  this.moteurSecondaire.initialiserPID(PID_P, PID_I, 0);
 		  this.moteurSecondaire.activerMinirupteur();
 		}
 		
@@ -124,11 +123,10 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		  System.out.println("Master (moyenne): l'erreur est de " + this.moteurPrincipal.getClosedLoopError(0) + " sur une cible de " + this.moteurPrincipal.getClosedLoopTarget(0));
 		}
 	  
-	  /*
-	  this.moteurPrincipal.set(ControlMode.PercentOutput, this.moteurSecondaire.getMotorOutputPercent());
-	  System.out.println("Pourcent ENVOYE " + this.moteurSecondaire.getMotorOutputPercent());
-	  System.out.println("Pourcent RECU " + this.moteurPrincipal.getMotorOutputPercent());
-	  */
+	  
+	  //this.moteurSecondaire.set(ControlMode.PercentOutput, this.moteurPrincipal.getMotorOutputPercent());
+	  //System.out.println("Pourcent ENVOYE " + this.moteurPrincipal.getMotorOutputPercent());
+	  //System.out.println("Pourcent RECU " + this.moteurPrincipal.getMotorOutputPercent());	  
 	  
 	  // EXISTE PAS ENCORE ControlMode.VOLTAGE	  
 	  //Journal.ecrire("Voltage ENVOYE " + this.moteurSecondaire.getMotorOutputVoltage());
@@ -181,7 +179,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	System.out.println("Cuisse.arreter()");
 	//if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0.0);
 	if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0.0);
-	////this.moteurSecondaire.set(ControlMode.PercentOutput, 0.0);
+	this.moteurSecondaire.set(ControlMode.PercentOutput, 0.0);
   }
   public void monter(float vitesse) 
   {
@@ -193,24 +191,24 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	////this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*vitesse);
   }
   
-  protected double position; 
-  public double lirePositionPrincipale() // max 3712
+  protected float position; 
+  public float lirePositionPrincipale() // max 3712
   {	  
 	  //position = this.encodeur.getDistance();
 	  if(this.moteurPrincipalActif) this.position = this.moteurPrincipal.getSelectedSensorPosition(); // -748 (limit switch a 2964 
 	  //position = this.moteurPrincipal.getSensorCollection().getQuadraturePosition(); // 742 (limit switch) a -2962
-	  System.out.println("Cuisse.lirePositionPrincipale() : " + INVERSION*this.position + " avec consigne de " + this.consignePrincipale);
+	  System.out.println("Cuisse.lirePositionPrincipale() : " + INVERSION*this.position);
       SmartDashboard.putNumber("Position cuisse C1", INVERSION*this.position);	  
 	  return INVERSION*this.position;
   }
   
-  protected double positionSecondaire; 
-  public double lirePositionSecondaire()
+  protected float positionSecondaire; 
+  public float lirePositionSecondaire()
   {
 	  if(this.moteurSecondaireActif) this.positionSecondaire = this.moteurSecondaire.getSelectedSensorPosition(); // -748 (limit switch a 2964 
-	  System.out.println("Cuisse.lirePositionSecondaire() : " + INVERSION*this.positionSecondaire + " avec consigne de " + this.consigneSecondaire);
+	  System.out.println("Cuisse.lirePositionSecondaire() : " + INVERSION*this.positionSecondaire);
       SmartDashboard.putNumber("Position cuisse C2", INVERSION*this.positionSecondaire);	  
-      System.out.println("Valeur auxiliaire " + this.moteurSecondaire.getSelectedSensorPosition(1));
+      if(this.encodeurAuxiliaireActif) System.out.println("Valeur auxiliaire " + this.moteurSecondaire.getSelectedSensorPosition(1));
 	  return INVERSION*this.positionSecondaire;	  
   }
     
@@ -218,6 +216,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   protected double consigneSecondaire = 0;
   public void initialiser()
   {
+	  System.out.println("Cuisse.initialiser()");
+
 		//if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0, DemandType.ArbitraryFeedForward, 0);		
 		if(this.moteurPrincipalActif)this.moteurPrincipal.getSensorCollection().setAnalogPosition(0, 10);
 		//if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, 0 , DemandType.ArbitraryFeedForward, 0);
@@ -225,11 +225,13 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   }
   public void annulerConsigne()
   {
+	  System.out.println("Cuisse.annulerConsigne()");
 	  //this.moteurSecondaire.set(ControlMode.Disabled, 0);
 	  this.moteurPrincipal.neutralOutput();
   }
   public void donnerConsignePID(float consigne) 
   {
+	  System.out.println("Cuisse.donnerConsignePID("+consigne+")");
 		//consigne = limiterPID(consigne, POSITION_MIN, POSITION_MAX);
 		this.consignePrincipale = consigne;
 		  if(this.moteurPrincipalActif) 
@@ -239,8 +241,16 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	      }
 		//this.consigneSecondaire = consigne;
   }
+  
+  public void fixerPosition()
+  {
+	  System.out.println("Cuisse.fixerPosition()");
+	  this.moteurPrincipal.set(ControlMode.Position, this.lirePositionPrincipale());
+	  this.moteurSecondaire.set(ControlMode.Position, this.lirePositionSecondaire());
+  }
 	
   public void augmenterConsignePID(float increment) {
+	  System.out.println("Cuisse.augmenterConsignePID("+increment+")");
 	  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
 
 	  //Active close loop
@@ -259,6 +269,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   }
   
   public void reduireConsignePID(float decrement) {
+	  System.out.println("Cuisse.reduireConsignePID("+decrement+")");
 	  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
 
 	  //if(this.moteurPrincipalActif) this.consignePrincipale = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
@@ -319,13 +330,28 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		this.positionCible = (float) (this.lirePositionPrincipale() + incrementPosition);
 		System.out.println("Cuisse.incrementerPosition() : la nouvelle position desirée est " + this.positionCible);
 	}
-	
+	public void allerVersPositionCible()
+	{
+		System.out.println("Cuisse.allerVersPositionCible() - " + this.positionCible);
+		float deltaPrincipal =  (this.positionCible - (float)this.lirePositionPrincipale());
+		if(deltaPrincipal > 0) // this.monter(0.1f)
+		{
+			if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, 0.3f);
+			if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0.3f);
+		}
+		else // on ne replie jamais
+		{
+			
+		}
+		//float deltaSecondaire =  ((float)this.lirePositionSecondaire() - this.positionCible);//todo
+	}
 	protected int distanceRestante;
 	public boolean estArrivePositionCible()
 	{
+		System.out.println("Cuisse.estArrivePositionCible()");
 		this.distanceRestante = (int)(this.positionCible - lirePositionPrincipale());
 		System.out.println("Distance restante cuisse " + this.distanceRestante);
-		if (Math.abs(this.distanceRestante) < 10) return true;
+		if (this.distanceRestante < 10) return true; // cibles toujours positives apres homing
 		if(this.position >= this.POSITION_MAX) return true;	
 		return false;
 	}

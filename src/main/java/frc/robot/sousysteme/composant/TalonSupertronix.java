@@ -35,6 +35,7 @@ public class TalonSupertronix extends TalonSRX
 	{
 		  this.setSelectedSensorPosition(0);
 		  this.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);	  
+		  //this.configSelectedFeedbackCoefficient(1, 0, 10);
 	}
 
 	public void initialiserPID(double p, double i, double d)

@@ -33,7 +33,7 @@ public class CommandeCalibrerJambe extends Command {
 		if(this.estBloque) 
 		{
 			System.out.println("La cuisse estBloqueParLimite");
-			//Robot.jambe.donnerConsignePID(0);
+			Robot.jambe.donnerConsignePID(0);
 			Robot.jambe.activerCalibration();
 			return this.estBloque;
 		}
@@ -42,7 +42,7 @@ public class CommandeCalibrerJambe extends Command {
 		{
 			System.out.println("Timeout du homing de la cuisse");
 			Robot.jambe.initialiser();
-			//Robot.jambe.donnerConsignePID(0);
+			Robot.jambe.donnerConsignePID(0);
 			Robot.jambe.activerCalibration();
 			return true;
 		}

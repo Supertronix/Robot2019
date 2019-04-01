@@ -1,7 +1,6 @@
 package frc.robot.commande.configuration;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.commande.CommandeDeplierCuisse;
 import frc.robot.commande.CommandeDeplierJambe;
 
 public class CommandeGrimperRobotSaut extends CommandGroup{
@@ -21,7 +20,7 @@ public class CommandeGrimperRobotSaut extends CommandGroup{
     	//this.addSequential(new CommandeDeplierJambe(2923));
     	
     	this.addParallel(new CommandeDeplierJambe(5000));
-    	this.addSequential(new CommandeDeplierCuisse(3712));
+    	this.addSequential(new CommandeDeplierCuisseSelonPid(3712));
     	this.addSequential(new CommandeDeplierJambe(2923));
     	
     	//this.addSequential(new CommandeTournerRoues(1f));

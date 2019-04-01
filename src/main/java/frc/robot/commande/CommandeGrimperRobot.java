@@ -1,6 +1,8 @@
 package frc.robot.commande;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.commande.configuration.CommandeDeplierCuisseSelonPid;
+import frc.robot.commande.configuration.CommandePositionnerCuisseManuellement;
 
 public class CommandeGrimperRobot extends CommandGroup{
 	
@@ -19,10 +21,10 @@ public class CommandeGrimperRobot extends CommandGroup{
 
     	//this.addSequential(new CommandeDeplierCuisse(1000));
     	//this.addSequential(new CommandeDeplierJambe(1200));
-
-    	this.addParallel(new CommandeDeplierJambe(1800));
-    	this.addSequential(new CommandeDeplierCuisse(1100));
-    	this.addSequential(new CommandeDeplierCuisse(800));
+    	
+    	
+    	//this.addSequential(new CommandeDeplierCuisse(1200));
+    	//this.addSequential(new CommandeDeplierJambe(1800));
     	
     	//this.addParallel(new CommandeDeplierJambe(700));
     	//this.addSequential(new CommandeDeplierCuisse(500));
@@ -32,6 +34,13 @@ public class CommandeGrimperRobot extends CommandGroup{
     	//this.addParallel(new CommandeDeplierJambe(1200));
     	//this.addSequential(new CommandeDeplierCuisse(1400));
     	
+    	/* dernier test fonctionnel */
+    	//this.addParallel(new CommandeDeplierJambe(1800));
+    	//this.addSequential(new CommandeDeplierCuisseSelonPid(1100));
+    	//this.addSequential(new CommandeDeplierCuisseSelonPid(800));
+    	
+    	this.addParallel(new CommandePositionnerCuisseManuellement(400));
+    	this.addParallel(new CommandeDeplierJambe(800));
     	
     	//this.setTimeout(3);    	
     }

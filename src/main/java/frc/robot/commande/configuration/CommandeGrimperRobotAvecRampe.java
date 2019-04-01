@@ -1,6 +1,7 @@
-package frc.robot.commande;
+package frc.robot.commande.configuration;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.commande.CommandeDeplierJambe;
 
 public class CommandeGrimperRobotAvecRampe extends CommandGroup{
 	
@@ -12,7 +13,7 @@ public class CommandeGrimperRobotAvecRampe extends CommandGroup{
     	// 3712 + 6000 parfaitement parallele au sol
     	
     	this.addParallel(new CommandeDeplierJambe(1700));
-    	this.addSequential(new CommandeDeplierCuisse(1000));
+    	this.addSequential(new CommandeDeplierCuisseSelonPid(1000));
     	
     }
 
