@@ -41,7 +41,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	//protected PIDController pidSecondaire;
 	
 	public double PID_P = 1;
-	public double PID_I = 0.01;///0.00099;
+	public double PID_I = 0.0001;//0.01;///0.00099;
 
 	
   public Cuisse()
@@ -57,6 +57,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		  this.moteurPrincipal.activerEncodeur();
 		  this.moteurPrincipal.initialiserPID(PID_P, PID_I, 0);
 		  this.moteurPrincipal.activerMinirupteur();
+		  this.moteurPrincipal.proteger();
 		}
 			  
 		if(this.moteurSecondaireActif)
@@ -65,6 +66,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		  this.moteurSecondaire.activerEncodeur();
 		  this.moteurSecondaire.initialiserPID(PID_P, PID_I, 0);
 		  this.moteurSecondaire.activerMinirupteur();
+		  this.moteurSecondaire.proteger();
 		}
 		
 		if(this.moteurPrincipalActif && this.moteurSecondaireActif) 
@@ -313,7 +315,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   {
 		this.distanceRestanteSelonConsigne = Math.abs((int)(lirePositionPrincipale() - this.consignePrincipale));
 		System.out.println("Distance restante cuisse " + this.distanceRestanteSelonConsigne);
-		if (distanceRestanteSelonConsigne <= 10) return true;
+		if (distanceRestanteSelonConsigne <= 40) return true;
 		return false;
 	}
  
@@ -339,8 +341,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		float deltaPrincipal =  (this.positionCible - (float)this.lirePositionPrincipale());
 		if(deltaPrincipal > 0) // this.monter(0.1f)
 		{
-			if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, 0.4f);
-			if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0.4f);
+			if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, 0.8f);
+			if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0.72f);
 		}
 		else // on ne replie jamais
 		{

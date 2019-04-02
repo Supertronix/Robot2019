@@ -12,7 +12,7 @@ public class CommandePositionnerCuisseManuellement extends Command{
 	protected float position;
     public CommandePositionnerCuisseManuellement(float position)
     {
-    	System.out.println("newCommandePositionnerCuisseManuellement()");
+    	System.out.println("new CommandePositionnerCuisseManuellement()");
         requires(Robot.cuisse);
         this.position = position;
     }
