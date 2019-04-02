@@ -37,8 +37,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  	
 	public double POSITION_MIN = -5000;
 	public double POSITION_MAX = 5000; // 3700 sur robot competition	
-	public double PID_P = 1;
-	public double PID_I = 0.0001;//0.01;///0.00099;
+	public double PID_P = 1.3;
+	public double PID_I = 0.001;//0.01;///0.00099;
 	
 	/////////////////////////////////////////////////////////////////
 	
@@ -60,7 +60,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		  this.moteurSecondaire = new TalonSupertronix(MOTEUR_C1, INVERSION_C1);
 		  if(this.modeSuiveux)
 		  {
-			  this.moteurSecondaire.follow(this.moteurPrincipal);			
+			  this.moteurSecondaire.suivre(this.moteurPrincipal);			
 		  }
 		  else
 		  {
@@ -144,10 +144,22 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
     
   protected double consigne = 0;
   protected double consigneSecondaire = 0;
+  public void enregistrerPositionEncodeur(int position) 
+  {
+	  System.out.println("Cuisse.initialiser()");
+	  this.moteurPrincipal.getSensorCollection().setQuadraturePosition(position, 10);
+	  //if(this.moteurSecondaireActif)this.moteurSecondaire.getSensorCollection().setAnalogPosition(0, 10);
+  }
+  public void enregistrerPositionEncodeur() 
+  {
+	  System.out.println("Cuisse.initialiser()");
+	  this.moteurPrincipal.getSensorCollection().setQuadraturePosition(this.moteurPrincipal.getSelectedSensorPosition(), 10);
+	  //if(this.moteurSecondaireActif)this.moteurSecondaire.getSensorCollection().setAnalogPosition(0, 10);
+  }
   public void initialiser() // initialise les senseurs a zero
   {
 	  System.out.println("Cuisse.initialiser()");
-	  //if(this.moteurPrincipalActif)this.moteurPrincipal.getSensorCollection().setAnalogPosition(0, 10);
+	  //this.moteurPrincipal.getSensorCollection().setAnalogPosition(0, 10);
 	  //if(this.moteurSecondaireActif)this.moteurSecondaire.getSensorCollection().setAnalogPosition(0, 10);
   }
   

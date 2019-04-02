@@ -46,6 +46,19 @@ public class CommandeDeplierCuisse extends Command{
         System.out.println("CommandeDeplierCuisse.isFinished() - " + this.etiquette);
         Journal.ecrire("CommandeDeplierJambe.isFinished() " +  this.etiquette + " " + Robot.cuisse.estArrive() + " " + Robot.cuisse.getConsigne());		
         System.out.println("CommandeDeplierJambe.isFinished() " + this.etiquette + " " + Robot.cuisse.estArrive() + " " + Robot.cuisse.getConsigne());		
-		return Robot.cuisse.estArrive();
+        if(Robot.cuisse.estArrive())
+        {
+        	//Robot.cuisse.enregistrerPositionEncodeur();
+        	//Robot.cuisse.annulerConsigne();
+        	
+        	// Le drive a un bug que si on le laisse maintenir un pid trop longtemps l'encodeur peur retourner a zero
+        	// Le probleme de ce bug est que si il se pense a zero et que sa consigne est maintenue il double le mouvement
+        	// Ce hack permet de 'piner' sa position
+        	//Robot.cuisse.annulerConsigne();
+        	//Robot.cuisse.enregistrerPositionEncodeur(0); // hack bug de encodeur reset
+        	//Robot.cuisse.donnerConsignePID(0); // hack bug de encodeur reset
+        	return true;
+        }
+        return false;
     }
 }

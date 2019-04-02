@@ -89,8 +89,8 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         this.commandeTesterInitialiserRobot = new CommandeInitialiserRobot();
         this.commandeTesterInitialiserRobot.start();
         
-        this.boutonTestGrimpage = new JoystickButton(this.manette, this.BOUTON_DEMARRER);
-        this.boutonTestGrimpage.whenPressed(new CommandeGrimperRobot());
+        //this.boutonTestGrimpage = new JoystickButton(this.manette, this.BOUTON_DEMARRER);
+        //this.boutonTestGrimpage.whenPressed(new CommandeGrimperRobot());
         
         //this.boutonTestGrimpage = new JoystickButton(this.manette, this.BOUTON_DEMARRER);
         //this.boutonTestGrimpage.whenPressed(new CommandePositionnerCuisseManuellement(400));
