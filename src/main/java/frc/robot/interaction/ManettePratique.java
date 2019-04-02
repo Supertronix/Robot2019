@@ -7,7 +7,6 @@ import frc.robot.Journal;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commande.CommandeDeroulerTreuil;
-import frc.robot.commande.CommandeCalibrerRobot;
 import frc.robot.commande.CommandeRoulerTreuil;
 import frc.robot.commande.attrapeur.CommandeArmerAttrapeur;
 import frc.robot.commande.attrapeur.CommandeDescendreGoupille;
@@ -24,7 +23,7 @@ public class ManettePratique extends Manette implements RobotMap.Manette{
     protected JoystickButton boutonAnnulerAnnonceAttrapage;
     protected JoystickButton boutonRoulerTreuil;
     protected JoystickButton boutonDeroulerTreuil;
-    protected CommandeCalibrerRobot commandeTesterInitialiserRobot = null;
+    //protected CommandeCalibrerRobot commandeCalibrerRobot = null;
 
     protected ManettePratique()
     {
@@ -46,18 +45,19 @@ public class ManettePratique extends Manette implements RobotMap.Manette{
         this.boutonDeroulerTreuil = new JoystickButton(this.manette, this.BOUTON_X);
         this.boutonDeroulerTreuil.whenPressed(new CommandeDeroulerTreuil());
         
-        ////this.commandeTesterInitialiserRobot = new CommandeInitialiserRobot();
-        ////this.commandeTesterInitialiserRobot.start();   
+        ////this.commandeCalibrerRobot = new CommandeCalibrerRobot();
+        ////this.commandeCalibrerRobot.start();   
     }
     
     public void executerActions()
     {
-  	  //Journal.ecrire("Test Cuisse Moteur " + RobotMap.Cuisse.MOTEUR_SECONDAIRE);	
+  	    //Journal.ecrire("Test Cuisse Moteur " + RobotMap.Cuisse.MOTEUR_SECONDAIRE);	
     	//Robot.cuisse.synchroniser();
+        //this.capteurUltrason.detecter();
+        
     	Robot.animateurDisque.animerSelonSignal();
     	Robot.animateurLed.animerSelonSignal();
     	Robot.roues.conduire();
-    	//this.capteurUltrason.detecter();
     	this.roulerEtDeroulerTreuil();
     }
     

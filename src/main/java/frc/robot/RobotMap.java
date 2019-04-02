@@ -47,9 +47,9 @@ public interface RobotMap {
 	    public static final int MOTEUR_TREUIL = 8; 
 	    public static final int COMPTEUR_TREUIL = 0;
 		public static final int ANGLE_MINIMAL = 0;
-		public static final int ANGLE_MAXIMAL = 107;//103
-		public static final int DECALAGE_360 = -245;
-		public static final int SEUIL = 1; // tolerance
+		public static final int ANGLE_MAXIMAL = 120;//diminuer pour partir plus loin du pont
+		public static final int DECALAGE_360 = -215;//augmenter pour decaler plus vers le pont - diminuer pour sortir plus
+		public static final int SEUIL = 0; // tolerance
 		public static final long DELAI_MAXIMUM = 5000;
     }
   }

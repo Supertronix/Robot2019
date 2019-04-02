@@ -9,7 +9,7 @@ public class CommandeCalibrerRobot extends CommandGroup{
     public CommandeCalibrerRobot()
     {
     	System.out.println("new CommandeInitialiserRobot()");
-    	this.addParallel(new CommandeCalibrerJambe());
+    	//this.addParallel(new CommandeCalibrerJambe());
     	this.addSequential(new CommandeCalibrerCuisse());
     	//this.addSequential(new CommandeTesterCuisseAvecManette()); 
     }
