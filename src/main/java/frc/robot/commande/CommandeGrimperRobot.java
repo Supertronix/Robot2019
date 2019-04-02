@@ -1,10 +1,12 @@
 package frc.robot.commande;
 
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.commande.configuration.CommandeDeplierCuisseSelonPid;
 import frc.robot.commande.configuration.CommandePositionnerCuisseManuellement;
 
 public class CommandeGrimperRobot extends CommandGroup{
+	
 	
     public CommandeGrimperRobot()
     {
@@ -42,11 +44,16 @@ public class CommandeGrimperRobot extends CommandGroup{
     	//this.addParallel(new CommandePositionnerCuisseManuellement(600));
     	//this.addParallel(new CommandeDeplierJambe(1000));
     	
-    	this.addParallel(new CommandeDeplierJambe(1300, "JAMBE - 1"));
-    	this.addSequential(new CommandePositionnerCuisseManuellement(200, "CUISSE 1"));
+    	/*
+    	this.addParallel(new CommandeDeplierJambe(2600, "JAMBE - 1"));
+    	this.addSequential(new CommandePositionnerCuisseManuellement(600, "CUISSE 1"));
     	this.addParallel(new CommandeDeplierJambe(1300, "JAMBE - 2"));
-    	this.addSequential(new CommandePositionnerCuisseManuellement(200, "CUISSE 2"));
+    	this.addSequential(new CommandePositionnerCuisseManuellement(350, "CUISSE 2"));
+    	*/
+ 
     	
+    	this.addSequential(new CommandeGrimperJambeCuisse(new CommandeDeplierJambe(2600, "JAMBE - 1"), new CommandePositionnerCuisseManuellement(700, "CUISSE 1")));
+    	this.addSequential(new CommandeGrimperJambeCuisse(new CommandeDeplierJambe(1300, "JAMBE - 1"), new CommandePositionnerCuisseManuellement(450, "CUISSE 1")));
     	//this.setTimeout(3);    	
     }
 /* 2 x magique
@@ -79,5 +86,24 @@ public class CommandeGrimperRobot extends CommandGroup{
         System.out.println("CommandeGrimperRobot.initialize()");
     }
     
+	public class CommandeGrimperJambeCuisse extends CommandGroup
+	{
+		protected Command commandeCuisse;
+		protected Command commandeJambe;
+		public CommandeGrimperJambeCuisse(Command commandeCuisse, Command commandeJambe)
+		{
+	        System.out.println("new CommandeGrimperJambeCuisse");
+			this.commandeCuisse = commandeCuisse;
+			this.commandeJambe = commandeJambe;
+			this.addParallel(this.commandeJambe);
+			this.addParallel(this.commandeCuisse);
+		}
+		
+	    protected void initialize()
+	    {
+	        System.out.println("CommandeGrimperJambeCuisse.initialize()");
+	    }		
+	}
+
 
 }

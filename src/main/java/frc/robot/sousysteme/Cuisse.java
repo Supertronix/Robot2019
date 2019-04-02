@@ -342,14 +342,14 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		if(deltaPrincipal > 0) // this.monter(0.1f)
 		{
 			// ratio 0.8996655518394649
-			// 0.8f //0.9f // 0.7f
-			// 0.72f //0.81f //0.63f
-			if(deltaPrincipal < 100)
+			// 0.5f, 0.8f //0.9f // 0.7f
+			// 0.45f, 0.72f //0.81f //0.63f
+			if(deltaPrincipal < 300)
 			{
 				if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, (deltaPrincipal/100)*0.3f); 
 				if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, (deltaPrincipal/100)*0.27f); 				
 			}
-			else if(deltaPrincipal < 200)
+			else if(deltaPrincipal < 400)
 			{
 				if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, 0.3f); 
 				if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0.27f); 				
