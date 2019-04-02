@@ -13,6 +13,7 @@ public class TalonSupertronix extends TalonSRX
 	public TalonSupertronix(int numero) {
 		super(numero);
 		this.configFactoryDefault();
+		this.configContinuousCurrentLimit(15, 10);
 		this.setNeutralMode(NeutralMode.Brake);	  	  
 		this.setSensorPhase(true);
 		//this.set(ControlMode.PercentOutput,0);
