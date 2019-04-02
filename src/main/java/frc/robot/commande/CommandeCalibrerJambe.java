@@ -32,7 +32,7 @@ public class CommandeCalibrerJambe extends Command {
 		this.estBloque = Robot.jambe.estBloqueParLimite();
 		if(this.estBloque) 
 		{
-			System.out.println("La cuisse estBloqueParLimite");
+			System.out.println("La jambe estBloqueParLimite");
 			Robot.jambe.donnerConsignePID(0);
 			Robot.jambe.activerCalibration();
 			return this.estBloque;

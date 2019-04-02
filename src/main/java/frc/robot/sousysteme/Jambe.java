@@ -52,8 +52,9 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		return this.consigne;
 	}
 	public void donnerConsignePID(float consigne) {
+			this.consigne = consigne;
 			//consigne = limiterPID(consigne, POSITION_MIN, POSITION_MAX);
-			this.moteurPrincipal.set(ControlMode.Position, consigne);
+			this.moteurPrincipal.set(ControlMode.Position, this.consigne);
 			//this.moteurSecondaire.set(ControlMode.Position, consigne);
 	  }
 
@@ -63,9 +64,9 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 
 		  //Active close loop
 			//consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
-			consigne = limiterPID(this.consigne + increment, POSITION_MIN, POSITION_MAX);
+			this.consigne = limiterPID(this.consigne + increment, POSITION_MIN, POSITION_MAX);
 			System.out.println("Nouvelle consigne jambe " + this.consigne);
-			this.moteurPrincipal.set(ControlMode.Position, consigne);
+			this.moteurPrincipal.set(ControlMode.Position, this.consigne);
 			//this.moteurSecondaire.set(ControlMode.Position, consigne);
 
 	  }
@@ -73,9 +74,9 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	  public void reduireConsignePID(float decrement) {
 		  //double value = Calculateur.clamp(chariotMoteurPrincipal.getClosedLoopTarget(0) + 100, RobotMap.Chariot.CHARIOT_POSITION_BAS, RobotMap.Chariot.CHARIOT_POSITION_HAUT);
 
-		  consigne = limiterPID(this.consigne - decrement, POSITION_MIN, POSITION_MAX);
+		  this.consigne = limiterPID(this.consigne - decrement, POSITION_MIN, POSITION_MAX);
 		  //consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
-			this.moteurPrincipal.set(ControlMode.Position, consigne);
+			this.moteurPrincipal.set(ControlMode.Position, this.consigne);
 			//this.moteurSecondaire.set(ControlMode.Position, consigne);
 	  }
 	  

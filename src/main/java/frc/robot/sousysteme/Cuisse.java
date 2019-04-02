@@ -342,6 +342,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		float deltaPrincipal =  (this.positionCible - (float)this.lirePositionPrincipale());
 		if(deltaPrincipal > 0) // this.monter(0.1f)
 		{
+			System.out.println("deltaPrincipal = " + deltaPrincipal);
 			// ratio 0.8996655518394649
 			// 0.5f, 0.8f //0.9f // 0.7f
 			// 0.45f, 0.72f //0.81f //0.63f
@@ -352,13 +353,13 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 			}
 			else if(deltaPrincipal < 400)
 			{
-				if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, 0.3f); 
-				if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0.3f*facteur); 				
+				if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, 0.4f); 
+				if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0.4f*facteur); 				
 			}
 			else
 			{
-				if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, 0.5f); 
-				if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0.5*facteur); 
+				if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, 0.6f); 
+				if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0.6*facteur); 
 			}
 		}
 		else // on ne replie jamais
