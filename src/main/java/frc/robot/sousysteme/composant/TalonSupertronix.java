@@ -82,8 +82,8 @@ public class TalonSupertronix extends TalonSRX
 	
 	public void proteger()
 	{
-		this.configContinuousCurrentLimit(100, 10);
-		this.enableCurrentLimit(true);
+		//this.configContinuousCurrentLimit(100, 10);
+		//this.enableCurrentLimit(true);
 	}
 
 }

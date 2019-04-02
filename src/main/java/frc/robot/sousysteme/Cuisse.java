@@ -66,14 +66,15 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		{
 		  this.moteurSecondaire = new TalonSupertronix(MOTEUR_PRINCIPAL, INVERSION_PRINCIPALE);
 		  this.moteurSecondaire.activerEncodeur();
-		  if(!this.modeSuiveux) this.moteurSecondaire.initialiserPID(PID_P, PID_I, 0);
+		  //if(!this.modeSuiveux) this.moteurSecondaire.initialiserPID(PID_P, PID_I, 0);
 		  this.moteurSecondaire.activerMinirupteur();
 		  this.moteurSecondaire.proteger();
 		}
 		
 		if(this.moteurPrincipalActif && this.moteurSecondaireActif) 
 		{
-			if(this.modeSuiveux) this.moteurSecondaire.suivre(this.moteurPrincipal);			
+			//if(this.modeSuiveux) 
+			this.moteurSecondaire.suivre(this.moteurPrincipal);			
 		}
   }
   
@@ -153,9 +154,16 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
   public void initialiser() // initialise les senseurs a zero
   {
 	  System.out.println("Cuisse.initialiser()");
-	  if(this.moteurPrincipalActif)this.moteurPrincipal.getSensorCollection().setAnalogPosition(0, 10);
-	  if(this.moteurSecondaireActif)this.moteurSecondaire.getSensorCollection().setAnalogPosition(0, 10);
+	  //if(this.moteurPrincipalActif)this.moteurPrincipal.getSensorCollection().setAnalogPosition(0, 10);
+	  //if(this.moteurSecondaireActif)this.moteurSecondaire.getSensorCollection().setAnalogPosition(0, 10);
   }
+  
+	public double getConsigne()
+	{
+		return this.moteurPrincipal.getClosedLoopTarget();
+		//return this.consigne;
+	}
+
   public void annulerConsigne()
   {
 	  System.out.println("Cuisse.annulerConsigne()");
@@ -179,10 +187,18 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  
 	  if(this.moteurPrincipalActif) 
 	  {
-		  this.consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
-		  System.out.println("Consigne moteur principal " + this.consigne);
-		  if(this.encodeurAuxiliaireActif) if(this.moteurPrincipalActif) this.moteurPrincipal.set(ControlMode.Position, this.consigne, DemandType.AuxPID, 0);
-		  else this.moteurPrincipal.set(ControlMode.Position, this.consigne);
+		  //this.consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) + increment, POSITION_MIN, POSITION_MAX);
+		  this.consigne = limiterPID(this.consigne+ increment, POSITION_MIN, POSITION_MAX);
+		  System.out.println("=====================================================");
+		  System.out.println("Nouvelle consigne moteur principal " + this.consigne);
+		  if(this.encodeurAuxiliaireActif) 
+		  {
+			  if(this.moteurPrincipalActif) this.moteurPrincipal.set(ControlMode.Position, this.consigne, DemandType.AuxPID, 0);			  
+		  }
+		  else 
+		  { 
+			  this.moteurPrincipal.set(ControlMode.Position, this.consigne);
+		  }
       }
   }
   
@@ -190,10 +206,17 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  System.out.println("Cuisse.reduireConsignePID("+decrement+")");
 	  if(this.moteurPrincipalActif) 
 	  {
-		  this.consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
-		  System.out.println("Consigne moteur principal " + this.consigne);
-		  if(this.encodeurAuxiliaireActif) if(this.moteurPrincipalActif) this.moteurPrincipal.set(ControlMode.Position, this.consigne, DemandType.AuxPID, 0);
-		  else this.moteurPrincipal.set(ControlMode.Position, this.consigne);
+		  //this.consigne = limiterPID(this.moteurPrincipal.getClosedLoopTarget(0) - decrement, POSITION_MIN, POSITION_MAX);
+		  this.consigne = limiterPID(this.consigne - decrement, POSITION_MIN, POSITION_MAX);
+		  System.out.println("Nouvelle consigne moteur principal " + this.consigne);
+		  if(this.encodeurAuxiliaireActif) 
+		  {
+			  if(this.moteurPrincipalActif) this.moteurPrincipal.set(ControlMode.Position, this.consigne, DemandType.AuxPID, 0);			  
+		  }
+		  else 
+		  { 
+			  this.moteurPrincipal.set(ControlMode.Position, this.consigne);
+		  }
       }
 	  if(this.moteurSecondaireActif && this.modeConsigneSecondaire) this.moteurSecondaire.set(ControlMode.Position, this.consigneSecondaire, DemandType.AuxPID, 0);
   }

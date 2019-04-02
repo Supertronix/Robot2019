@@ -21,12 +21,8 @@ public class CommandeDeplierJambe extends Command{
     protected void initialize()
     {
         System.out.println("CommandeDeplierJambe.initialize() - " + this.etiquette);
-    	//this.increment = (float)ManetteConfiguration.getInstance().getAxeMainGauche().y / 2;
         SmartDashboard.putNumber("Increment jambe ", increment);        
         System.out.println("Increment jambe " + increment);
-        //this.incrementAccumule += increment;
-        //SmartDashboard.putNumber("Vitesse cuisse accumulee ", incrementAccumule);                
-        //System.out.println("Vitesse cuisse accumulee " + incrementAccumule);
         
         if(this.increment > 0) {
             Robot.jambe.augmenterConsignePID(this.increment); 
