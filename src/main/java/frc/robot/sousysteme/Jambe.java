@@ -131,19 +131,64 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	protected float positionCible = 0.0f;
 	public float getPositionCible()
 	{
-		   System.out.println("Jambe.getPositionCible() : la position cible est " + this.positionCible);
-		   return this.positionCible;
+        System.out.println("Cuisse.getPositionCible() : la position cible est " + this.positionCible);
+		return this.positionCible;
 	}
 	public void positionner(float position)
 	{
 		this.positionCible = position;
-		// System.out.println("Jambe.positionner() : la nouvelle position desiree est " + this.positionCible);		
+		System.out.println("Cuisse.positionner() : la nouvelle position desiree est " + this.positionCible);
 	}
 	public void incrementerPosition(float incrementPosition)
 	{
-		this.positionCible += incrementPosition;
-		// System.out.println("Jambe.incrementerPosition() : la nouvelle position desiree est " + this.positionCible);
+		this.positionCible = (float) (this.lirePosition() + incrementPosition);
+		System.out.println("Cuisse.incrementerPosition() : la nouvelle position desirée est " + this.positionCible);
 	}
+	public void allerVersPositionCible()
+	{
+		System.out.println("Cuisse.allerVersPositionCible() - " + this.positionCible);
+		float deltaPrincipal =  (this.positionCible - (float)this.lirePosition());
+		if(deltaPrincipal > 0) // this.monter(0.1f)
+		{
+			// ratio 0.8996655518394649
+			// 0.5f, 0.8f //0.9f // 0.7f
+			// 0.45f, 0.72f //0.81f //0.63f
+			if(deltaPrincipal < 300)
+			{
+				//if(this.moteurSecondaireActif)
+				this.moteurSecondaire.set(ControlMode.PercentOutput, (deltaPrincipal/100)*0.3f); 
+				//if(this.moteurPrincipalActif)
+				this.moteurPrincipal.set(ControlMode.PercentOutput, (deltaPrincipal/100)*0.3f); 				
+			}
+			else if(deltaPrincipal < 400)
+			{
+				//if(this.moteurSecondaireActif)
+				this.moteurSecondaire.set(ControlMode.PercentOutput, 0.3f); 
+				//if(this.moteurPrincipalActif)
+				this.moteurPrincipal.set(ControlMode.PercentOutput, 0.3f); 				
+			}
+			else
+			{
+				//if(this.moteurSecondaireActif)
+				this.moteurSecondaire.set(ControlMode.PercentOutput, 0.5f); 
+				//if(this.moteurPrincipalActif)
+				this.moteurPrincipal.set(ControlMode.PercentOutput, 0.5f);
+			}
+		}
+		else // on ne replie jamais
+		{
+			
+		}
+		//float deltaSecondaire =  ((float)this.lirePositionSecondaire() - this.positionCible);//todo
+	}
+	  public void fixerPosition()
+	  {
+		  System.out.println("Cuisse.fixerPosition()");
+		  
+		  this.moteurPrincipal.set(ControlMode.Position, this.lirePosition());
+		  this.moteurSecondaire.set(ControlMode.Position, this.position);
+	  }
+
 	
 	protected int distanceRestante;
 	public boolean estArrivePositionCible()
