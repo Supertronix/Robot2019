@@ -53,7 +53,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.moteurPrincipal = new TalonSupertronix(MOTEUR_C2, INVERSION_C2);		  
 	  this.moteurPrincipal.activerEncodeur();
 	  this.moteurPrincipal.initialiserPID(PID_P, PID_I, 0);
-	  this.moteurPrincipal.activerMinirupteur();
+	  this.moteurPrincipal.activerLimiteZero();
 			  
 		if(this.moteurSecondaireActif)
 		{
@@ -66,7 +66,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		  {
 			  this.moteurSecondaire.activerEncodeur();
 			  this.moteurSecondaire.initialiserPID(PID_P, PID_I, 0);
-			  this.moteurSecondaire.activerMinirupteur();			  
+			  this.moteurSecondaire.activerLimiteZero();			  
 		  }
 		}
   }

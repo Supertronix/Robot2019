@@ -51,7 +51,7 @@ public class TalonSupertronix extends TalonSRX
 		  //this.configClosedLoopPeriod(0, 1);
 	}		
 	
-	public void activerMinirupteur()
+	public void activerLimiteZero()
 	{
 		  this.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 		  this.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
