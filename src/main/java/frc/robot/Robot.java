@@ -82,8 +82,8 @@ public class Robot extends TimedRobot {
   {
 	 Manette.desactiverInstance();
 	 this.manette = Manette.getInstance();
-	 Robot.cuisse = new Cuisse();
-	 Robot.jambe = new Jambe();
+	 //Robot.cuisse = new Cuisse();
+	 //Robot.jambe = new Jambe();
   }
 
   @Override
