@@ -22,7 +22,7 @@ public class CommandeCalibrerCuisse extends Command {
 	protected void execute(){
         System.out.println("CommandeCalibrerCuisse.execute()");
     	//this.increment = (float)ManetteConfiguration.getInstance().getAxeMainGauche().y / 2;
-        Robot.cuisse.monter(-0.2f); 
+        Robot.cuisse.monter(-0.4f); 
     }
 	
 	protected boolean estBloque;
@@ -41,7 +41,7 @@ public class CommandeCalibrerCuisse extends Command {
 		if(this.duree > 5000)
 		{
 			System.out.println("Timeout du homing de la cuisse");
-			Robot.cuisse.initialiser();
+			//Robot.cuisse.initialiser();
 			Robot.cuisse.fixerPosition(); //Robot.cuisse.donnerConsignePID(0);
 			Robot.cuisse.activerCalibration();
 			return true;

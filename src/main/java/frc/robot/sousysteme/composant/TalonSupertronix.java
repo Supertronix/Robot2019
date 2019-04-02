@@ -18,9 +18,9 @@ public class TalonSupertronix extends TalonSRX
 		this.setNeutralMode(NeutralMode.Brake);	  	  
 		this.setSensorPhase(true);
 		//this.set(ControlMode.PercentOutput,0);
-		this.getSensorCollection().setQuadraturePosition(0, 10);
 		//this.configNeutralDeadband(0.001, 10);
 		this.proteger();
+		////this.getSensorCollection().setQuadraturePosition(0, 10);
 	}
 	
 	public TalonSupertronix(int numero, boolean inversion) {
@@ -29,15 +29,15 @@ public class TalonSupertronix extends TalonSRX
 		this.setNeutralMode(NeutralMode.Brake);	  	  
 		this.setSensorPhase(true);
 		//this.set(ControlMode.PercentOutput,0);
-		this.getSensorCollection().setQuadraturePosition(0, 10);
 		this.setInverted(inversion);
 		//this.configNeutralDeadband(0.001, 10);
 		this.proteger();
+		////this.getSensorCollection().setQuadraturePosition(0, 10);
 	}
 	
 	public void activerEncodeur()
 	{
-		  this.setSelectedSensorPosition(0);
+		  ////this.setSelectedSensorPosition(0);
 		  this.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);	  
 		  //this.configSelectedFeedbackCoefficient(1, 0, 10);
 	}
@@ -82,8 +82,8 @@ public class TalonSupertronix extends TalonSRX
 	
 	public void proteger()
 	{
-		//this.configContinuousCurrentLimit(50, 10);
-		//this.enableCurrentLimit(true);
+		this.configContinuousCurrentLimit(100, 10);
+		this.enableCurrentLimit(true);
 	}
 
 }
