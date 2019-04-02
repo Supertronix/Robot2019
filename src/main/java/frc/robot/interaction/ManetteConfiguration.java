@@ -86,11 +86,11 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         //this.boutonDeroulerTreuil = new JoystickButton(this.manette, BOUTON_GAUCHE);
         //this.boutonDeroulerTreuil.whenPressed(new CommandeDeroulerTreuil());
         
-        this.commandeTesterInitialiserRobot = new CommandeInitialiserRobot();
-        this.commandeTesterInitialiserRobot.start();
+        //this.commandeTesterInitialiserRobot = new CommandeInitialiserRobot();
+        //this.commandeTesterInitialiserRobot.start();
         
-        this.boutonTestGrimpage = new JoystickButton(this.manette, this.BOUTON_DEMARRER);
-        this.boutonTestGrimpage.whenPressed(new CommandeGrimperRobot());
+        //this.boutonTestGrimpage = new JoystickButton(this.manette, this.BOUTON_DEMARRER);
+        //this.boutonTestGrimpage.whenPressed(new CommandeGrimperRobot());
         
         //this.boutonTestGrimpage = new JoystickButton(this.manette, this.BOUTON_DEMARRER);
         //this.boutonTestGrimpage.whenPressed(new CommandePositionnerCuisseManuellement(400));
@@ -107,6 +107,7 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
     	//}
     	//this.plierEtDeplierJambe();
     	//Robot.cuisse.synchroniser();
+    	
     	Robot.cuisse.lirePositionPrincipale();
     	Robot.cuisse.lirePositionSecondaire();
     	//Robot.jambe.lirePosition();
