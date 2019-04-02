@@ -39,8 +39,8 @@ public class CommandeGrimperRobot extends CommandGroup{
     	//this.addSequential(new CommandeDeplierCuisseSelonPid(1100));
     	//this.addSequential(new CommandeDeplierCuisseSelonPid(800));
     	
-    	this.addParallel(new CommandePositionnerCuisseManuellement(400));
-    	this.addParallel(new CommandeDeplierJambe(800));
+    	this.addParallel(new CommandePositionnerCuisseManuellement(600));
+    	this.addParallel(new CommandeDeplierJambe(1000));
     	
     	//this.setTimeout(3);    	
     }

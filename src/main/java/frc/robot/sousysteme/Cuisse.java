@@ -229,6 +229,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  //this.moteurSecondaire.set(ControlMode.Disabled, 0);
 	  this.moteurPrincipal.neutralOutput();
   }
+  boolean synchroManuelle = true;
   public void donnerConsignePID(float consigne) 
   {
 	  System.out.println("Cuisse.donnerConsignePID("+consigne+")");
@@ -239,6 +240,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 			  if(this.encodeurAuxiliaireActif) if(this.moteurPrincipalActif) this.moteurPrincipal.set(ControlMode.Position, this.consignePrincipale, DemandType.AuxPID, 0);
 			  else this.moteurPrincipal.set(ControlMode.Position, this.consignePrincipale);
 	      }
+		  //if(this.synchroManuelle)
+			  //this.moteurSecondaire.set(ControlMode.Position, this.consignePrincipale);
 		//this.consigneSecondaire = consigne;
   }
   
@@ -336,8 +339,8 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		float deltaPrincipal =  (this.positionCible - (float)this.lirePositionPrincipale());
 		if(deltaPrincipal > 0) // this.monter(0.1f)
 		{
-			if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, 0.3f);
-			if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0.3f);
+			if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, 0.4f);
+			if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0.4f);
 		}
 		else // on ne replie jamais
 		{
