@@ -44,6 +44,9 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	public double PID_I = 0.0001;//0.01;///0.00099;
 
 	
+	protected boolean modeSuiveux = true;
+	
+	
   public Cuisse()
   {
 	  this.consignePrincipale = 0;
@@ -75,32 +78,6 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		}
   }
   
-  public void activerEncodeurAuxiliaire()
-  {
-		this.moteurPrincipal.configRemoteFeedbackFilter(this.moteurSecondaire.getDeviceID(), RemoteSensorSource.TalonSRX_SelectedSensor, 1, 10);
-		
-		this.moteurPrincipal.configSensorTerm(SensorTerm.Sum0, FeedbackDevice.RemoteSensor1, 10);
-		this.moteurPrincipal.configSensorTerm(SensorTerm.Sum1, FeedbackDevice.CTRE_MagEncoder_Relative, 10);
-		this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, 0, 10);
-		this.moteurPrincipal.configSelectedFeedbackCoefficient(0.5, 0, 10);
-		this.moteurPrincipal.initialiserPID(0.8, 0.00005, 0); //	public double PID_P = 0.1; public double PID_I = 0.00099;
-		this.moteurPrincipal.setStatusFramePeriod(StatusFrame.Status_12_Feedback1, 20, 10);
-		this.moteurPrincipal.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 20, 10);
-		//this.moteurPrincipal.config_IntegralZone(1, 200, 10); // Integral Zone can be used to auto clear the integral accumulator if the sensor pos is too far from the target. This prevent unstable oscillation if the kI is too large. Value is in sensor units.
-		
-		this.moteurPrincipal.configSensorTerm(SensorTerm.Diff1, FeedbackDevice.RemoteSensor1, 10);
-		this.moteurPrincipal.configSensorTerm(SensorTerm.Diff0, FeedbackDevice.CTRE_MagEncoder_Relative, 10);
-		this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.SensorDifference, 1, 10);
-		this.moteurPrincipal.configSelectedFeedbackCoefficient(-1, 1, 10);
-		this.moteurPrincipal.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 20, 10);
-		this.moteurSecondaire.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20, 10);
-		this.moteurPrincipal.configAuxPIDPolarity(false, 10); 
-		this.moteurPrincipal.initialiserPIDAuxiliaire(6, 0.1, 0); // 2 0 4
-		
-		//this.moteurSecondaire.follow(null);
-		this.moteurSecondaire.follow(this.moteurPrincipal, FollowerType.AuxOutput1);
-		
-  }
   
   // la stratégie est soit de synchroniser les outputs de voltage avec la fonction synchroniser qu'on doit appeler à chaque itération
   // ou encore d'appliquer une simulation de pid identique ou tres similaire a celle du moteur principal
@@ -137,42 +114,6 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 
   }
   
-  private class EncodeurPrincipalSource implements PIDSource
-  {
-	TalonSRX talon = null;
-	@SuppressWarnings("unused")
-	public EncodeurPrincipalSource(TalonSRX talon) 
-	{
-		  this.talon = talon;
-	}
-	@Override
-	public void setPIDSourceType(PIDSourceType pidSource) {
-	}
-
-	@Override
-	public PIDSourceType getPIDSourceType() {
-		return  PIDSourceType.kDisplacement;
-	}
-
-	@Override
-	public double pidGet() {
-		return this.talon.getSelectedSensorPosition();
-	}
-  }
-  private class TalonCible implements PIDOutput
-  {
-	  private TalonSRX talon;
-	  @SuppressWarnings("unused")
-	public TalonCible(TalonSRX talon)
-	  {
-		  this.talon = talon;
-	  }
-	@Override
-	public void pidWrite(double valeur) {
-		this.talon.set(ControlMode.Position,valeur);
-	}
-	  
-  }
   @Override
   public void initDefaultCommand() {}
   
@@ -388,4 +329,32 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		this.estCalibre = true;
 		if(this.encodeurAuxiliaireActif) this.activerEncodeurAuxiliaire();
 	}
+	
+	  public void activerEncodeurAuxiliaire()
+	  {
+			this.moteurPrincipal.configRemoteFeedbackFilter(this.moteurSecondaire.getDeviceID(), RemoteSensorSource.TalonSRX_SelectedSensor, 1, 10);
+			
+			this.moteurPrincipal.configSensorTerm(SensorTerm.Sum0, FeedbackDevice.RemoteSensor1, 10);
+			this.moteurPrincipal.configSensorTerm(SensorTerm.Sum1, FeedbackDevice.CTRE_MagEncoder_Relative, 10);
+			this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, 0, 10);
+			this.moteurPrincipal.configSelectedFeedbackCoefficient(0.5, 0, 10);
+			this.moteurPrincipal.initialiserPID(0.8, 0.00005, 0); //	public double PID_P = 0.1; public double PID_I = 0.00099;
+			this.moteurPrincipal.setStatusFramePeriod(StatusFrame.Status_12_Feedback1, 20, 10);
+			this.moteurPrincipal.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 20, 10);
+			//this.moteurPrincipal.config_IntegralZone(1, 200, 10); // Integral Zone can be used to auto clear the integral accumulator if the sensor pos is too far from the target. This prevent unstable oscillation if the kI is too large. Value is in sensor units.
+			
+			this.moteurPrincipal.configSensorTerm(SensorTerm.Diff1, FeedbackDevice.RemoteSensor1, 10);
+			this.moteurPrincipal.configSensorTerm(SensorTerm.Diff0, FeedbackDevice.CTRE_MagEncoder_Relative, 10);
+			this.moteurPrincipal.configSelectedFeedbackSensor(FeedbackDevice.SensorDifference, 1, 10);
+			this.moteurPrincipal.configSelectedFeedbackCoefficient(-1, 1, 10);
+			this.moteurPrincipal.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 20, 10);
+			this.moteurSecondaire.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20, 10);
+			this.moteurPrincipal.configAuxPIDPolarity(false, 10); 
+			this.moteurPrincipal.initialiserPIDAuxiliaire(6, 0.1, 0); // 2 0 4
+			
+			//this.moteurSecondaire.follow(null);
+			this.moteurSecondaire.follow(this.moteurPrincipal, FollowerType.AuxOutput1);
+			
+	  }
+
 }
