@@ -9,10 +9,10 @@ import frc.robot.RobotMap;
 import frc.robot.commande.CommandeDeplierJambe;
 import frc.robot.commande.CommandeDeroulerTreuil;
 import frc.robot.commande.CommandeGrimperRobot;
-import frc.robot.commande.CommandeInitialiserRobot;
+import frc.robot.commande.CommandeCalibrerRobot;
+import frc.robot.commande.CommandeDeplierCuisseManuellement;
 import frc.robot.commande.CommandeRoulerTreuil;
 import frc.robot.commande.configuration.CommandeDeplierCuisseSelonPid;
-import frc.robot.commande.configuration.CommandePositionnerCuisseManuellement;
 import frc.robot.commande.configuration.CommandeTesterCuisseAvecManette;
 import frc.robot.commande.configuration.CommandeTesterDeplierCuisse;
 import frc.robot.commande.configuration.CommandeTesterDeplierCuisseAvecMinirupteur;
@@ -35,7 +35,7 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
     protected JoystickButton boutonRoulerTreuil;
     protected JoystickButton boutonDeroulerTreuil;
 
-    protected CommandeInitialiserRobot commandeTesterInitialiserRobot = null;
+    protected CommandeCalibrerRobot commandeTesterInitialiserRobot = null;
     
     protected ManetteConfiguration()
     {
@@ -86,7 +86,7 @@ public class ManetteConfiguration extends Manette implements RobotMap.Manette{
         //this.boutonDeroulerTreuil = new JoystickButton(this.manette, BOUTON_GAUCHE);
         //this.boutonDeroulerTreuil.whenPressed(new CommandeDeroulerTreuil());
         
-        this.commandeTesterInitialiserRobot = new CommandeInitialiserRobot();
+        this.commandeTesterInitialiserRobot = new CommandeCalibrerRobot();
         this.commandeTesterInitialiserRobot.start();
         
         //this.boutonTestGrimpage = new JoystickButton(this.manette, this.BOUTON_DEMARRER);

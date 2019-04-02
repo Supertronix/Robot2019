@@ -1,10 +1,11 @@
-package frc.robot.sousysteme;
+package frc.robot.sousysteme.recherche;
 
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.interaction.Manette;
 import frc.robot.interaction.ManetteCompetition;
+import frc.robot.sousysteme.Roues;
 
 public class RouesMecanumFormuleMoyenne extends Roues{
 

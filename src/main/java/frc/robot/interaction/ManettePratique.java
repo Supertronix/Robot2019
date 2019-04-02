@@ -7,7 +7,7 @@ import frc.robot.Journal;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commande.CommandeDeroulerTreuil;
-import frc.robot.commande.CommandeInitialiserRobot;
+import frc.robot.commande.CommandeCalibrerRobot;
 import frc.robot.commande.CommandeRoulerTreuil;
 import frc.robot.commande.attrapeur.CommandeArmerAttrapeur;
 import frc.robot.commande.attrapeur.CommandeDescendreGoupille;
@@ -24,7 +24,7 @@ public class ManettePratique extends Manette implements RobotMap.Manette{
     protected JoystickButton boutonAnnulerAnnonceAttrapage;
     protected JoystickButton boutonRoulerTreuil;
     protected JoystickButton boutonDeroulerTreuil;
-    protected CommandeInitialiserRobot commandeTesterInitialiserRobot = null;
+    protected CommandeCalibrerRobot commandeTesterInitialiserRobot = null;
 
     protected ManettePratique()
     {

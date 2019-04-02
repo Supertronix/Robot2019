@@ -1,4 +1,4 @@
-package frc.robot.commande.configuration;
+package frc.robot.commande;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -6,12 +6,12 @@ import frc.robot.Robot;
 import frc.robot.interaction.Manette;
 import frc.robot.interaction.ManetteConfiguration;
 
-public class CommandePositionnerCuisseManuellement extends Command{
+public class CommandeDeplierCuisseManuellement extends Command{
 
 	protected Manette manette;
 	protected float position;
 	protected String etiquette;
-    public CommandePositionnerCuisseManuellement(float position, String etiquette)
+    public CommandeDeplierCuisseManuellement(float position, String etiquette)
     {
      	System.out.println("new CommandePositionnerCuisseManuellement() - " +  etiquette);
         requires(Robot.cuisse);

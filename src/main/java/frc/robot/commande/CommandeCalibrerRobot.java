@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.commande.configuration.CommandeTesterCuisseAvecManette;
 import frc.robot.interaction.Manette;
 
-public class CommandeInitialiserRobot extends CommandGroup{
+public class CommandeCalibrerRobot extends CommandGroup{
 	
-    public CommandeInitialiserRobot()
+    public CommandeCalibrerRobot()
     {
     	System.out.println("new CommandeInitialiserRobot()");
     	this.addParallel(new CommandeCalibrerJambe());

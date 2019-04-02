@@ -3,7 +3,6 @@ package frc.robot.commande;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.commande.configuration.CommandeDeplierCuisseSelonPid;
-import frc.robot.commande.configuration.CommandePositionnerCuisseManuellement;
 import frc.robot.commande.configuration.CommandePositionnerJambeManuellement;
 
 public class CommandeGrimperRobot extends CommandGroup{
