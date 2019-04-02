@@ -56,7 +56,7 @@ public class CommandeGrimperRobot extends CommandGroup{
     	this.addSequential(new CommandeGrimperJambeCuisse(new CommandeDeplierJambe(2600, "JAMBE - 1"), new CommandePositionnerCuisseManuellement(700, "CUISSE 1")));
     	this.addSequential(new CommandeGrimperJambeCuisse(new CommandeDeplierJambe(1300, "JAMBE - 1"), new CommandePositionnerCuisseManuellement(450, "CUISSE 1")));
     	*/
-    	this.addSequential(new CommandeGrimperJambeCuisse(new CommandeDeplierJambe(3000, "JAMBE - 1"), new CommandePositionnerCuisseManuellement(1500, "CUISSE 1")));
+    	this.addSequential(new CommandeGrimperJambeCuisse(new CommandeDeplierJambe(2500, "JAMBE - 1"), new CommandePositionnerCuisseManuellement(1500, "CUISSE 1")));
     }
 /* 2 x magique
  * 
