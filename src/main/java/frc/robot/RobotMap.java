@@ -5,13 +5,10 @@ public interface RobotMap {
   // Aussi appelé Hanche par l'équipe	
   public interface Cuisse
   {
-	  public static final int MOTEUR_PRINCIPAL = 3; // C1 - MASTER - VictorSRX - BREAK MODE - ENCODEUR
-	  public static final int MOTEUR_SECONDAIRE = 4; // C2 - ESCLAVE - VictorSPX - BREAK MODE
-
-	  public static final int ENCODEUR_MOTEUR_PRINCIPAL_A = 10; 
-	  public static final int ENCODEUR_MOTEUR_PRINCIPAL_B = 11;
-	  public static final double CUISSE_PID_KP = 1;
-
+	  public static final int MOTEUR_C1 = 3; // C1 - MASTER - VictorSRX - BREAK MODE - ENCODEUR
+	  public static final int MOTEUR_C2 = 4; // C2 - ESCLAVE - VictorSPX - BREAK MODE
+		public boolean INVERSION_C1 = true; // TODO inverser pour le robot competition
+		public boolean INVERSION_C2 = false; // TODO inverser pour le robot competition
   }
   
  // Aussi appelé Genoux par l'équipe  

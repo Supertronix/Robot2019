@@ -61,6 +61,7 @@ public class TalonSupertronix extends TalonSRX
 	public void suivre(TalonSupertronix talon)
 	{
 		this.follow(talon); 
+		System.out.println("Follow activé");
 		//this.set(ControlMode.Follower, talon.getDeviceID());
 		//this.enableCurrentLimit(false);
 	}

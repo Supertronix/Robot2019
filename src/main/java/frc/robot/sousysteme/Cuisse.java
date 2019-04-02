@@ -34,11 +34,9 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	/////////////////////////////////////////////////////////////////
 	
 	public int INVERSION = 1; // inutile depuis moteur.setIntverted(true) - le manuel etait non compatible avec limit switch
-	public boolean INVERSION_PRINCIPALE = true; // TODO inverser pour le robot competition
-	public boolean INVERSION_SECONDAIRE = false; // TODO inverser pour le robot competition
 	  	
-	public double POSITION_MIN = 0;
-	public double POSITION_MAX = 20000; // 3700 sur robot competition	
+	public double POSITION_MIN = -5000;
+	public double POSITION_MAX = 5000; // 3700 sur robot competition	
 	public double PID_P = 1;
 	public double PID_I = 0.0001;//0.01;///0.00099;
 	
@@ -52,24 +50,18 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.consigne = 0;
 	  this.consigneSecondaire = 0;
 		
-	  this.moteurPrincipal = new TalonSupertronix(MOTEUR_SECONDAIRE, INVERSION_SECONDAIRE);		  
+	  this.moteurPrincipal = new TalonSupertronix(MOTEUR_C1, INVERSION_C1);		  
 	  this.moteurPrincipal.activerEncodeur();
 	  this.moteurPrincipal.initialiserPID(PID_P, PID_I, 0);
 	  this.moteurPrincipal.activerMinirupteur();
-	  this.moteurPrincipal.proteger();
 			  
 		if(this.moteurSecondaireActif)
 		{
-		  this.moteurSecondaire = new TalonSupertronix(MOTEUR_PRINCIPAL, INVERSION_PRINCIPALE);
+		  this.moteurSecondaire = new TalonSupertronix(MOTEUR_C2, INVERSION_C2);
 		  this.moteurSecondaire.activerEncodeur();
-		  if(!this.modeSuiveux) this.moteurSecondaire.initialiserPID(PID_P, PID_I, 0);
+		  //if(!this.modeSuiveux) this.moteurSecondaire.initialiserPID(PID_P, PID_I, 0);
 		  this.moteurSecondaire.activerMinirupteur();
-		  this.moteurSecondaire.proteger();
-		}
-		
-		if(this.moteurSecondaireActif) 
-		{
-			if(this.modeSuiveux) this.moteurSecondaire.suivre(this.moteurPrincipal);			
+		  if(this.modeSuiveux) this.moteurSecondaire.suivre(this.moteurPrincipal);			
 		}
   }
   
@@ -140,7 +132,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  if(this.moteurSecondaireActif) this.positionSecondaire = this.moteurSecondaire.getSelectedSensorPosition(); // -748 (limit switch a 2964 
 	  System.out.println("Cuisse.lirePositionSecondaire() : " + INVERSION*this.positionSecondaire);
       SmartDashboard.putNumber("Position cuisse C2", INVERSION*this.positionSecondaire);	  
-      if(this.encodeurAuxiliaireActif) System.out.println("Valeur auxiliaire " + this.moteurSecondaire.getSelectedSensorPosition(1));
+      //if(this.encodeurAuxiliaireActif) System.out.println("Valeur auxiliaire " + this.moteurSecondaire.getSelectedSensorPosition(1));
 	  return INVERSION*this.positionSecondaire;	  
   }
     

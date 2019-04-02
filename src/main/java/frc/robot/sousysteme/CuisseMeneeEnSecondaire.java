@@ -122,7 +122,7 @@ public class CuisseMeneeEnSecondaire extends Subsystem implements RobotMap.Cuiss
 		
 		if(this.moteurPrincipalActif)
 		{
-		  this.moteurPrincipal = new TalonSupertronix(MOTEUR_PRINCIPAL, INVERSION_PRINCIPALE);		  
+		  this.moteurPrincipal = new TalonSupertronix(MOTEUR_C1, INVERSION_PRINCIPALE);		  
 		  this.moteurPrincipal.activerEncodeur();
 		  //this.moteurPrincipal.initialiserPID(PID_P, PID_I, 0);
 		  this.moteurPrincipal.activerMinirupteur();
@@ -130,7 +130,7 @@ public class CuisseMeneeEnSecondaire extends Subsystem implements RobotMap.Cuiss
 			  
 		if(this.moteurSecondaireActif)
 		{
-		  this.moteurSecondaire = new TalonSupertronix(MOTEUR_SECONDAIRE, INVERSION_SECONDAIRE);
+		  this.moteurSecondaire = new TalonSupertronix(MOTEUR_C2, INVERSION_SECONDAIRE);
 		  this.moteurSecondaire.activerEncodeur();
 		  this.moteurSecondaire.initialiserPID(PID_P, PID_I, 0);
 		  this.moteurSecondaire.activerMinirupteur();
