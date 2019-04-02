@@ -50,18 +50,24 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 	  this.consigne = 0;
 	  this.consigneSecondaire = 0;
 		
-	  this.moteurPrincipal = new TalonSupertronix(MOTEUR_C1, INVERSION_C1);		  
+	  this.moteurPrincipal = new TalonSupertronix(MOTEUR_C2, INVERSION_C2);		  
 	  this.moteurPrincipal.activerEncodeur();
 	  this.moteurPrincipal.initialiserPID(PID_P, PID_I, 0);
 	  this.moteurPrincipal.activerMinirupteur();
 			  
 		if(this.moteurSecondaireActif)
 		{
-		  this.moteurSecondaire = new TalonSupertronix(MOTEUR_C2, INVERSION_C2);
-		  this.moteurSecondaire.activerEncodeur();
-		  //if(!this.modeSuiveux) this.moteurSecondaire.initialiserPID(PID_P, PID_I, 0);
-		  this.moteurSecondaire.activerMinirupteur();
-		  if(this.modeSuiveux) this.moteurSecondaire.suivre(this.moteurPrincipal);			
+		  this.moteurSecondaire = new TalonSupertronix(MOTEUR_C1, INVERSION_C1);
+		  if(this.modeSuiveux)
+		  {
+			  this.moteurSecondaire.follow(this.moteurPrincipal);			
+		  }
+		  else
+		  {
+			  this.moteurSecondaire.activerEncodeur();
+			  this.moteurSecondaire.initialiserPID(PID_P, PID_I, 0);
+			  this.moteurSecondaire.activerMinirupteur();			  
+		  }
 		}
   }
   
