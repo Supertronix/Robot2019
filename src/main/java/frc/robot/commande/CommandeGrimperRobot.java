@@ -11,6 +11,7 @@ public class CommandeGrimperRobot extends CommandGroup{
     public CommandeGrimperRobot()
     {
     	System.out.println("new CommandeGrimperRobot()");
+    	//this.setTimeout(3);    	
     	//this.addSequential(new CommandeDeplierCuisse(1000));
     	//this.addParallel(new CommandeDeplierJambe(1000));
     	//this.addSequential(new CommandeDeplierCuisse(1000));
@@ -43,7 +44,7 @@ public class CommandeGrimperRobot extends CommandGroup{
     	
     	//this.addParallel(new CommandePositionnerCuisseManuellement(600));
     	//this.addParallel(new CommandeDeplierJambe(1000));
-    	
+    	    	
     	/*
     	this.addParallel(new CommandeDeplierJambe(2600, "JAMBE - 1"));
     	this.addSequential(new CommandePositionnerCuisseManuellement(600, "CUISSE 1"));
@@ -51,10 +52,11 @@ public class CommandeGrimperRobot extends CommandGroup{
     	this.addSequential(new CommandePositionnerCuisseManuellement(350, "CUISSE 2"));
     	*/
  
-    	
+    	/*
     	this.addSequential(new CommandeGrimperJambeCuisse(new CommandeDeplierJambe(2600, "JAMBE - 1"), new CommandePositionnerCuisseManuellement(700, "CUISSE 1")));
     	this.addSequential(new CommandeGrimperJambeCuisse(new CommandeDeplierJambe(1300, "JAMBE - 1"), new CommandePositionnerCuisseManuellement(450, "CUISSE 1")));
-    	//this.setTimeout(3);    	
+    	*/
+    	this.addSequential(new CommandeGrimperJambeCuisse(new CommandeDeplierJambe(3000, "JAMBE - 1"), new CommandePositionnerCuisseManuellement(1500, "CUISSE 1")));
     }
 /* 2 x magique
  * 
