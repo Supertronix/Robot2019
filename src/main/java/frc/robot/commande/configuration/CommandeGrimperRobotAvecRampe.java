@@ -12,7 +12,7 @@ public class CommandeGrimperRobotAvecRampe extends CommandGroup{
     	//cuisse 3712 jambe 7923
     	// 3712 + 6000 parfaitement parallele au sol
     	
-    	this.addParallel(new CommandeDeplierJambe(1700));
+    	this.addParallel(new CommandeDeplierJambe(1700, ""));
     	this.addSequential(new CommandeDeplierCuisseSelonPid(1000));
     	
     }

@@ -19,9 +19,9 @@ public class CommandeGrimperRobotSaut extends CommandGroup{
     	//this.addSequential(new CommandeDeplierJambe(6000));
     	//this.addSequential(new CommandeDeplierJambe(2923));
     	
-    	this.addParallel(new CommandeDeplierJambe(5000));
+    	this.addParallel(new CommandeDeplierJambe(5000, ""));
     	this.addSequential(new CommandeDeplierCuisseSelonPid(3712));
-    	this.addSequential(new CommandeDeplierJambe(2923));
+    	this.addSequential(new CommandeDeplierJambe(2923, ""));
     	
     	//this.addSequential(new CommandeTournerRoues(1f));
     	
