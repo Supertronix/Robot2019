@@ -6,16 +6,16 @@ import frc.robot.Robot;
 import frc.robot.interaction.Manette;
 import frc.robot.interaction.ManetteConfiguration;
 
-public class CommandeDeplierCuisse extends Command{
+public class CommandeDeplierCuisseAvecDoublePid extends Command{
 
 	protected Manette manette;
-	protected float position;
+	protected float increment;
 	protected String etiquette;
-    public CommandeDeplierCuisse(float position, String etiquette)
+    public CommandeDeplierCuisseAvecDoublePid(float increment, String etiquette)
     {
     	System.out.println("new CommandeDeplierCuisse() - " + this.etiquette);
         requires(Robot.cuisse);
-        this.position = position;
+        this.increment = increment;
         this.etiquette = etiquette;
     }
 
@@ -24,24 +24,24 @@ public class CommandeDeplierCuisse extends Command{
     {
         System.out.println("CommandeDeplierCuisse.initialize() - " + this.etiquette);
 		Robot.cuisse.annulerConsigne(); // arreter l'ancien pid
-		this.manette = Manette.getInstance();
-		Robot.cuisse.positionner(position);
+        if(this.increment > 0) {
+            Robot.jambe.augmenterConsignePID(this.increment); 
+        }
+        else {
+        	Robot.jambe.reduireConsignePID(Math.abs(increment));
+        }
     }
     
     @Override
     protected void execute(){
         System.out.println("CommandeDeplierCuisse.execute() - "  + this.etiquette);
-        Robot.cuisse.allerVersPositionCible();
-        Robot.cuisse.synchroniser();
     }
 
     @Override
     protected boolean isFinished(){
         System.out.println("CommandeDeplierCuisse.isFinished() - " + this.etiquette);
-        if(Robot.cuisse.estArrivePositionCible())
+        if(Robot.cuisse.estArrive())
         {
-        	Robot.cuisse.arreter(); // arreter le mouvement manuel
-        	Robot.cuisse.fixerPosition();
         	return true; 
         }
         return false;
