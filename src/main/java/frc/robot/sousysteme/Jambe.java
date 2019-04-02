@@ -21,10 +21,12 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	public int ERREUR_DISTANCE_PERMISE = 5;
 	
 	public double PID_P = 0.75;//0.6;
-	public double PID_I = 0.0002;//0.00155; //0.00055;
+	public double PID_I = 0.00015;//0.00155; //0.00055;
 	
 	protected TalonSupertronix moteurPrincipal = null;
 	protected TalonSupertronix moteurSecondaire = null; 
+	
+	protected boolean modeSuiveux = true;
 	
 	//protected Encoder encodeurMoteurPrincipal = new Encoder(ENCODEUR_MOTEUR_PRINCIPAL_A, ENCODEUR_MOTEUR_PRINCIPAL_B,  ENCODEUR_MOTEUR_PRINCIPAL_INVERSION, Encoder.EncodingType.k2X);
 	
@@ -37,7 +39,8 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		this.moteurSecondaire = new TalonSupertronix(MOTEUR_SECONDAIRE, false);
 		this.moteurSecondaire.activerEncodeur();
 		this.moteurSecondaire.activerMinirupteur();	// limit switches
-		this.moteurSecondaire.suivre(this.moteurPrincipal);
+		
+		if(this.modeSuiveux)this.moteurSecondaire.suivre(this.moteurPrincipal);
 	}
 	
 	@Override
@@ -101,7 +104,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 	  public void monter(float vitesse)
 	{
 		this.moteurPrincipal.set(ControlMode.PercentOutput, INVERSION*vitesse);
-		// TEMPO this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*vitesse);
+		if(!this.modeSuiveux) this.moteurSecondaire.set(ControlMode.PercentOutput, INVERSION*vitesse);
 	}	
 	  
 	public double limiterPID(double val, double min, double max) 
@@ -196,7 +199,7 @@ public class Jambe extends Subsystem implements RobotMap.Jambe{
 		this.position = lirePosition();
 		this.distanceRestante = (int)(this.positionCible - lirePosition());
 		System.out.println("Distance restante jambe " + this.distanceRestante);
-		if (Math.abs(this.distanceRestante) < 10) return true;
+		if (this.distanceRestante < 10) return true; // cibles toujours positives apres homing
 		if(this.position >= this.POSITION_MAX) return true;
 		return false;
 	}

@@ -335,6 +335,7 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 		this.positionCible = (float) (this.lirePositionPrincipale() + incrementPosition);
 		System.out.println("Cuisse.incrementerPosition() : la nouvelle position desirée est " + this.positionCible);
 	}
+	float facteur = 0.8996655518394649f;
 	public void allerVersPositionCible()
 	{
 		System.out.println("Cuisse.allerVersPositionCible() - " + this.positionCible);
@@ -347,17 +348,17 @@ public class Cuisse extends Subsystem implements RobotMap.Cuisse{
 			if(deltaPrincipal < 300)
 			{
 				if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, (deltaPrincipal/100)*0.3f); 
-				if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, (deltaPrincipal/100)*0.27f); 				
+				if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, (deltaPrincipal/100)*0.3f*facteur); 				
 			}
 			else if(deltaPrincipal < 400)
 			{
 				if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, 0.3f); 
-				if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0.27f); 				
+				if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0.3f*facteur); 				
 			}
 			else
 			{
 				if(this.moteurSecondaireActif)this.moteurSecondaire.set(ControlMode.PercentOutput, 0.5f); 
-				if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0.45f); 
+				if(this.moteurPrincipalActif)this.moteurPrincipal.set(ControlMode.PercentOutput, 0.5*facteur); 
 			}
 		}
 		else // on ne replie jamais

@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.commande.configuration.CommandeDeplierCuisseSelonPid;
 import frc.robot.commande.configuration.CommandePositionnerCuisseManuellement;
+import frc.robot.commande.configuration.CommandePositionnerJambeManuellement;
 
 public class CommandeGrimperRobot extends CommandGroup{
 	
@@ -58,9 +59,23 @@ public class CommandeGrimperRobot extends CommandGroup{
     	*/
     	//this.addSequential(new CommandeGrimperJambeCuisse(new CommandeDeplierJambe(3000, "JAMBE - 1"), new CommandePositionnerCuisseManuellement(1000, "CUISSE 1")));
     	//this.addSequential(new CommandeDeplierJambe(400, "JAMBE - 1"));
-    	this.addSequential(new CommandeGrimperJambeCuisse(new CommandeDeplierJambe(2000, "JAMBE - 1"), new CommandePositionnerCuisseManuellement(750, "CUISSE 1")));
-    	this.addSequential(new CommandeGrimperJambeCuisse(new CommandeDeplierJambe(1200, "JAMBE - 1"), new CommandePositionnerCuisseManuellement(600, "CUISSE 1")));
+    	
+    	
+    	/*this.addSequential(new CommandeGrimperJambeCuisse(new CommandeDeplierJambe(2000, "JAMBE - 1"), new CommandePositionnerCuisseManuellement(750, "CUISSE 1")));
+    	this.addSequential(new CommandeGrimperJambeCuisse(new CommandeDeplierJambe(1400, "JAMBE - 1"), new CommandePositionnerCuisseManuellement(600, "CUISSE 1")));
     	this.addSequential(new CommandeDeplierJambe(300, "JAMBE - 1"));
+    	*/
+    	//this.addSequential(new CommandePositionnerJambeManuellement(200, "JAMBE - 1"));
+    	this.addSequential(new CommandePositionnerCuisseManuellement(1200, "CUISSE - 1"));
+    	//this.addSequential(new CommandeDeplierJambe(1300, "JAMBE - 1"));
+    	this.addSequential(new CommandeGrimperJambeCuisse(new CommandeDeplierJambe(1300, "JAMBE - 1"), new CommandePositionnerCuisseManuellement(100, "CUISSE 1")));
+    	this.addSequential(new CommandeDeplierJambe(1300, "JAMBE - 1"));
+    	//this.addSequential(new CommandeGrimperJambeCuisse(new CommandeDeplierJambe(1300, "JAMBE - 1"), new CommandePositionnerCuisseManuellement(100, "CUISSE 1")));
+    	
+    	//this.addSequential(new CommandeGrimperJambeCuisse(new CommandeDeplierJambe(2000, "JAMBE - 1"), new CommandePositionnerCuisseManuellement(750, "CUISSE 1")));
+    	//this.addSequential(new CommandeGrimperJambeCuisse(new CommandeDeplierJambe(1400, "JAMBE - 1"), new CommandePositionnerCuisseManuellement(600, "CUISSE 1")));
+    	//this.addSequential(new CommandeDeplierJambe(300, "JAMBE - 1"));
+   
     }
 /* 2 x magique
  * 
