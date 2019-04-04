@@ -68,12 +68,15 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() 
   {
+	  Manette.desactiverInstance();
+	  this.manette = Manette.getInstance();
   }
 
   @Override
   public void autonomousPeriodic() 
   {
     Scheduler.getInstance().run();
+	Manette.getInstance().executerActions(); 
   }
 
   //protected CommandeTesterEleverRobot commandeTesterEleverRobot = null;
