@@ -46,8 +46,9 @@ public class ManettePratique extends Manette implements RobotMap.Manette{
         this.boutonDeroulerTreuil = new JoystickButton(this.manette, this.BOUTON_X);
         this.boutonDeroulerTreuil.whenPressed(new CommandeDeroulerTreuil());
         
-        this.commandeCalibrerRobot = new CommandeCalibrerRobot();
-        this.commandeCalibrerRobot.start();   
+        // Attention va se reexecuter dans les init
+        //this.commandeCalibrerRobot = new CommandeCalibrerRobot();
+        //this.commandeCalibrerRobot.start();   
     }
     
     public void executerActions()

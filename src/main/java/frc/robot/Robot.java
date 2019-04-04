@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() 
   {
-	  Manette.desactiverInstance();
+	  //Manette.desactiverInstance();
 	  this.manette = Manette.getInstance();
   }
 
@@ -83,7 +83,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() 
   {
-	 Manette.desactiverInstance();
+	 //Manette.desactiverInstance();
 	 this.manette = Manette.getInstance();
 	 //Robot.cuisse = new Cuisse();
 	 //Robot.jambe = new Jambe();
