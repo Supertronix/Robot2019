@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Journal;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.commande.CommandeCalibrerRobot;
 import frc.robot.commande.CommandeDeroulerTreuil;
 import frc.robot.commande.CommandeRoulerTreuil;
 import frc.robot.commande.attrapeur.CommandeArmerAttrapeur;
@@ -23,16 +24,16 @@ public class ManettePratique extends Manette implements RobotMap.Manette{
     protected JoystickButton boutonAnnulerAnnonceAttrapage;
     protected JoystickButton boutonRoulerTreuil;
     protected JoystickButton boutonDeroulerTreuil;
-    //protected CommandeCalibrerRobot commandeCalibrerRobot = null;
+    protected CommandeCalibrerRobot commandeCalibrerRobot = null;
 
     protected ManettePratique()
     {
         this.manette = new Joystick(MANETTE);
         
-        this.boutonMonterGoupille = new JoystickButton(this.manette, this.BOUTON_B);
-        this.boutonMonterGoupille.whenPressed(new CommandeMonterGoupille());
-        this.boutonDescendreGoupille = new JoystickButton(this.manette, this.BOUTON_A);
-        this.boutonDescendreGoupille.whenPressed(new CommandeDescendreGoupille());
+        //this.boutonMonterGoupille = new JoystickButton(this.manette, this.BOUTON_B);
+        //this.boutonMonterGoupille.whenPressed(new CommandeMonterGoupille());
+        //this.boutonDescendreGoupille = new JoystickButton(this.manette, this.BOUTON_A);
+        //this.boutonDescendreGoupille.whenPressed(new CommandeDescendreGoupille());
         
         this.boutonControllerAttrapeur = new JoystickButton(this.manette, this.BOUTON_DROIT);
         this.boutonControllerAttrapeur.whenPressed(new CommandeRelacherEcoutille());
@@ -40,13 +41,13 @@ public class ManettePratique extends Manette implements RobotMap.Manette{
         //this.boutonAnnulerAnnonceAttrapage = new JoystickButton(this.manette, this.BOUTON_A);
         //this.boutonAnnulerAnnonceAttrapage.whenPressed(new CommandeDesactiverAnnonceAttrapage());
         
-        //this.boutonRoulerTreuil = new JoystickButton(this.manette, this.BOUTON_Y);
-        //this.boutonRoulerTreuil.whenPressed(new CommandeRoulerTreuil());
-        //this.boutonDeroulerTreuil = new JoystickButton(this.manette, this.BOUTON_X);
-        //this.boutonDeroulerTreuil.whenPressed(new CommandeDeroulerTreuil());
+        this.boutonRoulerTreuil = new JoystickButton(this.manette, this.BOUTON_Y);
+        this.boutonRoulerTreuil.whenPressed(new CommandeRoulerTreuil());
+        this.boutonDeroulerTreuil = new JoystickButton(this.manette, this.BOUTON_X);
+        this.boutonDeroulerTreuil.whenPressed(new CommandeDeroulerTreuil());
         
-        ////this.commandeCalibrerRobot = new CommandeCalibrerRobot();
-        ////this.commandeCalibrerRobot.start();   
+        this.commandeCalibrerRobot = new CommandeCalibrerRobot();
+        this.commandeCalibrerRobot.start();   
     }
     
     public void executerActions()
